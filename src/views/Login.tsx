@@ -11,15 +11,13 @@ import {
 } from '../styles/account/layout';
 
 const Login = () => {
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
+    const [form, setForm] = useState({ id: '', password: '' });
 
-    const onIdHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setId(event.currentTarget.value);
-    };
-
-    const onPasswordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.currentTarget.value);
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            [event.currentTarget.id]: event.currentTarget.value,
+        });
     };
 
     return (
@@ -27,22 +25,23 @@ const Login = () => {
             <Header>로그인</Header>
             <FormBox>
                 <TextInput
+                    id="id"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="id"
-                    value={id}
-                    onChange={onIdHandler}
+                    value={form.id}
+                    onChange={onChange}
                 />
                 <TextInput
+                    id="password"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="password"
-                    value={password}
-                    onChange={onPasswordHandler}
+                    value={form.password}
+                    onChange={onChange}
                 />
-
                 <Button type="submit" hoverBgColor="black">
                     로그인
                 </Button>
