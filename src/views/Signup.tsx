@@ -34,10 +34,14 @@ const Signup = () => {
         setConfirmPassword(event.currentTarget.value);
     };
 
-    const hasError = () => (form.password.length < 6 ? true : false);
+    const hasError = () =>
+        form.password.length >= 6 &&
+        form.password.search(/[a-zA-z]/) > -1 &&
+        form.password.search(/[~!@#$%^&*_\-\+=`|\(){}[\]:;"'<>,./]/) > -1
+            ? false
+            : true;
 
-    const notSameError = () =>
-        form.password != confirmPassword ? true : false;
+    const notSameError = () => form.password !== confirmPassword;
 
     return (
         <FormContainer>
