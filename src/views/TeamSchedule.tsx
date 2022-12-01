@@ -32,17 +32,24 @@ const data = [
     },
 ];
 
-const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재'];
+const dummy = [
+    '강정구',
+    '진지연',
+    '송민진',
+    '임지우',
+    '권영재',
+    '김민정',
+    '권민재',
+    '서청운',
+    '김희원',
+];
 
 const TeamSchedule: React.FC = () => {
     const calendarRef: any = useRef();
     const todayDate = DayPilot.Date.today();
     const newmodal = DayPilot.Modal;
     const [name, setName] = useState('');
-    // const init = (args) => (args.control.events.list = data);
-    // useEffect(() => {
-    //     calendarRef.control.events.list = data;
-    // }, []);
+
     const state = {
         viewType: 'Week',
         durationBarVisible: false,
@@ -51,13 +58,18 @@ const TeamSchedule: React.FC = () => {
         businessEndsHour: 24,
         heightSpec: 'BusinessHoursNoScroll',
         onBeforeHeaderRender: (args: any) => {
-            args.header.html = args.heaer.start.toString('yyyy/M/d');
+            args.header.html = args.header.start.toString('yyyy/M/d');
+        },
+        afterRender: () => {
+            console.log(calendarRef);
+            // calendarRef.control.events.list = data;;
+            // if (calendarRef.current)
+            //     calendarRef.current.control.events.update({ data });
         },
         onTimeRangeSelected: async (args: any) => {
             console.log('args : ', args);
             const dp = args.control;
             console.log('dp : ', dp);
-            // dp.update({ startDate, data });
             const modal = await newmodal.prompt(
                 '생성할 스케줄 이름 : ',
                 'Schedule 1',
@@ -73,8 +85,7 @@ const TeamSchedule: React.FC = () => {
                 id: DayPilot.guid(),
                 text: modal.result,
             });
-            console.log(args.start);
-            console.log(args.end);
+            console.log(dp.events.list);
         },
         eventDeleteHandling: 'Update',
         onEventClick: async (args: any) => {
@@ -90,9 +101,9 @@ const TeamSchedule: React.FC = () => {
             const e = args.e;
             e.data.text = modal.result;
             dp.events.update(e);
+            console.log(calendarRef);
         },
     };
-
     return (
         <ScheduleContainer>
             <TitleBox>
@@ -116,9 +127,11 @@ const TeamSchedule: React.FC = () => {
                     ref={calendarRef}
                     cellHeight={30}
                     cellDuration={30}
+                    events={data}
                     {...state}
                 />
             </MainSchedule>
+
             <Title>그룹원</Title>
             <MemberBox>
                 {dummy.map((x, idx) => (
