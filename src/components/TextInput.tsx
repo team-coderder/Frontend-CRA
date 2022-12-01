@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import theme from '../styles/theme';
 
 interface TextInputProps {
+    id?: string;
     width?: string;
     height?: string;
     marginLeft?: string;
@@ -49,6 +50,7 @@ const Label = styled.label`
 `;
 
 const TextInput = ({
+    id,
     width,
     height,
     margin,
@@ -63,6 +65,7 @@ const TextInput = ({
     return (
         <Label>
             <Component
+                id={id}
                 type={type}
                 value={value}
                 onChange={onChange}

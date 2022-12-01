@@ -9,52 +9,58 @@ import {
     HelpBox,
 } from '../styles/account/layout';
 
+type signUpForm = {
+    username: string;
+    password: string;
+    nickname: string;
+};
+
+const initialForm: signUpForm = { username: '', password: '', nickname: '' };
+
 const Signup = () => {
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
-    const [checkPw, setCheckPw] = useState('');
-    const [nickname, setNickname] = useState('');
+    const [form, setForm] = useState(initialForm);
+    const [confirmPassword, setConfirmPassword] = useState('');
 
-    const onIdHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setId(event.currentTarget.value);
-    };
-    const onPasswordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.currentTarget.value);
-        console.log(password);
-    };
-    const onCheckHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckPw(event.currentTarget.value);
-        console.log(checkPw);
-        if (checkPw !== password) return false;
-    };
-    const onNicknameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setNickname(event.currentTarget.value);
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            [event.currentTarget.id]: event.currentTarget.value,
+        });
     };
 
-    const hasError = () => (password.length < 6 ? true : false);
+    const onChangeConfirmPassword = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        setConfirmPassword(event.currentTarget.value);
+    };
 
-    const notSameError = () => (password != checkPw ? true : false);
+    const hasError = () => (form.password.length < 6 ? true : false);
+
+    const notSameError = () =>
+        form.password != confirmPassword ? true : false;
 
     return (
         <FormContainer>
             <Header>Sign up</Header>
             <FormBox>
                 <TextInput
+                    id="username"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="id"
-                    value={id}
-                    onChange={onIdHandler}
+                    value={form.username}
+                    onChange={onChange}
                     placeholder="아이디"
                 />
                 <TextInput
+                    id="password"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="password"
-                    value={password}
-                    onChange={onPasswordHandler}
+                    value={form.password}
+                    onChange={onChange}
                     placeholder="비밀번호"
                     message="6자 이상, 1개 이상 문자, 1개 이상 특수문자를 사용하세요."
                     error={hasError()}
@@ -64,23 +70,24 @@ const Signup = () => {
                     height="30px"
                     margin="30px"
                     type="password"
-                    value={checkPw}
-                    onChange={onCheckHandler}
+                    value={confirmPassword}
+                    onChange={onChangeConfirmPassword}
                     placeholder="비밀번호 재확인"
                     message="비밀번호가 일치하지 않습니다."
                     error={notSameError()}
                 />
                 <TextInput
+                    id="nickname"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="none"
-                    value={nickname}
-                    onChange={onNicknameHandler}
+                    value={form.nickname}
+                    onChange={onChange}
                     placeholder="닉네임"
                 />
                 <Button type="submit" hoverBgColor="black">
-                    로그인
+                    회원가입
                 </Button>
                 <ExplainBox>
                     <HelpBox>이미 계정이 있다면</HelpBox>
