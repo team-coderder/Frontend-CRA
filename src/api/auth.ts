@@ -7,7 +7,7 @@ type signUpForm = {
 };
 
 type loginForm = {
-    id: string;
+    username: string;
     password: string;
 };
 

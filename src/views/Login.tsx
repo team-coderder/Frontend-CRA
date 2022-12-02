@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
-
 import {
     FormBox,
     FormContainer,
@@ -9,9 +9,11 @@ import {
     NavBox,
     ExplainBox,
 } from '../styles/account/layout';
+import { login } from '../api';
 
 const Login = () => {
-    const [form, setForm] = useState({ id: '', password: '' });
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ username: '', password: '' });
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
@@ -20,17 +22,38 @@ const Login = () => {
         });
     };
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const userData = await login(form);
+            if (userData.headers.authorization) {
+                localStorage.setItem(
+                    'token',
+                    userData.headers.authorization.split(' ')[1],
+                );
+                localStorage.setItem('username', userData.data.username);
+                localStorage.setItem('nickname', userData.data.nickname);
+                navigate('/');
+            } else {
+                throw new Error('No authorization token');
+            }
+        } catch (e) {
+            alert('로그인 정보를 다시 확인해주세요');
+        }
+    };
+
     return (
         <FormContainer>
             <Header>로그인</Header>
-            <FormBox>
+            <FormBox onSubmit={handleSubmit}>
                 <TextInput
-                    id="id"
+                    id="username"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="id"
-                    value={form.id}
+                    value={form.username}
                     onChange={onChange}
                 />
                 <TextInput
