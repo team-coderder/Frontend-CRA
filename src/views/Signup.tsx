@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Nav, TextInput } from '../components';
 import {
     FormBox,
@@ -8,6 +9,7 @@ import {
     ExplainBox,
     HelpBox,
 } from '../styles/account/layout';
+import { sign_up } from '../api';
 
 type signUpForm = {
     username: string;
@@ -18,6 +20,7 @@ type signUpForm = {
 const initialForm: signUpForm = { username: '', password: '', nickname: '' };
 
 const Signup = () => {
+    const navigate = useNavigate();
     const [form, setForm] = useState(initialForm);
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -43,10 +46,30 @@ const Signup = () => {
 
     const notSameError = () => form.password !== confirmPassword;
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const formIncomplete =
+            !Object.values(form).every((x) => x !== '') ||
+            hasError() ||
+            notSameError();
+
+        if (formIncomplete) {
+            alert('입력 정보를 다시 확인해주세요.');
+        } else {
+            try {
+                await sign_up(form); // {"id":29,"username":"coderder100","nickname":"check-filter"}
+                navigate('/login');
+            } catch (e) {
+                alert('이미 존재하는 아이디입니다');
+            }
+        }
+    };
+
     return (
         <FormContainer>
             <Header>Sign up</Header>
-            <FormBox>
+            <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
                     width="344px"
