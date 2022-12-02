@@ -28,10 +28,7 @@ const Login = () => {
         try {
             const userData = await login(form);
             if (userData.headers.authorization) {
-                localStorage.setItem(
-                    'token',
-                    userData.headers.authorization.split(' ')[1],
-                );
+                localStorage.setItem('token', userData.headers.authorization);
                 localStorage.setItem('username', userData.data.username);
                 localStorage.setItem('nickname', userData.data.nickname);
                 navigate('/');
