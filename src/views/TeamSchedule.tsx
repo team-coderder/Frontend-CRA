@@ -17,20 +17,29 @@ import {
 } from '../styles/schedule/schedule';
 import { IconBox } from '../styles/member/member';
 
+interface eType {
+    id?: string;
+    start?: any;
+    end?: any;
+    text?: string;
+}
+
 const data = [
     {
-        id: 1,
+        id: 'firstEvent',
         start: DayPilot.Date.today().addHours(12),
         end: DayPilot.Date.today().addHours(13),
         text: 'Event 1',
     },
     {
-        id: 2,
+        id: 'SecondEvent',
         start: DayPilot.Date.today().addHours(18),
         end: DayPilot.Date.today().addHours(20),
         text: 'Event 2',
     },
 ];
+
+const showData: eType[] = [];
 
 const dummy = [
     '강정구',
@@ -49,7 +58,14 @@ const TeamSchedule: React.FC = () => {
     const todayDate = DayPilot.Date.today();
     const newmodal = DayPilot.Modal;
     const [name, setName] = useState('');
-
+    const filteredData = data.filter((event) => {
+        if (event.id.includes(name)) {
+            console.log(`${name}s` + `Event!`, event.id);
+            showData.push(event);
+        }
+        event.id.includes(name);
+    });
+    console.log('showData: ', showData);
     const state = {
         viewType: 'Week',
         durationBarVisible: false,
@@ -82,10 +98,13 @@ const TeamSchedule: React.FC = () => {
             dp.events.add({
                 start: args.start,
                 end: args.end,
-                id: DayPilot.guid(),
+                id: name + DayPilot.guid(),
                 text: modal.result,
             });
             console.log(dp.events.list);
+            console.log('filter test', filteredData);
+            dp.events.list = showData;
+            dp.events.update(showData);
         },
         eventDeleteHandling: 'Update',
         onEventClick: async (args: any) => {
@@ -101,7 +120,7 @@ const TeamSchedule: React.FC = () => {
             const e = args.e;
             e.data.text = modal.result;
             dp.events.update(e);
-            console.log(calendarRef);
+            console.log(dp.events.list);
         },
     };
     return (
