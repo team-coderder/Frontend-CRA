@@ -1,6 +1,13 @@
 import React from 'react';
 import NavbarLayout from '../layouts/NavbarLayout';
-import { Login, Signup, AddGroup, GroupInfo, TeamSchedule } from '../views';
+import {
+    Login,
+    Signup,
+    AddGroup,
+    GroupInfo,
+    TeamSchedule,
+    MySchedule,
+} from '../views';
 
 const mainRoutes = () => {
     return [
@@ -31,6 +38,10 @@ const mainRoutes = () => {
                 {
                     path: '/teamschedule',
                     element: <TeamSchedule />,
+                },
+                {
+                    path: '/myschedule',
+                    element: <MySchedule />,
                 },
             ],
         },
