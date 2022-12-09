@@ -1,7 +1,6 @@
-import React from 'react';
 import { Outlet } from 'react-router-dom';
-
-import { Navbar, Groupbar } from '../components';
+import Navbar from './Navbar';
+import Groupbar from './Groupbar';
 
 const NavbarLayout = () => {
     return (

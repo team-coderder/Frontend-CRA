@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Bar } from '.';
+import { Bar } from '../../components';
 import { FiMenu } from 'react-icons/fi';
-import { Icon } from '../styles/Icon';
+import { Icon } from '../../styles/Icon';
 import styled from '@emotion/styled';
 
 const _groups = [

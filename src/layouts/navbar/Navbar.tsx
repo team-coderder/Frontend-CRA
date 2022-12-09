@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { Bar, Modal } from '.';
+import { Bar, Modal } from '../../components';
 import { BsBell } from 'react-icons/bs';
-import { Icon } from '../styles/Icon';
+import { Icon } from '../../styles/Icon';
 
 const Name = styled.div`
     height: 2rem;
