@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Modal } from '../../components';
+import { Modal, Button } from '../../components';
 import { BsBell } from 'react-icons/bs';
 import { Icon } from '../../styles/badge/badge';
-import { Name, Profile, HorizontalBar } from '../../styles/navbar/navbar';
+import { Name, Profile, HorizontalBar, Menu } from '../../styles/navbar/navbar';
+import Invitations from './Invitations';
 
 const _user = {
     username: 'johnwick39856765757',
@@ -36,7 +37,9 @@ function Navbar() {
                 toggle={toggleAlarm}
                 handleToggle={handleToggle}
             >
-                내부
+                <Menu>
+                    <Invitations />
+                </Menu>
             </Modal>
             <Profile>
                 <Name>{_user.nickname}</Name>
@@ -50,7 +53,11 @@ function Navbar() {
                     toggle={toggleProfile}
                     handleToggle={handleToggle}
                 >
-                    <button>로그아웃</button>
+                    <Menu>
+                        <Button width="8em" height="2.4em">
+                            로그아웃
+                        </Button>
+                    </Menu>
                 </Modal>
             </Profile>
         </HorizontalBar>

@@ -20,4 +20,9 @@ export const Name = styled.div`
 `;
 export const Profile = styled.div`
     display: flex;
+    margin-left: 2em;
+`;
+export const Menu = styled.div`
+    background-color: ${({ theme }) => theme.color.white};
+    border-radius: 10px;
 `;
