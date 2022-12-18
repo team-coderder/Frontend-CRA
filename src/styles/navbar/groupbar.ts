@@ -17,14 +17,17 @@ export const GroupList = styled.div`
     top: 3rem;
     padding: 1em;
     height: calc(100vh - 3rem);
+    overflow: hidden;
 `;
 export const GroupName = styled.div`
     height: 3em;
     padding: 1em 0.5em;
     font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
 `;
 export const Bottom = styled.div`
     position: absolute;
     bottom: 0;
-    margin-bottom: 1rem;
+    padding-bottom: 1rem;
 `;
