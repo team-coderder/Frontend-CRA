@@ -3,12 +3,14 @@ import { generateColor } from '../../hooks/ColorMethod';
 import theme from '../theme';
 
 export const ScheduleContainer = styled.div`
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     color: white;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 `;
 
 export const TitleBox = styled.div`
@@ -32,6 +34,7 @@ export const ButtonBox = styled.div`
 `;
 
 export const MainSchedule = styled.div<{ name: string }>`
+    max-width: 70vw;
     margin-top: 3rem;
     .calendar_default_event_inner {
         background: ${(props) => generateColor(props.name)};

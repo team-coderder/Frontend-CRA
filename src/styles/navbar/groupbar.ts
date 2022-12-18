@@ -16,7 +16,7 @@ export const GroupList = styled.div`
     position: sticky;
     top: 3rem;
     padding: 1em;
-    height: calc(100vh - 4rem);
+    height: calc(100vh - 3rem);
 `;
 export const GroupName = styled.div`
     height: 3em;
@@ -26,4 +26,5 @@ export const GroupName = styled.div`
 export const Bottom = styled.div`
     position: absolute;
     bottom: 0;
+    margin-bottom: 1rem;
 `;
