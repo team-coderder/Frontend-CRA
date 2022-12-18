@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
-import { Bar } from '../../components';
+import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { Icon } from '../../styles/Icon';
-import styled from '@emotion/styled';
+import { Icon } from '../../styles/icon/icon';
+import { Button } from '../../components';
+import {
+    VerticalBar,
+    GroupList,
+    GroupName,
+    Bottom,
+} from '../../styles/navbar/groupbar';
 
 const _groups = [
     {
@@ -23,30 +28,26 @@ const _groups = [
     },
 ];
 
-const GroupName = styled.div`
-    text-align: center;
-`;
-
 function Groupbar() {
     const [toggleGroups, setToggleGroups] = useState(false);
     const toggle = () => setToggleGroups(!toggleGroups);
 
     return (
-        <Bar
-            vertical
-            breadth={toggleGroups ? '15rem' : '4rem'}
-            margin="4rem 0 0 0"
-        >
-            <Icon>
-                <FiMenu onClick={toggle} />
-            </Icon>
-            {_groups.map((group, index) => (
-                <GroupName key={index}>
-                    <Icon>{group.teamId}</Icon>
-                    {toggleGroups && group.name}
-                </GroupName>
-            ))}
-        </Bar>
+        <VerticalBar width={toggleGroups ? '15rem' : '4rem'}>
+            <GroupList>
+                <Icon>
+                    <FiMenu onClick={toggle} />
+                </Icon>
+                {_groups.map((group, index) => (
+                    <GroupName key={index}>
+                        {toggleGroups ? group.name : group.name[0]}
+                    </GroupName>
+                ))}
+                <Bottom>
+                    {toggleGroups && <Button>그룹 추가하기</Button>}
+                </Bottom>
+            </GroupList>
+        </VerticalBar>
     );
 }
 

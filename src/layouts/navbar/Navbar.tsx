@@ -1,18 +1,8 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import { Bar, Modal } from '../../components';
+import { Modal } from '../../components';
 import { BsBell } from 'react-icons/bs';
-import { Icon } from '../../styles/Icon';
-
-const Name = styled.div`
-    height: 2rem;
-    font-size: 1.2rem;
-    line-height: 2rem;
-    margin-right: 10px;
-`;
-const Profile = styled.div`
-    display: flex;
-`;
+import { Icon } from '../../styles/icon/icon';
+import { Name, Profile, HorizontalBar } from '../../styles/navbar/navbar';
 
 const _user = {
     username: 'johnwick39856765757',
@@ -33,12 +23,13 @@ function Navbar() {
             setToggleProfile(false);
         }
     };
+
     return (
-        <Bar align_end>
+        <HorizontalBar>
             <Modal
                 label="alarm"
                 icon={
-                    <Icon>
+                    <Icon background="pink">
                         <BsBell />
                     </Icon>
                 }
@@ -52,7 +43,7 @@ function Navbar() {
                 <Modal
                     label="profile"
                     icon={
-                        <Icon background-color="#93c47d">
+                        <Icon background="#93c47d">
                             {_user.nickname[0].toUpperCase()}
                         </Icon>
                     }
@@ -62,7 +53,7 @@ function Navbar() {
                     <button>로그아웃</button>
                 </Modal>
             </Profile>
-        </Bar>
+        </HorizontalBar>
     );
 }
 

@@ -1,4 +1,3 @@
-export { default as Bar } from './Bar';
 export { default as Modal } from './Modal';
 export { default as Button } from './Button';
 export { default as TextInput } from './TextInput';

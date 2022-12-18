@@ -1,15 +1,16 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Groupbar from './Groupbar';
+import { Flex } from '../../styles/navbar/groupbar';
 
 const NavbarLayout = () => {
     return (
         <>
             <Navbar />
-            <Groupbar />
-            <div style={{ margin: '4rem 0 0 4rem' }}>
+            <Flex>
+                <Groupbar />
                 <Outlet />
-            </div>
+            </Flex>
         </>
     );
 };
