@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../../components';
 import { BsBell } from 'react-icons/bs';
-import { Icon } from '../../styles/icon/icon';
+import { Icon } from '../../styles/badge/badge';
 import { Name, Profile, HorizontalBar } from '../../styles/navbar/navbar';
 
 const _user = {
