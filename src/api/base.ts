@@ -1,7 +1,14 @@
 import axios from 'axios';
 
 const API = axios.create({
-    baseURL: `http://43.200.220.2:8080`,
+    baseURL: process.env.REACT_APP_BASE_URL,
+});
+
+API.interceptors.request.use((req) => {
+    if (localStorage.getItem('token') && req.headers) {
+        req.headers.Authorization = localStorage.getItem('token');
+    }
+    return req;
 });
 
 export default API;

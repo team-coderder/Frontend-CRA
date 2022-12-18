@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
-
 import {
     FormBox,
     FormContainer,
@@ -9,40 +9,59 @@ import {
     NavBox,
     ExplainBox,
 } from '../styles/account/layout';
+import { login } from '../api';
 
 const Login = () => {
-    const [id, setId] = useState('');
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const [form, setForm] = useState({ username: '', password: '' });
 
-    const onIdHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setId(event.currentTarget.value);
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setForm({
+            ...form,
+            [event.currentTarget.id]: event.currentTarget.value,
+        });
     };
 
-    const onPasswordHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.currentTarget.value);
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const userData = await login(form);
+            if (userData.headers.authorization) {
+                localStorage.setItem('token', userData.headers.authorization);
+                localStorage.setItem('username', userData.data.username);
+                localStorage.setItem('nickname', userData.data.nickname);
+                navigate('/');
+            } else {
+                throw new Error('No authorization token');
+            }
+        } catch (e) {
+            alert('로그인 정보를 다시 확인해주세요');
+        }
     };
 
     return (
         <FormContainer>
             <Header>로그인</Header>
-            <FormBox>
+            <FormBox onSubmit={handleSubmit}>
                 <TextInput
+                    id="username"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="id"
-                    value={id}
-                    onChange={onIdHandler}
+                    value={form.username}
+                    onChange={onChange}
                 />
                 <TextInput
+                    id="password"
                     width="344px"
                     height="30px"
                     margin="30px"
                     type="password"
-                    value={password}
-                    onChange={onPasswordHandler}
+                    value={form.password}
+                    onChange={onChange}
                 />
-
                 <Button type="submit" hoverBgColor="black">
                     로그인
                 </Button>
