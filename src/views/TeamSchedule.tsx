@@ -41,17 +41,7 @@ const data = [
 
 const showData: eType[] = [];
 
-const dummy = [
-    '강정구',
-    '진지연',
-    '송민진',
-    '임지우',
-    '권영재',
-    '김민정',
-    '권민재',
-    '서청운',
-    '김희원',
-];
+const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재'];
 
 const TeamSchedule: React.FC = () => {
     const calendarRef: any = useRef();
@@ -59,7 +49,7 @@ const TeamSchedule: React.FC = () => {
     const newmodal = DayPilot.Modal;
     const [name, setName] = useState('');
     const filteredData = data.filter((event) => {
-        if (event.id.includes(name)) {
+        if (name && event.id.includes(name)) {
             console.log(`${name}s` + `Event!`, event.id);
             showData.push(event);
         }
@@ -73,14 +63,20 @@ const TeamSchedule: React.FC = () => {
         dayBeginsHour: 9,
         businessEndsHour: 24,
         heightSpec: 'BusinessHoursNoScroll',
-        onBeforeHeaderRender: (args: any) => {
-            args.header.html = args.header.start.toString('yyyy/M/d');
-        },
+
         afterRender: () => {
             console.log(calendarRef);
-            // calendarRef.control.events.list = data;;
-            // if (calendarRef.current)
-            //     calendarRef.current.control.events.update({ data });
+        },
+        onEventFilter: (args) => {
+            if (
+                args.e
+                    .text()
+                    .toLowerCase()
+                    .indexOf(args.filter.toLowerCase()) === '권영재'
+            ) {
+                console.log(args);
+                args.visible = false;
+            }
         },
         onTimeRangeSelected: async (args: any) => {
             console.log('args : ', args);
