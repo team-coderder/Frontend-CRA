@@ -42,6 +42,13 @@ const Component = styled.input<TextInputProps>`
         outline: none;
         border-bottom: 1px solid ${({ theme }) => theme.color.white};
     }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        -webkit-text-fill-color: ${({ theme }) => theme.color.white};
+        -webkit-box-shadow: none;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 `;
 
 const Label = styled.label`
