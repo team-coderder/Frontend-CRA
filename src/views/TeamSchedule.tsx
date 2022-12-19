@@ -95,68 +95,66 @@ const TeamSchedule: React.FC = () => {
 
     return (
         <ScheduleContainer>
-            <div>
-                <TitleBox>
-                    <Title>그룹 이름</Title>
-                    <IconBox>
-                        <FiSettings
-                            size="24"
-                            style={{ marginLeft: '10px', cursor: 'pointer' }}
-                        />
-                    </IconBox>
-                </TitleBox>
-                <AlignRight>
-                    <Button width="250px" hoverBgColor="black" height="2.5rem">
-                        그룹 스케줄 수정
-                    </Button>
-                </AlignRight>
-                <MainSchedule name={name}>
-                    <DayPilotCalendar
-                        days={7}
-                        startDate={todayDate}
-                        ref={calendarRef}
-                        cellHeight={30}
-                        cellDuration={30}
-                        {...state}
+            <TitleBox>
+                <Title>그룹 이름</Title>
+                <IconBox>
+                    <FiSettings
+                        size="24"
+                        style={{ marginLeft: '10px', cursor: 'pointer' }}
                     />
-                </MainSchedule>
-                <Title>그룹원</Title>
-                <MemberBox>
-                    {dummy.map((x, idx) => (
-                        <Member
-                            key={idx}
-                            space={5}
-                            backgroundColor={generateColor(x)}
-                            color="white"
-                            disable={false}
-                            onClick={() => setName(x)}
-                        >
-                            {x}
-                        </Member>
-                    ))}
-                </MemberBox>
-                <Title>보기모드</Title>
-                <Field>
-                    <MarginRight>
-                        <Button
-                            width="5rem"
-                            height="2.5rem"
-                            color="black"
-                            backgroundColor="gray"
-                        >
-                            색깔로
-                        </Button>
-                    </MarginRight>
+                </IconBox>
+            </TitleBox>
+            <AlignRight>
+                <Button width="250px" hoverBgColor="black" height="2.5rem">
+                    그룹 스케줄 수정
+                </Button>
+            </AlignRight>
+            <MainSchedule name={name}>
+                <DayPilotCalendar
+                    days={7}
+                    startDate={todayDate}
+                    ref={calendarRef}
+                    cellHeight={30}
+                    cellDuration={30}
+                    {...state}
+                />
+            </MainSchedule>
+            <Title>그룹원</Title>
+            <MemberBox>
+                {dummy.map((x, idx) => (
+                    <Member
+                        key={idx}
+                        space={5}
+                        backgroundColor={generateColor(x)}
+                        color="white"
+                        disable={false}
+                        onClick={() => setName(x)}
+                    >
+                        {x}
+                    </Member>
+                ))}
+            </MemberBox>
+            <Title>보기모드</Title>
+            <Field>
+                <MarginRight>
                     <Button
                         width="5rem"
-                        height="2.4rem"
+                        height="2.5rem"
                         color="black"
                         backgroundColor="gray"
                     >
-                        진하게
+                        색깔로
                     </Button>
-                </Field>
-            </div>
+                </MarginRight>
+                <Button
+                    width="5rem"
+                    height="2.4rem"
+                    color="black"
+                    backgroundColor="gray"
+                >
+                    진하게
+                </Button>
+            </Field>
         </ScheduleContainer>
     );
 };
