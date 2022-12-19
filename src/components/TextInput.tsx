@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import theme from '../styles/theme';
 
 interface TextInputProps {
+    id?: string;
     width?: string;
     height?: string;
     marginLeft?: string;
@@ -41,6 +42,13 @@ const Component = styled.input<TextInputProps>`
         outline: none;
         border-bottom: 1px solid ${({ theme }) => theme.color.white};
     }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        -webkit-text-fill-color: ${({ theme }) => theme.color.white};
+        -webkit-box-shadow: none;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 `;
 
 const Label = styled.label`
@@ -49,6 +57,7 @@ const Label = styled.label`
 `;
 
 const TextInput = ({
+    id,
     width,
     height,
     margin,
@@ -63,6 +72,7 @@ const TextInput = ({
     return (
         <Label>
             <Component
+                id={id}
                 type={type}
                 value={value}
                 onChange={onChange}
