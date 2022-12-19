@@ -38,6 +38,15 @@ const data = [
         text: 'Event 2',
     },
 ];
+const cols = [
+    { name: 'Resource 1', id: 'R1', width: 20 },
+    { name: 'Resource 2', id: 'R2', width: 5 },
+    { name: 'Resource 3', id: 'R3', width: 5 },
+    { name: 'Resource 4', id: 'R4' },
+    { name: 'Resource 5', id: 'R5' },
+    { name: 'Resource 6', id: 'R6' },
+    { name: 'Resource 7', id: 'R7' },
+];
 
 const showData: eType[] = [];
 
@@ -57,7 +66,7 @@ const TeamSchedule: React.FC = () => {
     });
     console.log('showData: ', showData);
     const state = {
-        viewType: 'Week',
+        viewType: 'Resources',
         durationBarVisible: false,
         timeRangeSelectedHandling: 'Enabled',
         dayBeginsHour: 9,
@@ -140,9 +149,10 @@ const TeamSchedule: React.FC = () => {
                     days={7}
                     startDate={todayDate}
                     ref={calendarRef}
-                    cellHeight={30}
+                    cellHeight={25}
                     cellDuration={30}
                     events={data}
+                    columns={cols}
                     {...state}
                 />
             </MainSchedule>
