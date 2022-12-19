@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from '../../components';
 import { BsBell } from 'react-icons/bs';
 import { Icon } from '../../styles/badge/badge';
-import { Name, Profile, HorizontalBar, Menu } from '../../styles/navbar/navbar';
+import { Name, HorizontalBar, Menu } from '../../styles/navbar/navbar';
 import Invitations from './Invitations';
 
 const _user = {
@@ -41,25 +41,26 @@ function Navbar() {
                     <Invitations />
                 </Menu>
             </Modal>
-            <Profile>
-                <Name>{_user.nickname}</Name>
-                <Modal
-                    label="profile"
-                    icon={
-                        <Icon background="#93c47d">
-                            {_user.nickname[0].toUpperCase()}
-                        </Icon>
-                    }
-                    toggle={toggleProfile}
-                    handleToggle={handleToggle}
-                >
-                    <Menu>
-                        <Button width="8em" height="2.4em">
-                            로그아웃
-                        </Button>
-                    </Menu>
-                </Modal>
-            </Profile>
+            <Name>{_user.nickname}</Name>
+            <Modal
+                label="profile"
+                icon={
+                    <Icon background="#93c47d">
+                        {_user.nickname[0].toUpperCase()}
+                    </Icon>
+                }
+                toggle={toggleProfile}
+                handleToggle={handleToggle}
+            >
+                <Menu>
+                    <Button width="8em" height="2.4em">
+                        내 스케쥴
+                    </Button>
+                    <Button width="8em" height="2.4em">
+                        로그아웃
+                    </Button>
+                </Menu>
+            </Modal>
         </HorizontalBar>
     );
 }

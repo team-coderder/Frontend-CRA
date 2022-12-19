@@ -11,18 +11,21 @@ export const HorizontalBar = styled.div`
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    > * {
+        margin-left: 10px;
+    }
 `;
 export const Name = styled.div`
     height: 2rem;
     font-size: 1.2rem;
     line-height: 2rem;
-    margin-right: 10px;
-`;
-export const Profile = styled.div`
-    display: flex;
-    margin-left: 2em;
+    margin-left: 30px;
 `;
 export const Menu = styled.div`
     background-color: ${({ theme }) => theme.color.white};
     border-radius: 10px;
+    padding: 10px;
+    > Button:first-child {
+        margin-bottom: 10px;
+    }
 `;
