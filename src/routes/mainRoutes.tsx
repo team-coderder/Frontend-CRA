@@ -1,5 +1,5 @@
 import React from 'react';
-import NavbarLayout from '../layouts/NavbarLayout';
+import NavbarLayout from '../layouts/navbar/NavbarLayout';
 import { Login, Signup, AddGroup, GroupInfo, TeamSchedule } from '../views';
 
 const mainRoutes = () => {

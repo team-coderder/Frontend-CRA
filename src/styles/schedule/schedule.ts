@@ -3,12 +3,15 @@ import { generateColor } from '../../hooks/ColorMethod';
 import theme from '../theme';
 
 export const ScheduleContainer = styled.div`
+    max-width: 70vw;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: auto;
     color: white;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 `;
 
 export const TitleBox = styled.div`
