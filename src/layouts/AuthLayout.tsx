@@ -1,10 +1,8 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-
+import { Outlet, Navigate } from 'react-router-dom';
 import { Navbar, Groupbar } from '../components';
 
-const NavbarLayout = () => {
-    return (
+const AuthLayout = ({ user }) => {
+    return user ? (
         <>
             <Navbar />
             <Groupbar />
@@ -12,7 +10,9 @@ const NavbarLayout = () => {
                 <Outlet />
             </div>
         </>
+    ) : (
+        <Navigate to="/login" />
     );
 };
 
-export default NavbarLayout;
+export default AuthLayout;
