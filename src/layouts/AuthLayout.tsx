@@ -1,14 +1,16 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { Navbar, Groupbar } from '../components';
+import Navbar from './navbar/Navbar';
+import Groupbar from './navbar/Groupbar';
+import { Flex } from '../styles/navbar/groupbar';
 
 const AuthLayout = ({ user }) => {
     return user ? (
         <>
             <Navbar />
-            <Groupbar />
-            <div style={{ margin: '4rem 0 0 4rem' }}>
+            <Flex>
+                <Groupbar />
                 <Outlet />
-            </div>
+            </Flex>
         </>
     ) : (
         <Navigate to="/login" />
