@@ -19,10 +19,12 @@ import {
     Header,
 } from '../styles/globalStyle/PageLayout';
 import { Button } from '../components';
+import { createTeam } from '../api';
 
 const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재', 'f', '관 우'];
 
 const AddGroup = () => {
+    const [groupName, setGroupName] = useState('');
     const [focus, setFocus] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,25 @@ const AddGroup = () => {
         };
     }, [searchRef]);
 
+    const handleCreate = async () => {
+        try {
+            const correctName = groupName && /\s/.test(groupName) === false;
+            if (correctName) {
+                const { data } = await createTeam(groupName);
+            } else {
+                throw Error(
+                    '올바른 그룹 이름을 입력하세요.\n이름을 입력하지 않았거나 공백이 포함되어 있습니다.',
+                );
+            }
+        } catch (e) {
+            alert(e);
+        }
+    };
+
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setGroupName(event.currentTarget.value);
+    };
+
     return (
         <AddGroupContainer>
             <Title>
@@ -52,6 +73,8 @@ const AddGroup = () => {
                     <TextInput
                         height="30px"
                         placeholder="그룹 이름을 입력해주세요."
+                        value={groupName}
+                        onChange={onChange}
                     />
                 </InputBox>
             </InputContainer>
@@ -91,7 +114,11 @@ const AddGroup = () => {
             <ButtonContainer className="addGroupBox">
                 <Header>그룹 추가</Header>
                 <ButtonBox>
-                    <Button width="250px" hoverBgColor="black">
+                    <Button
+                        onClick={handleCreate}
+                        width="250px"
+                        hoverBgColor="black"
+                    >
                         생성하기
                     </Button>
                 </ButtonBox>
