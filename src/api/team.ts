@@ -5,5 +5,5 @@ type CreateTeamResponse = {
     name: string;
 };
 
-export const createTeam = (teamName: string) =>
-    API.post<CreateTeamResponse>('/api/team', teamName);
+export const createTeam = (teamInfo: { name: string }) =>
+    API.post<CreateTeamResponse>('/api/team', teamInfo);

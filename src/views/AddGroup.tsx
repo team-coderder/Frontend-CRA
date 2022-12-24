@@ -47,7 +47,7 @@ const AddGroup = () => {
         try {
             const correctName = groupName && /\s/.test(groupName) === false;
             if (correctName) {
-                const { data } = await createTeam(groupName);
+                const { data } = await createTeam({ name: groupName });
             } else {
                 throw Error(
                     '올바른 그룹 이름을 입력하세요.\n이름을 입력하지 않았거나 공백이 포함되어 있습니다.',
