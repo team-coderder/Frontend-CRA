@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
-import React, { useRef, useState, useEffect } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import theme from '../styles/theme';
 import TextInput from './TextInput';
+import { findByUsername } from '../api';
 
 interface SearchProps {
     width?: string;
@@ -42,60 +43,41 @@ const IconBox = styled.div`
     margin-left: 3px;
 `;
 
-const dummy = [
-    {
-        user_id: '1',
-        username: 'molisee123',
-        nickname: 'molisee',
-    },
-    {
-        user_id: '2',
-        username: 'tousles22',
-        nickname: 'jours',
-    },
-    {
-        user_id: '3',
-        username: 'tousl2',
-    },
-    {
-        user_id: '4',
-        username: 'dwdjjj',
-    },
-    {
-        user_id: '5',
-        username: 'asdf',
-    },
-];
 const SearchID = ({ width, height, space, focus }: SearchProps) => {
-    const [val, setVal] = useState('');
+    const [searchId, setSearchId] = useState('');
+    const [matchedIds, setMatchedIds] = useState<React.ReactElement[]>([]);
 
-    const handleVal = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setVal(event.currentTarget.value);
-    };
-
-    const items = dummy
-        .filter((data) => {
-            if (val == null) return data;
-            else if (data.username.toLowerCase().includes(val.toLowerCase())) {
-                return data;
+    useEffect(() => {
+        const findIds = async () => {
+            if (searchId) {
+                try {
+                    const { data } = await findByUsername(searchId);
+                    const members = data.members.map((user) => {
+                        return (
+                            <ResultBox
+                                onClick={() => setSearchId(user.username)}
+                                height={height}
+                                key={user.id}
+                            >
+                                <IconBox>
+                                    <BsSearch />
+                                </IconBox>
+                                <ResultId>{user.username}</ResultId>
+                            </ResultBox>
+                        );
+                    });
+                    setMatchedIds(members);
+                } catch (e) {
+                    console.log(e);
+                }
             }
-        })
-        .map((data) => {
-            return (
-                <ResultBox
-                    onClick={() => {
-                        setVal(data.username);
-                    }}
-                    height={height}
-                    key={data.user_id}
-                >
-                    <IconBox>
-                        <BsSearch />
-                    </IconBox>
-                    <ResultId>{data.username}</ResultId>
-                </ResultBox>
-            );
-        });
+        };
+        findIds();
+    }, [searchId]);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchId(event.currentTarget.value);
+    };
 
     return (
         <SearchContainer space={space}>
@@ -103,12 +85,12 @@ const SearchID = ({ width, height, space, focus }: SearchProps) => {
                 width={width}
                 height={height}
                 placeholder="id검색"
-                value={val}
-                onChange={handleVal}
+                value={searchId}
+                onChange={handleChange}
                 color="white"
             />
-            {items.length && focus
-                ? val && items
+            {matchedIds.length && focus
+                ? searchId && matchedIds
                 : focus && (
                       <ResultBox height={height} missing={true}>
                           <IconBox>
