@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
-import theme from '../styles/theme';
 import TextInput from './TextInput';
 import { findByUsername } from '../api';
 
@@ -19,19 +18,23 @@ const SearchContainer = styled.div<SearchProps>`
     position: relative;
     z-index: 2;
     /* height: 30vh; */
-    margin: ${(props) => props.space};
+    margin: ${({ space }) => space};
+`;
+const ResultContainer = styled.div<SearchProps>`
+    height: 150px;
+    overflow: auto;
 `;
 const ResultBox = styled.div<SearchProps>`
-    background-color: ${(props) =>
-        !props.missing ? theme.color.main.light : theme.color.gray};
-    height: ${(props) => props.height};
+    background-color: ${({ theme, missing }) =>
+        !missing ? theme.color.main.light : theme.color.gray};
+    height: ${({ height }) => height ?? 'auto'};
     padding: 5px;
     display: flex;
     align-items: center;
     &:hover {
         cursor: pointer;
-        background-color: ${(props) =>
-            !props.missing ? theme.color.main.dark : theme.color.gray};
+        background-color: ${({ theme, missing }) =>
+            !missing ? theme.color.main.dark : theme.color.gray};
     }
     z-index: 2;
     box-shadow: 1px 5px 5px gray;
@@ -90,9 +93,9 @@ const SearchID = ({ width, height, space, focus }: SearchProps) => {
                 color="white"
             />
             {matchedIds.length && focus
-                ? searchId && matchedIds
+                ? searchId && <ResultContainer>{matchedIds}</ResultContainer>
                 : focus && (
-                      <ResultBox height={height} missing={true}>
+                      <ResultBox height={height} missing>
                           <IconBox>
                               <BsSearch />
                           </IconBox>
