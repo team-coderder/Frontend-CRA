@@ -1,14 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import styled from '@emotion/styled/macro';
 import { BsPlusCircle } from 'react-icons/bs';
 import { Member } from '..';
 import SearchID from './SearchID';
-import {
-    InputContainer,
-    InputBox,
-    MemberBox,
-    IconBox,
-} from '../../styles/member/member';
-import { Header } from '../../styles/globalStyle/PageLayout';
+import { Field } from '../../styles/globalStyle/PageLayout';
 import { findByUsername } from '../../api';
 import { generateColor } from '../../hooks/ColorMethod';
 import { User } from '../../types';
@@ -17,6 +12,14 @@ type MemberManagementProp = {
     newMembers: Map<number, User>;
     setNewMembers: React.Dispatch<React.SetStateAction<Map<number, User>>>;
 };
+
+export const MemberBox = styled.div`
+    margin-left: 200px;
+    margin-bottom: 25px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, auto));
+    gap: 10px;
+`;
 
 const MemberManagement = ({
     newMembers,
@@ -76,24 +79,22 @@ const MemberManagement = ({
 
     return (
         <>
-            <InputContainer className="addMember">
-                <Header>멤버 추가</Header>
-                <InputBox ref={searchRef} onFocus={() => setFocus(true)}>
+            <Field>
+                <h3>멤버 추가</h3>
+                <div ref={searchRef} onFocus={() => setFocus(true)}>
                     <SearchID
                         focus={focus}
                         height="30px"
                         searchId={searchId}
                         setSearchId={setSearchId}
                     />
-                </InputBox>
-                <IconBox>
-                    <BsPlusCircle
-                        size="18"
-                        className="plusBtn"
-                        onClick={handleAddMember}
-                    />
-                </IconBox>
-            </InputContainer>
+                </div>
+                <BsPlusCircle
+                    size="18"
+                    style={{ cursor: 'pointer' }}
+                    onClick={handleAddMember}
+                />
+            </Field>
             <MemberBox>
                 {(() => {
                     const members: React.ReactNode[] = [];

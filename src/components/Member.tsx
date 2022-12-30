@@ -1,7 +1,6 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from '@emotion/styled/macro';
 import { RiCloseCircleFill } from 'react-icons/ri';
-import theme from '../styles/theme';
 
 type MemberProps = {
     width?: string;
@@ -29,7 +28,7 @@ const Component = styled.div<MemberProps>`
         ({ theme }) =>
             !props.fontSize
                 ? theme.font.size.medium
-                : theme.font.size[props.fontSize]}px;
+                : theme.font.size[props.fontSize]};
     color: ${(props) =>
         ({ theme }) =>
             props.color === 'black' ? theme.color.black : theme.color.white};
@@ -54,7 +53,6 @@ const Component = styled.div<MemberProps>`
     display: flex;
     justify-content: ${(props) => (props.disable ? 'space-between' : 'center')};
     align-items: center;
-    margin: ${(props) => props.space}px;
     padding-left: 1rem;
     padding-right: 1rem;
 `;
@@ -92,7 +90,7 @@ const Member = ({
                 {disable && (
                     <RiCloseCircleFill
                         style={{
-                            color: `${theme.color.white}`,
+                            color: `${({ theme }) => theme.color.white}`,
                             cursor: 'pointer',
                         }}
                         onClick={() =>
