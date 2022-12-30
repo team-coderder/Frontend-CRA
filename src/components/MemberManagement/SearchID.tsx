@@ -1,30 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
-import TextInput from './TextInput';
-import { findByUsername } from '../api';
+import TextInput from '../TextInput';
+import { findByUsername } from '../../api';
 
-interface SearchProps {
+type SearchProps = {
     width?: string;
     height?: string;
     space?: string;
     onClick?: () => void;
     focus?: boolean;
     missing?: boolean;
-    // error?: boolean;
-}
+    searchId: string;
+    setSearchId: React.Dispatch<React.SetStateAction<string>>;
+};
+type ResultBoxProps = {
+    onClick?: () => void;
+    height?: string;
+    missing?: boolean;
+};
 
-const SearchContainer = styled.div<SearchProps>`
+const SearchContainer = styled.div<{ space: string | undefined }>`
     position: relative;
     z-index: 2;
-    /* height: 30vh; */
     margin: ${({ space }) => space};
 `;
-const ResultContainer = styled.div<SearchProps>`
+const ResultContainer = styled.div`
     height: 150px;
     overflow: auto;
 `;
-const ResultBox = styled.div<SearchProps>`
+const ResultBox = styled.div<ResultBoxProps>`
     background-color: ${({ theme, missing }) =>
         !missing ? theme.color.main.light : theme.color.gray};
     height: ${({ height }) => height ?? 'auto'};
@@ -46,30 +51,28 @@ const IconBox = styled.div`
     margin-left: 3px;
 `;
 
-const SearchID = ({ width, height, space, focus }: SearchProps) => {
-    const [searchId, setSearchId] = useState('');
-    const [matchedIds, setMatchedIds] = useState<React.ReactElement[]>([]);
+type User = {
+    id: number;
+    username: string;
+    nickname: string;
+};
+
+const SearchID = ({
+    width,
+    height,
+    space,
+    focus,
+    searchId,
+    setSearchId,
+}: SearchProps) => {
+    const [matchedUsers, setMatchedUsers] = useState<User[]>([]);
 
     useEffect(() => {
         const findIds = async () => {
             if (searchId) {
                 try {
                     const { data } = await findByUsername(searchId);
-                    const members = data.members.map((user) => {
-                        return (
-                            <ResultBox
-                                onClick={() => setSearchId(user.username)}
-                                height={height}
-                                key={user.id}
-                            >
-                                <IconBox>
-                                    <BsSearch />
-                                </IconBox>
-                                <ResultId>{user.username}</ResultId>
-                            </ResultBox>
-                        );
-                    });
-                    setMatchedIds(members);
+                    setMatchedUsers(data.members);
                 } catch (e) {
                     console.log(e);
                 }
@@ -92,8 +95,23 @@ const SearchID = ({ width, height, space, focus }: SearchProps) => {
                 onChange={handleChange}
                 color="white"
             />
-            {matchedIds.length && focus
-                ? searchId && <ResultContainer>{matchedIds}</ResultContainer>
+            {matchedUsers.length && focus
+                ? searchId && (
+                      <ResultContainer>
+                          {matchedUsers.map((user: User) => (
+                              <ResultBox
+                                  onClick={() => setSearchId(user.username)}
+                                  height={height}
+                                  key={user.id}
+                              >
+                                  <IconBox>
+                                      <BsSearch />
+                                  </IconBox>
+                                  <ResultId>{user.username}</ResultId>
+                              </ResultBox>
+                          ))}
+                      </ResultContainer>
+                  )
                 : focus && (
                       <ResultBox height={height} missing>
                           <IconBox>

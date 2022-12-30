@@ -13,8 +13,10 @@ type MemberProps = {
     focusBgColor?: 'black' | 'white';
     disable?: boolean;
     space?: number;
+    memberId?: number;
     children: React.ReactNode;
     onClick?: () => void;
+    onDelete?: (id: number) => void;
     // url: string;
 };
 
@@ -32,7 +34,7 @@ const Component = styled.div<MemberProps>`
         ({ theme }) =>
             props.color === 'black' ? theme.color.black : theme.color.white};
     background-color: ${(props) => props.backgroundColor};
-    cursor: pointer;
+    cursor: ${(props) => props.onClick && 'pointer'};
     border: none;
     border-radius: ${(props) =>
         ({ theme }) =>
@@ -67,8 +69,10 @@ const Member = ({
     focusBgColor,
     disable,
     space,
+    memberId,
     children,
     onClick,
+    onDelete,
 }: MemberProps) => {
     return (
         <Component
@@ -89,8 +93,11 @@ const Member = ({
                     <RiCloseCircleFill
                         style={{
                             color: `${theme.color.white}`,
+                            cursor: 'pointer',
                         }}
-                        onClick={() => console.log('memeber deleted!')}
+                        onClick={() =>
+                            onDelete && memberId && onDelete(memberId)
+                        }
                     />
                 )}
             </>
