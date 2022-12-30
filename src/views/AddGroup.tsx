@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, Button, MemberManagement } from '../components';
 import { createTeam } from '../api';
+import { User } from '../types';
 import {
     AddGroupContainer,
     InputContainer,
@@ -12,12 +13,6 @@ import {
     ButtonBox,
     Header,
 } from '../styles/globalStyle/PageLayout';
-
-type User = {
-    id: number;
-    username: string;
-    nickname: string;
-};
 
 const AddGroup = () => {
     const [groupName, setGroupName] = useState('');

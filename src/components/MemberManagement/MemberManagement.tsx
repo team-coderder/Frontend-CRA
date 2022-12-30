@@ -11,12 +11,7 @@ import {
 import { Header } from '../../styles/globalStyle/PageLayout';
 import { findByUsername } from '../../api';
 import { generateColor } from '../../hooks/ColorMethod';
-
-type User = {
-    id: number;
-    username: string;
-    nickname: string;
-};
+import { User } from '../../types';
 
 type MemberManagementProp = {
     newMembers: Map<number, User>;

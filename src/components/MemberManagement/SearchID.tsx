@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { BsSearch } from 'react-icons/bs';
 import TextInput from '../TextInput';
 import { findByUsername } from '../../api';
+import { User } from '../../types';
 
 type SearchProps = {
     width?: string;
@@ -50,12 +51,6 @@ const ResultId = styled.div`
 const IconBox = styled.div`
     margin-left: 3px;
 `;
-
-type User = {
-    id: number;
-    username: string;
-    nickname: string;
-};
 
 const SearchID = ({
     width,

@@ -1,14 +1,9 @@
 import API from './base';
+import { User } from '../types';
 
 type CreateTeamResponse = {
     teamId: number;
     name: string;
-};
-
-type User = {
-    id: number;
-    username: string;
-    nickname: string;
 };
 
 type FindByUsernameResponse = {
