@@ -41,7 +41,20 @@ const mainRoutes = () => {
                 },
                 {
                     path: '/teamschedule',
-                    element: <TeamSchedule />,
+                    children: [
+                        {
+                            index: true,
+                            element: (
+                                <main>
+                                    <p>No team exists under this ID</p>
+                                </main>
+                            ),
+                        },
+                        {
+                            path: ':teamId',
+                            element: <TeamSchedule />,
+                        },
+                    ],
                 },
             ],
         },
