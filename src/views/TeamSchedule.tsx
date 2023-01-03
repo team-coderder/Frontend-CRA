@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
 import { DayPilot, DayPilotCalendar } from '@daypilot/daypilot-lite-react';
 import { Button, Member } from '../components';
@@ -37,6 +38,7 @@ export const IconBox = styled.div`
 const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재', '김철수'];
 
 const TeamSchedule: React.FC = () => {
+    const params = useParams();
     const calendarRef: any = useRef();
     const todayDate = DayPilot.Date.today();
     const newmodal = DayPilot.Modal;
@@ -98,7 +100,7 @@ const TeamSchedule: React.FC = () => {
     return (
         <Container>
             <Header>
-                <h1>그룹 이름</h1>
+                <h1>그룹 이름 {params.teamId}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
                     <Button width="11em" hoverBgColor="black" height="2.5rem">
                         그룹 정보 수정

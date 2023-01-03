@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextInput, Button, MemberManagement } from '../components';
 import { createTeam, inviteUser } from '../api';
 import { User } from '../types';
@@ -7,6 +8,7 @@ import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 const AddGroup = () => {
     const [groupName, setGroupName] = useState('');
     const [newMembers, setNewMembers] = useState(new Map<number, User>());
+    const navigate = useNavigate();
 
     const handleCreateGroup = async () => {
         try {
@@ -14,7 +16,7 @@ const AddGroup = () => {
             if (correctName) {
                 const { data } = await createTeam({ name: groupName });
                 await inviteUser(data.teamId, Array.from(newMembers.keys()));
-                // 해당 페이지로 이동
+                navigate('/teamschedule/' + data.teamId);
             } else {
                 throw Error(
                     '올바른 그룹 이름을 입력하세요.\n이름을 입력하지 않았거나 공백이 포함되어 있습니다.',
