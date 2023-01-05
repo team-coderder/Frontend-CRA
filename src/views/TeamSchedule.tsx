@@ -39,13 +39,13 @@ const data = [
     },
 ];
 const cols = [
-    { name: 'Resource 1', id: 'R1', width: 20 },
-    { name: 'Resource 2', id: 'R2', width: 5 },
-    { name: 'Resource 3', id: 'R3', width: 5 },
-    { name: 'Resource 4', id: 'R4' },
-    { name: 'Resource 5', id: 'R5' },
-    { name: 'Resource 6', id: 'R6' },
-    { name: 'Resource 7', id: 'R7' },
+    { name: 'SUN', id: 'R1', width: 20 },
+    { name: 'MON', id: 'R2', width: 5 },
+    { name: 'TUE', id: 'R3', width: 5 },
+    { name: 'WED', id: 'R4' },
+    { name: 'THU', id: 'R5' },
+    { name: 'FRI', id: 'R6' },
+    { name: 'SAT', id: 'R7' },
 ];
 
 const showData: eType[] = [];
@@ -72,10 +72,6 @@ const TeamSchedule: React.FC = () => {
         dayBeginsHour: 9,
         businessEndsHour: 24,
         heightSpec: 'BusinessHoursNoScroll',
-
-        afterRender: () => {
-            console.log(calendarRef);
-        },
         onEventFilter: (args) => {
             if (
                 args.e
@@ -109,7 +105,7 @@ const TeamSchedule: React.FC = () => {
             console.log(dp.events.list);
             console.log('filter test', filteredData);
             dp.events.list = showData;
-            dp.events.update(showData);
+            // dp.events.update(showData);
         },
         eventDeleteHandling: 'Update',
         onEventClick: async (args: any) => {
