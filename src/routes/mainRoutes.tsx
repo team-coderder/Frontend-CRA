@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 import AuthLayout from '../layouts/AuthLayout';
 import AnonymousLayout from '../layouts/AnonymousLayout';
-import { Login, Signup, AddGroup, GroupInfo, TeamSchedule } from '../views';
+import { Login, Signup, AddGroup, GroupInfo, TeamSchedule, NotFound } from '../views';
 
 const mainRoutes = () => {
     const user = localStorage.getItem('token');
@@ -41,9 +41,22 @@ const mainRoutes = () => {
                 },
                 {
                     path: '/teamschedule',
-                    element: <TeamSchedule />,
+                    children: [
+                        {
+                            index: true,
+                            element: <NotFound message='No group found under this ID' />,
+                        },
+                        {
+                            path: ':teamId',
+                            element: <TeamSchedule />,
+                        },
+                    ],
                 },
             ],
+        },
+        {
+            path: '*',
+            element: <NotFound />,
         },
     ];
 };

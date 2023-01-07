@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from '@emotion/styled/macro';
 
 interface ButtonProps {
     width?: string;
@@ -34,7 +34,7 @@ const Button = ({
         width: ${width ?? '200px'};
         height: ${height ?? '50px'};
         font-size: ${({ theme }) =>
-            !fontSize ? theme.font.size.medium : theme.font.size[fontSize]}px;
+            !fontSize ? theme.font.size.medium : theme.font.size[fontSize]};
         font-weight: ${({ theme }) =>
             !fontWeight
                 ? theme.font.weight.normal

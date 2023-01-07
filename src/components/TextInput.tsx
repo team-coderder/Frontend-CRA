@@ -1,6 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import theme from '../styles/theme';
+import styled from '@emotion/styled/macro';
 
 interface TextInputProps {
     id?: string;
@@ -28,7 +27,7 @@ const Component = styled.input<TextInputProps>`
     width: ${(props) => props.width ?? '300px'};
     height: ${(props) => props.height ?? 'auto'};
     margin: ${(props) => props.margin ?? '0'};
-    color: ${({ color }) => (!color ? theme.color.white : theme.color.black)};
+    color: ${({ color, theme }) => (!color ? theme.color.white : theme.color.black)};
     margin-left: ${(props) => props.marginLeft ?? '0'};
     border-bottom: ${({ theme }) => theme.color.gray} 1px solid;
     border-left: medium none;
@@ -36,7 +35,7 @@ const Component = styled.input<TextInputProps>`
     border-top: medium none;
     placeholder: ${(props) => props.placeholder};
     ::placeholder {
-        color: ${() => theme.color.white};
+        color: ${({ theme }) => theme.color.white};
     }
     &:focus {
         outline: none;
@@ -53,7 +52,7 @@ const Component = styled.input<TextInputProps>`
 
 const Label = styled.label`
     flex-direction: column;
-    font-size: ${({ theme }) => theme.font.size.small}px;
+    font-size: ${({ theme }) => theme.font.size.small};
 `;
 
 const TextInput = ({

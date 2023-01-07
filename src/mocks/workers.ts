@@ -17,4 +17,21 @@ export const worker = setupWorker(
             }),
         );
     }),
+    rest.post(baseURL + '/api/team', async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                teamId: 12,
+                name: 'group1',
+            }),
+        );
+    }),
+    rest.post(baseURL + '/api/invite', async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                message: '그룹(teamId : 12)에 멤버 2명 초대 완료',
+            }),
+        );
+    }),
 );

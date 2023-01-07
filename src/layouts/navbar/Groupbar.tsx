@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { Icon } from '../../styles/badge/badge';
-import { Button } from '../../components';
+import { Button, Nav } from '../../components';
 import {
     VerticalBar,
     GroupList,
@@ -44,7 +44,13 @@ function Groupbar() {
                     </GroupName>
                 ))}
                 <Bottom>
-                    {toggleGroups && <Button>그룹 추가하기</Button>}
+                    {toggleGroups && (
+                        <Button>
+                            <Nav url="/addGroup" size="medium" fill>
+                                그룹 추가하기
+                            </Nav>
+                        </Button>
+                    )}
                 </Bottom>
             </GroupList>
         </VerticalBar>

@@ -25,9 +25,9 @@ const theme: Theme = {
             thin: 200,
         },
         size: {
-            large: 55,
-            medium: 16,
-            small: 12,
+            large: '30px',
+            medium: '16px',
+            small: '12px',
         },
     },
     borderRadius: {
