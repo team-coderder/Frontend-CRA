@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { Icon } from '../../styles/badge/badge';
-import { Button } from '../../components';
+import { Button, Nav } from '../../components';
 import {
     VerticalBar,
     GroupList,
@@ -38,13 +38,25 @@ function Groupbar() {
                 <Icon>
                     <FiMenu onClick={toggle} />
                 </Icon>
-                {_groups.map((group, index) => (
-                    <GroupName key={index}>
-                        {toggleGroups ? group.name : group.name[0]}
-                    </GroupName>
+                {_groups.map((group) => (
+                    <Nav
+                        key={group.teamId}
+                        url={`/teamschedule/${group.teamId}`}
+                        weight="normal"
+                    >
+                        <GroupName>
+                            {toggleGroups ? group.name : group.name[0]}
+                        </GroupName>
+                    </Nav>
                 ))}
                 <Bottom>
-                    {toggleGroups && <Button>그룹 추가하기</Button>}
+                    {toggleGroups && (
+                        <Button>
+                            <Nav url="/addGroup" size="medium" fill center>
+                                그룹 추가하기
+                            </Nav>
+                        </Button>
+                    )}
                 </Bottom>
             </GroupList>
         </VerticalBar>
