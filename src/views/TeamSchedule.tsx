@@ -27,28 +27,30 @@ interface eType {
 const data = [
     {
         id: 'firstEvent',
-        start: DayPilot.Date.today().addHours(12),
+        start: DayPilot.Date.today().addHours(10),
         end: DayPilot.Date.today().addHours(13),
         text: 'Event 1',
+        resource: 'sun',
     },
     {
         id: 'SecondEvent',
-        start: DayPilot.Date.today().addHours(18),
-        end: DayPilot.Date.today().addHours(20),
+        start: DayPilot.Date.today().addHours(8),
+        end: DayPilot.Date.today().addHours(10),
         text: 'Event 2',
+        resource: 'mon',
     },
 ];
 const cols = [
-    { name: 'SUN', id: 'R1', width: 20 },
-    { name: 'MON', id: 'R2', width: 5 },
-    { name: 'TUE', id: 'R3', width: 5 },
-    { name: 'WED', id: 'R4' },
-    { name: 'THU', id: 'R5' },
-    { name: 'FRI', id: 'R6' },
-    { name: 'SAT', id: 'R7' },
+    { name: 'SUN', id: 'sun' },
+    { name: 'MON', id: 'mon' },
+    { name: 'TUE', id: 'tue' },
+    { name: 'WED', id: 'wed' },
+    { name: 'THU', id: 'thu' },
+    { name: 'FRI', id: 'fri' },
+    { name: 'SAT', id: 'sat' },
 ];
 
-const showData: eType[] = [];
+const showData: Array<eType> = [];
 
 const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재'];
 
@@ -62,7 +64,7 @@ const TeamSchedule: React.FC = () => {
             console.log(`${name}s` + `Event!`, event.id);
             showData.push(event);
         }
-        event.id.includes(name);
+        // event.id.includes(name);
     });
     console.log('showData: ', showData);
     const state = {
@@ -77,7 +79,7 @@ const TeamSchedule: React.FC = () => {
                 args.e
                     .text()
                     .toLowerCase()
-                    .indexOf(args.filter.toLowerCase()) === '권영재'
+                    .indexOf(args.filter.toLowerCase()) === name
             ) {
                 console.log(args);
                 args.visible = false;
@@ -101,11 +103,12 @@ const TeamSchedule: React.FC = () => {
                 end: args.end,
                 id: name + DayPilot.guid(),
                 text: modal.result,
+                resource: args.resource,
             });
             console.log(dp.events.list);
             console.log('filter test', filteredData);
             dp.events.list = showData;
-            // dp.events.update(showData);
+            console.log(dp.events.list);
         },
         eventDeleteHandling: 'Update',
         onEventClick: async (args: any) => {
