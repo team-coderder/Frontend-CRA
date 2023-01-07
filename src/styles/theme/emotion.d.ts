@@ -25,9 +25,9 @@ declare module '@emotion/react' {
                 thin: number;
             };
             size: {
-                large: number;
-                medium: number;
-                small: number;
+                large: string;
+                medium: string;
+                small: string;
             };
         };
         borderRadius: {

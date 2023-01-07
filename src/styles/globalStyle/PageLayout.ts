@@ -1,54 +1,38 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled/macro';
 
-export const Container = styled.div`
-    width: 80%;
+export const Container = styled.main`
+    max-width: 70vw;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: auto;
-    margin-top: 150px;
+    margin-top: 7rem;
+    margin-bottom: 7rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    color: ${({ theme }) => theme.color.white};
 `;
 
-export const Header = styled.div`
-    color: #fff;
+export const Header = styled.header`
+    margin-bottom: 50px;
+`;
+
+export const Field = styled.section`
+    margin-bottom: 25px;
     display: flex;
-    align-items: center;
-`;
-
-export const SubHeader = styled.div`
-    color: #fff;
-    align-items: center;
-    font-size: 1.2rem;
-    margin-right: 50px;
-`;
-
-export const Main = styled.div`
-    margin: 50px 0;
-`;
-
-export const Field = styled.div`
-    margin: 15px 0 20px 0;
-    display: flex;
-    align-items: center;
+    align-items: baseline;
+    > h3 {
+        width: 150px;
+        margin-right: 50px;
+        font-weight: ${({ theme }) => theme.font.weight.normal};
+    }
 `;
 
 export const AlignRight = styled.div`
     display: flex;
     justify-content: flex-end;
-`;
-
-export const AlignLeft = styled.div`
-    display: flex;
-    justify-content: flex-start;
-`;
-
-export const MarginRight = styled.div`
-    margin-right: 10px;
-    display: inline-block;
-`;
-
-export const ButtonContainer = styled.div`
-    display: flex;
-    margin-left: 50px;
-`;
-
-export const ButtonBox = styled.div`
-    margin-left: 30px;
+    > * {
+        margin-left: 10px;
+    }
 `;

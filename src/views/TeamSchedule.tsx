@@ -1,21 +1,16 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { FiSettings } from 'react-icons/fi';
+import React, { useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from '@emotion/styled/macro';
 import { DayPilot, DayPilotCalendar } from '@daypilot/daypilot-lite-react';
 import { Button, Member } from '../components';
 import { generateColor } from '../hooks/ColorMethod';
 import {
+    Container,
+    Header,
     Field,
-    MarginRight,
     AlignRight,
 } from '../styles/globalStyle/PageLayout';
-import {
-    MainSchedule,
-    ScheduleContainer,
-    Title,
-    TitleBox,
-    MemberBox,
-} from '../styles/schedule/schedule';
-import { IconBox } from '../styles/member/member';
+import { MainSchedule, MemberBox } from '../styles/schedule/schedule';
 
 const data = [
     {
@@ -32,9 +27,18 @@ const data = [
     },
 ];
 
-const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재'];
+export const IconBox = styled.div`
+    display: flex;
+    min-width: 30px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+`;
+
+const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재', '김철수'];
 
 const TeamSchedule: React.FC = () => {
+    const params = useParams();
     const calendarRef: any = useRef();
     const todayDate = DayPilot.Date.today();
     const newmodal = DayPilot.Modal;
@@ -94,21 +98,18 @@ const TeamSchedule: React.FC = () => {
     };
 
     return (
-        <ScheduleContainer>
-            <TitleBox>
-                <Title>그룹 이름</Title>
-                <IconBox>
-                    <FiSettings
-                        size="24"
-                        style={{ marginLeft: '10px', cursor: 'pointer' }}
-                    />
-                </IconBox>
-            </TitleBox>
-            <AlignRight>
-                <Button width="250px" hoverBgColor="black" height="2.5rem">
-                    그룹 스케줄 수정
-                </Button>
-            </AlignRight>
+        <Container>
+            <Header>
+                <h1>그룹 이름 {params.teamId}</h1>
+                <AlignRight style={{ marginTop: '15px' }}>
+                    <Button width="11em" hoverBgColor="black" height="2.5rem">
+                        그룹 정보 수정
+                    </Button>
+                    <Button width="11em" hoverBgColor="black" height="2.5rem">
+                        그룹 스케줄 수정
+                    </Button>
+                </AlignRight>
+            </Header>
             <MainSchedule name={name}>
                 <DayPilotCalendar
                     days={7}
@@ -119,24 +120,26 @@ const TeamSchedule: React.FC = () => {
                     {...state}
                 />
             </MainSchedule>
-            <Title>그룹원</Title>
-            <MemberBox>
-                {dummy.map((x, idx) => (
-                    <Member
-                        key={idx}
-                        space={5}
-                        backgroundColor={generateColor(x)}
-                        color="white"
-                        disable={false}
-                        onClick={() => setName(x)}
-                    >
-                        {x}
-                    </Member>
-                ))}
-            </MemberBox>
-            <Title>보기모드</Title>
             <Field>
-                <MarginRight>
+                <h3>그룹원</h3>
+                <MemberBox>
+                    {dummy.map((x, idx) => (
+                        <Member
+                            key={idx}
+                            space={5}
+                            backgroundColor={generateColor(x)}
+                            color="white"
+                            disable={false}
+                            onClick={() => setName(x)}
+                        >
+                            {x}
+                        </Member>
+                    ))}
+                </MemberBox>
+            </Field>
+            <Field>
+                <h3>보기모드</h3>
+                <div style={{ marginRight: '10px' }}>
                     <Button
                         width="5rem"
                         height="2.5rem"
@@ -145,7 +148,7 @@ const TeamSchedule: React.FC = () => {
                     >
                         색깔로
                     </Button>
-                </MarginRight>
+                </div>
                 <Button
                     width="5rem"
                     height="2.4rem"
@@ -155,7 +158,7 @@ const TeamSchedule: React.FC = () => {
                     진하게
                 </Button>
             </Field>
-        </ScheduleContainer>
+        </Container>
     );
 };
 
