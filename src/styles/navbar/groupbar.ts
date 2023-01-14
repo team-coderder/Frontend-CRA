@@ -3,6 +3,7 @@ import styled from '@emotion/styled/macro';
 type VerticalBarProps = {
     width?: string;
 };
+
 export const VerticalBar = styled.div<VerticalBarProps>`
     width: ${({ width }) => width};
     background-color: ${({ theme }) => theme.color.white};
@@ -17,7 +18,6 @@ export const GroupList = styled.div`
     top: 3rem;
     padding: 1em;
     height: calc(100vh - 3rem);
-    overflow: hidden;
 `;
 export const GroupName = styled.div`
     height: 3em;
@@ -25,6 +25,10 @@ export const GroupName = styled.div`
     font-size: 1.1rem;
     white-space: nowrap;
     overflow: hidden;
+`;
+export const List = styled.div`
+    height: calc(100vh - 12rem);
+    overflow: auto;
 `;
 export const Bottom = styled.div`
     position: absolute;

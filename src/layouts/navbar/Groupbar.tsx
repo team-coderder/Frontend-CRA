@@ -7,6 +7,7 @@ import {
     GroupList,
     GroupName,
     Bottom,
+    List,
 } from '../../styles/navbar/groupbar';
 import useMyTeams from '../../hooks/swr/team/useMyTeams';
 
@@ -21,26 +22,32 @@ function Groupbar() {
                 <Icon>
                     <FiMenu onClick={toggle} />
                 </Icon>
-                {myTeams?.map((group) => (
-                    <Nav
-                        key={group.teamId}
-                        url={`/teamschedule/${group.teamId}`}
-                        weight="normal"
-                    >
-                        <GroupName>
-                            {toggleGroups ? group.name : group.name[0]}
-                        </GroupName>
-                    </Nav>
-                ))}
-                <Bottom>
-                    {toggleGroups && (
-                        <Button>
-                            <Nav url="/addGroup" size="medium" fill center>
-                                그룹 추가하기
-                            </Nav>
-                        </Button>
-                    )}
-                </Bottom>
+                {toggleGroups && (
+                    <>
+                        <List>
+                            {myTeams?.map((group) => (
+                                <Nav
+                                    key={group.teamId}
+                                    url={`/teamschedule/${group.teamId}`}
+                                    weight="normal"
+                                >
+                                    <GroupName>
+                                        {toggleGroups
+                                            ? group.name
+                                            : group.name[0]}
+                                    </GroupName>
+                                </Nav>
+                            ))}
+                        </List>
+                        <Bottom>
+                            <Button>
+                                <Nav url="/addGroup" size="medium" fill center>
+                                    그룹 추가하기
+                                </Nav>
+                            </Button>
+                        </Bottom>
+                    </>
+                )}
             </GroupList>
         </VerticalBar>
     );
