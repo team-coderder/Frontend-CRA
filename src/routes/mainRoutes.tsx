@@ -10,9 +10,10 @@ import {
     TeamSchedule,
     NotFound,
 } from '../views';
+import token from '../lib/token';
 
 const mainRoutes = () => {
-    const user = localStorage.getItem('token');
+    const user = token.getAccessToken('token');
 
     return [
         {
