@@ -8,27 +8,10 @@ import {
     GroupName,
     Bottom,
 } from '../../styles/navbar/groupbar';
-
-const _groups = [
-    {
-        teamId: 2,
-        name: '서울 9조',
-    },
-    {
-        teamId: 3,
-        name: '코테스터디 Algogazaa',
-    },
-    {
-        teamId: 1,
-        name: 'coderder',
-    },
-    {
-        teamId: 19,
-        name: '사이드프로젝트',
-    },
-];
+import useMyTeams from '../../hooks/swr/team/useMyTeams';
 
 function Groupbar() {
+    const { myTeams } = useMyTeams();
     const [toggleGroups, setToggleGroups] = useState(false);
     const toggle = () => setToggleGroups(!toggleGroups);
 
@@ -38,7 +21,7 @@ function Groupbar() {
                 <Icon>
                     <FiMenu onClick={toggle} />
                 </Icon>
-                {_groups.map((group) => (
+                {myTeams?.map((group) => (
                     <Nav
                         key={group.teamId}
                         url={`/teamschedule/${group.teamId}`}
