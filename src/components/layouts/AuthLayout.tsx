@@ -1,7 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import Navbar from './navbar/Navbar';
-import Groupbar from './navbar/Groupbar';
-import { Flex } from '../styles/navbar/groupbar';
+import { Navbar, Groupbar } from '..';
+import { Flex } from '../../styles/navbar/groupbar';
 
 const AuthLayout = ({ user }) => {
     return user ? (

@@ -1,4 +1,4 @@
-import { Button } from '../../components';
+import { Button } from '..';
 import { InvitationTable } from '../../styles/navbar/invitations';
 
 type InvitedGroups = {

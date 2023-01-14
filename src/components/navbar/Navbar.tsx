@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button } from '../../components';
+import { Modal, Button } from '..';
 import { BsBell } from 'react-icons/bs';
 import { Icon } from '../../styles/badge/badge';
 import { Name, HorizontalBar, Menu } from '../../styles/navbar/navbar';

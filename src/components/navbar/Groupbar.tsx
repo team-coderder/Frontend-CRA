@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { Icon } from '../../styles/badge/badge';
-import { Button, Nav } from '../../components';
+import { Button, Nav } from '..';
 import {
     VerticalBar,
     GroupList,
