@@ -1,7 +1,15 @@
 import { Navigate } from 'react-router-dom';
 import AuthLayout from '../layouts/AuthLayout';
 import AnonymousLayout from '../layouts/AnonymousLayout';
-import { Login, Signup, AddGroup, GroupInfo, TeamSchedule, NotFound } from '../views';
+import {
+    Login,
+    Signup,
+    MySchedule,
+    AddGroup,
+    GroupInfo,
+    TeamSchedule,
+    NotFound,
+} from '../views';
 
 const mainRoutes = () => {
     const user = localStorage.getItem('token');
@@ -32,12 +40,8 @@ const mainRoutes = () => {
             element: <AuthLayout user={user} />,
             children: [
                 {
-                    path: '/addGroup',
-                    element: <AddGroup />,
-                },
-                {
-                    path: '/groupinfo',
-                    element: <GroupInfo />,
+                    path: '/myschedule',
+                    element: <MySchedule />,
                 },
                 {
                     path: '/teamschedule',
@@ -51,6 +55,14 @@ const mainRoutes = () => {
                             element: <TeamSchedule />,
                         },
                     ],
+                },
+                {
+                    path: '/addGroup',
+                    element: <AddGroup />,
+                },
+                {
+                    path: '/groupinfo',
+                    element: <GroupInfo />,
                 },
             ],
         },
