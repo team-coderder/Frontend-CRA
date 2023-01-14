@@ -1,6 +1,4 @@
 import { css, Global } from '@emotion/react';
-import React from 'react';
-import theme from '../theme';
 
 export default function GlobalStyle() {
     return (
