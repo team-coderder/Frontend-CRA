@@ -1,8 +1,8 @@
 import React from 'react';
-import styled from '@emotion/styled';
-import theme from '../styles/theme';
+import styled from '@emotion/styled/macro';
 
 interface TextInputProps {
+    id?: string;
     width?: string;
     height?: string;
     marginLeft?: string;
@@ -27,7 +27,7 @@ const Component = styled.input<TextInputProps>`
     width: ${(props) => props.width ?? '300px'};
     height: ${(props) => props.height ?? 'auto'};
     margin: ${(props) => props.margin ?? '0'};
-    color: ${({ color }) => (!color ? theme.color.white : theme.color.black)};
+    color: ${({ color, theme }) => (!color ? theme.color.white : theme.color.black)};
     margin-left: ${(props) => props.marginLeft ?? '0'};
     border-bottom: ${({ theme }) => theme.color.gray} 1px solid;
     border-left: medium none;
@@ -35,20 +35,28 @@ const Component = styled.input<TextInputProps>`
     border-top: medium none;
     placeholder: ${(props) => props.placeholder};
     ::placeholder {
-        color: ${() => theme.color.white};
+        color: ${({ theme }) => theme.color.white};
     }
     &:focus {
         outline: none;
         border-bottom: 1px solid ${({ theme }) => theme.color.white};
     }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+        -webkit-text-fill-color: ${({ theme }) => theme.color.white};
+        -webkit-box-shadow: none;
+        transition: background-color 5000s ease-in-out 0s;
+    }
 `;
 
 const Label = styled.label`
     flex-direction: column;
-    font-size: ${({ theme }) => theme.font.size.small}px;
+    font-size: ${({ theme }) => theme.font.size.small};
 `;
 
 const TextInput = ({
+    id,
     width,
     height,
     margin,
@@ -63,6 +71,7 @@ const TextInput = ({
     return (
         <Label>
             <Component
+                id={id}
                 type={type}
                 value={value}
                 onChange={onChange}

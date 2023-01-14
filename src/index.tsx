@@ -1,6 +1,9 @@
 import React from 'react';
 import reactDom from 'react-dom/client';
 import App from './App';
+import { worker } from './mocks/workers';
+
+worker.start();
 
 const root = reactDom.createRoot(
     document.getElementById('root') as HTMLElement,

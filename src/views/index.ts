@@ -4,3 +4,4 @@ export { default as TeamSchedule } from './TeamSchedule';
 export { default as MySchedule } from './MySchedule';
 export { default as AddGroup } from './AddGroup';
 export { default as GroupInfo } from './GroupInfo';
+export { default as NotFound } from './NotFound';

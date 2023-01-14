@@ -1,9 +1,12 @@
 import { css, Global } from '@emotion/react';
-import React from 'react';
-import theme from '../theme';
 
 export default function GlobalStyle() {
-    return <Global styles={reset} />;
+    return (
+        <>
+            <Global styles={reset} />
+            <Global styles={modal} />
+        </>
+    );
 }
 
 const reset = css`
@@ -25,6 +28,9 @@ const reset = css`
         text-decoration: none;
         color: inherit;
     }
+`;
+
+const modal = css`
     .modal_rounded_background {
         background-color: #000;
         opacity: 0.75;
