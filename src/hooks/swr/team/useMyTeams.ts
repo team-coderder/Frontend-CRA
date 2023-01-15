@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { getMyTeams } from '../../../api';
-import token from '../../../lib/token';
+import storage from '../../../lib/storage';
 
 type useMyTeamsReturnType = {
     teams: { teamId: number; name: string }[];
@@ -13,7 +13,7 @@ const fetcher = async () => {
 
 const useMyTeams = () => {
     const { data, error, isLoading, mutate } = useSWR<useMyTeamsReturnType>(
-        ['useMyTeams', token.getAccessToken('token')],
+        ['useMyTeams', storage.getEntry('token')],
         fetcher,
     );
 

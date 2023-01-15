@@ -1,10 +1,10 @@
 import axios from 'axios';
-import token from '../lib/token';
+import storage from '../lib/storage';
 
 const API = axios.create({
     baseURL: process.env.REACT_APP_BASE_URL,
     headers: {
-        Authorization: token.getAccessToken('token'),
+        Authorization: storage.getEntry('token'),
     },
 });
 

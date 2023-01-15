@@ -10,7 +10,7 @@ import {
     ExplainBox,
 } from '../styles/account/layout';
 import { login } from '../api';
-import token from '../lib/token';
+import storage from '../lib/storage';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -29,9 +29,9 @@ const Login = () => {
         try {
             const userData = await login(form);
             if (userData.headers.authorization) {
-                token.setAccessToken('token', userData.headers.authorization);
-                token.setAccessToken('username', userData.data.username);
-                token.setAccessToken('nickname', userData.data.nickname);
+                storage.setEntry('token', userData.headers.authorization);
+                storage.setEntry('username', userData.data.username);
+                storage.setEntry('nickname', userData.data.nickname);
                 navigate('/');
             } else {
                 throw new Error('No authorization token');
