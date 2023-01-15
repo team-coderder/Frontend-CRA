@@ -1,25 +1,61 @@
-import React from 'react';
-import NavbarLayout from '../layouts/NavbarLayout';
-import { Login, Signup, AddGroup, GroupInfo, TeamSchedule } from '../views';
+import { Navigate } from 'react-router-dom';
+import AuthLayout from '../layouts/AuthLayout';
+import AnonymousLayout from '../layouts/AnonymousLayout';
+import {
+    Login,
+    Signup,
+    MySchedule,
+    AddGroup,
+    GroupInfo,
+    TeamSchedule,
+    NotFound,
+} from '../views';
 
 const mainRoutes = () => {
+    const user = localStorage.getItem('token');
+
     return [
         {
             path: '/',
+            element: user ? (
+                <Navigate to="/myschedule" />
+            ) : (
+                <Navigate to="/login" />
+            ),
+        },
+        {
+            element: <AnonymousLayout user={user} />,
             children: [
                 {
-                    path: 'login',
+                    path: '/login',
                     element: <Login />,
                 },
                 {
-                    path: 'signup',
+                    path: '/signup',
                     element: <Signup />,
                 },
             ],
         },
         {
-            element: <NavbarLayout />,
+            element: <AuthLayout user={user} />,
             children: [
+                {
+                    path: '/myschedule',
+                    element: <MySchedule />,
+                },
+                {
+                    path: '/teamschedule',
+                    children: [
+                        {
+                            index: true,
+                            element: <NotFound message='No group found under this ID' />,
+                        },
+                        {
+                            path: ':teamId',
+                            element: <TeamSchedule />,
+                        },
+                    ],
+                },
                 {
                     path: '/addGroup',
                     element: <AddGroup />,
@@ -28,11 +64,11 @@ const mainRoutes = () => {
                     path: '/groupinfo',
                     element: <GroupInfo />,
                 },
-                {
-                    path: '/teamschedule',
-                    element: <TeamSchedule />,
-                },
             ],
+        },
+        {
+            path: '*',
+            element: <NotFound />,
         },
     ];
 };

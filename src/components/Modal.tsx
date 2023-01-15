@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import styled from '@emotion/styled/macro';
 
 interface Props {
     label: string;
@@ -10,28 +10,21 @@ interface Props {
     children?: React.ReactNode;
 }
 
-const Modal = ({
-    label,
-    icon,
-    expandRight,
-    toggle,
-    handleToggle,
-    children,
-}: Props) => {
-    const Modal = styled.div`
-        position: relative;
-    `;
-    const ToggleMenu = styled.div`
-        position: absolute;
-        top: ${expandRight ? '10px' : '60px'};
-        left: ${expandRight && '60px'};
-        border: 1px solid #aaa;
-    `;
+const Icon = styled.div`
+    position: relative;
+`;
+const ToggleMenu = styled.div`
+    position: absolute;
+    top: 50px;
+    right: 0;
+`;
+
+const Modal = ({ label, icon, toggle, handleToggle, children }: Props) => {
     return (
-        <Modal onClick={(e) => handleToggle && handleToggle(e, label)}>
+        <Icon onClick={(e) => handleToggle && handleToggle(e, label)}>
             {icon}
             {toggle && <ToggleMenu>{children}</ToggleMenu>}
-        </Modal>
+        </Icon>
     );
 };
 

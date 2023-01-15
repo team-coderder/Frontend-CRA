@@ -1,5 +1,4 @@
-import styled from '@emotion/styled';
-import theme from '../theme';
+import styled from '@emotion/styled/macro';
 
 const FormContainer = styled.div`
     width: 400px;
@@ -20,7 +19,7 @@ const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: ${() => theme.font.size.large}px;
+    font-size: ${({ theme }) => theme.font.size.large};
 `;
 
 const FormBox = styled.form`
@@ -44,7 +43,7 @@ const HelpBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: ${() => theme.color.main.common};
+    background-color: ${({ theme }) => theme.color.main.common};
 `;
 
 const NavBox = styled.div`
