@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Modal, Button } from '..';
 import { BsBell } from 'react-icons/bs';
 import { Icon } from '../../styles/badge/badge';
@@ -12,30 +11,14 @@ const _user = {
 };
 
 function Navbar() {
-    const [toggleProfile, setToggleProfile] = useState(false);
-    const [toggleAlarm, setToggleAlarm] = useState(false);
-
-    const handleToggle = (e: React.FormEvent, label: string) => {
-        if (label === 'profile') {
-            setToggleProfile(!toggleProfile);
-            setToggleAlarm(false);
-        } else {
-            setToggleAlarm(!toggleAlarm);
-            setToggleProfile(false);
-        }
-    };
-
     return (
         <HorizontalBar>
             <Modal
-                label="alarm"
                 icon={
                     <Icon background="pink">
                         <BsBell />
                     </Icon>
                 }
-                toggle={toggleAlarm}
-                handleToggle={handleToggle}
             >
                 <Menu>
                     <Invitations />
@@ -43,14 +26,11 @@ function Navbar() {
             </Modal>
             <Name>{_user.nickname}</Name>
             <Modal
-                label="profile"
                 icon={
                     <Icon background="#93c47d">
                         {_user.nickname[0].toUpperCase()}
                     </Icon>
                 }
-                toggle={toggleProfile}
-                handleToggle={handleToggle}
             >
                 <Menu>
                     <Button width="8em" height="2.4em">

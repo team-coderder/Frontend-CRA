@@ -1,16 +1,12 @@
-import React from 'react';
+import { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled/macro';
 
-interface Props {
-    label: string;
+type ModalProps = {
     icon: React.ReactNode;
-    expandRight?: boolean;
-    toggle?: boolean;
-    handleToggle?: (e: React.FormEvent, id: string) => void;
     children?: React.ReactNode;
-}
+};
 
-const Icon = styled.div`
+const ModalContainer = styled.div`
     position: relative;
 `;
 const ToggleMenu = styled.div`
@@ -19,12 +15,35 @@ const ToggleMenu = styled.div`
     right: 0;
 `;
 
-const Modal = ({ label, icon, toggle, handleToggle, children }: Props) => {
+const Modal = ({ icon, children }: ModalProps) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const closeModal = (e) => {
+            if (
+                isOpen &&
+                (!modalRef.current || !modalRef.current.contains(e.target))
+            ) {
+                setIsOpen(false);
+            }
+        };
+        document.addEventListener('click', closeModal);
+
+        return () => document.removeEventListener('click', closeModal);
+    }, [isOpen]);
+
+    const openModal = () => {
+        if (!isOpen) {
+            setIsOpen(true);
+        }
+    };
+
     return (
-        <Icon onClick={(e) => handleToggle && handleToggle(e, label)}>
+        <ModalContainer onClick={openModal} ref={modalRef}>
             {icon}
-            {toggle && <ToggleMenu>{children}</ToggleMenu>}
-        </Icon>
+            {isOpen && <ToggleMenu>{children}</ToggleMenu>}
+        </ModalContainer>
     );
 };
 
