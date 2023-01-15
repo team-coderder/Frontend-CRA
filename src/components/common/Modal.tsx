@@ -33,15 +33,13 @@ const Modal = ({ icon, children }: ModalProps) => {
         return () => document.removeEventListener('click', closeModal);
     }, [isOpen]);
 
-    const openModal = () => {
-        if (!isOpen) {
-            setIsOpen(true);
-        }
+    const toggleModal = () => {
+        setIsOpen((prev) => !prev);
     };
 
     return (
-        <ModalContainer onClick={openModal} ref={modalRef}>
-            {icon}
+        <ModalContainer ref={modalRef}>
+            <div onClick={toggleModal}>{icon}</div>
             {isOpen && <ToggleMenu>{children}</ToggleMenu>}
         </ModalContainer>
     );

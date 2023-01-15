@@ -18,3 +18,9 @@ export const InvitationTable = styled.table`
         border-top: 10px solid transparent;
     }
 `;
+
+export const NoticeText = styled.div`
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+`;
