@@ -1,14 +1,19 @@
+import { schdule } from './../types';
 import axios from 'axios';
 import API from './base';
 
-export const getSchedule = (groupId) =>
-    axios.get(`/api/schedule/teamschedule/${groupId}`);
+type SchduleType = {
+    schdule: schdule[];
+};
 
-export const postSchedule = ({ groupId, scheduleName, day, start, end }) =>
-    API.post(`/auth/group/schedule/make`, {
-        teamId: groupId,
+export const getSchedule = (groupId) =>
+    axios.get<SchduleType>(`/api/schedule/teamschedule?teamId=${groupId}`);
+
+export const postSchedule = ({ userId, scheduleName, day, start, end }) =>
+    API.post(`/api/schedule/myschedule`, {
+        teamId: userId,
         name: scheduleName,
         weekday: day,
-        starttime: start,
-        endtime: end,
+        starTime: start,
+        finishTime: end,
     });

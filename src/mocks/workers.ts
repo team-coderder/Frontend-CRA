@@ -1,6 +1,6 @@
 import { setupWorker, rest } from 'msw';
 
-const MSW_MODE = true;
+const MSW_MODE = false;
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 

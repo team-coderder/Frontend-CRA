@@ -29,8 +29,7 @@ const Login = () => {
             const userData = await login(form);
             if (userData.headers.authorization) {
                 localStorage.setItem('token', userData.headers.authorization);
-                localStorage.setItem('username', userData.data.username);
-                localStorage.setItem('nickname', userData.data.nickname);
+                localStorage.setItem('userInfo', JSON.stringify(userData.data));
                 navigate('/');
             } else {
                 throw new Error('No authorization token');

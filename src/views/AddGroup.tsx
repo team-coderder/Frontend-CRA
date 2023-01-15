@@ -16,6 +16,7 @@ const AddGroup = () => {
             if (correctName) {
                 const { data } = await createTeam({ name: groupName });
                 await inviteUser(data.teamId, Array.from(newMembers.keys()));
+                localStorage.setItem('teamInfo', JSON.stringify(data));
                 navigate('/teamschedule/' + data.teamId);
             } else {
                 throw Error(
