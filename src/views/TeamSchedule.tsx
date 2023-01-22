@@ -12,6 +12,7 @@ import {
 } from '../styles/globalStyle/PageLayout';
 import { MainSchedule, MemberBox } from '../styles/schedule/schedule';
 import { postSchedule } from '../api';
+import { getUserInfo } from '../hooks/getUserInfo';
 
 interface eType {
     id?: string;
@@ -64,8 +65,8 @@ const TeamSchedule: React.FC = () => {
     const todayDate = DayPilot.Date.today();
     const newmodal = DayPilot.Modal;
     const [name, setName] = useState('');
-    const userId = localStorage.getItem('id');
-    const teamInfo = localStorage.getItem('data');
+    const userInfo = getUserInfo();
+
     const filteredData = data.filter((event) => {
         if (name && event.id.includes(name)) {
             console.log(`${name}s` + `Event!`, event.id);
@@ -112,7 +113,6 @@ const TeamSchedule: React.FC = () => {
                 text: modal.result,
                 resource: args.resource,
             });
-            // postSchedule({userId, modal.result, resource, args.start, args.end});
             console.log(dp.events.list);
             console.log('filter test', filteredData);
             dp.events.list = showData;

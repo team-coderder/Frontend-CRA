@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '../components';
 import {
     Container,
@@ -8,6 +8,8 @@ import {
 import { MainSchedule } from '../styles/schedule/schedule';
 import { DayPilot, DayPilotCalendar } from '@daypilot/daypilot-lite-react';
 import { getSchedule, postSchedule } from '../api';
+import { getUserInfo } from '../hooks/getUserInfo';
+import { schdule } from '../types';
 
 const cols = [
     { name: 'SUN', id: 'sun' },
@@ -21,29 +23,44 @@ const cols = [
 
 const MySchedule = () => {
     const calendarRef: any = useRef();
-    const todayDate = DayPilot.Date.today();
-    const [name, setName] = useState('');
+    const todayDate = '2023-01-01';
+    const [name, setName] = useState<string>('');
+    const [data, setData] = useState<schdule | any>([]);
     const newmodal = DayPilot.Modal;
-    // const { data } = getSchedule();
-    const data = [];
+    const userInfo = getUserInfo();
+
+    const getData = async () => {
+        if (!userInfo) {
+            alert('유저 정보를 다시 확인해주세요');
+        } else {
+            const resData = await getSchedule(userInfo.id).then(
+                (result) => result.data,
+            );
+            console.log('getData test', resData);
+            return resData;
+        }
+    };
+
+    useEffect(() => {
+        setName(userInfo.username);
+        try {
+            const loadData = async () => {
+                await setData(getData());
+            };
+            loadData();
+            console.log('API조회로 받은 스케줄', data);
+        } catch (e) {
+            console.log(e);
+        }
+    }, []);
+
+    const dummydata = [];
     const state = {
-        viewType: 'Resources',
         durationBarVisible: false,
         timeRangeSelectedHandling: 'Enabled',
         dayBeginsHour: 9,
         businessEndsHour: 24,
         heightSpec: 'BusinessHoursNoScroll',
-        onEventFilter: (args) => {
-            if (
-                args.e
-                    .text()
-                    .toLowerCase()
-                    .indexOf(args.filter.toLowerCase()) === name
-            ) {
-                console.log(args);
-                args.visible = false;
-            }
-        },
         onTimeRangeSelected: async (args: any) => {
             console.log('args : ', args);
             const dp = args.control;
@@ -57,14 +74,23 @@ const MySchedule = () => {
             if (!modal.result) {
                 return;
             }
-            dp.events.add({
+            const event = {
                 start: args.start,
                 end: args.end,
-                id: name + DayPilot.guid(),
                 text: modal.result,
+                id: name + DayPilot.guid(),
                 resource: args.resource,
-            });
-            console.log(dp.events.list);
+            };
+            dp.events.add(event);
+            // teamId: userId,
+            // name: scheduleName,
+            // weekday: day,
+            // starTime: start,
+            // finishTime: end,
+
+            console.log('기존 라이브러리 이벤트 배열 값', dp.events.list);
+            dp.events.list = await data;
+            // console.log('조회한 스케줄', dp.evnets.list);
         },
         eventDeleteHandling: 'Update',
         onEventClick: async (args: any) => {
@@ -99,8 +125,9 @@ const MySchedule = () => {
                         ref={calendarRef}
                         cellHeight={25}
                         cellDuration={30}
-                        events={data}
-                        columns={cols}
+                        viewType="Weeks"
+                        events={dummydata}
+                        // columns={cols}
                         {...state}
                     />
                 </MainSchedule>
