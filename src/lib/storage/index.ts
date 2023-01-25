@@ -1,10 +1,15 @@
 class Storage {
-    public getEntry(key: string): string | null {
-        return localStorage.getItem(key);
+    public getEntry(key: string): unknown {
+        const entry = localStorage.getItem(key);
+        if (entry) {
+            return JSON.parse(entry);
+        } else {
+            return null;
+        }
     }
 
-    public setEntry(key: string, value: string): void {
-        localStorage.setItem(key, value);
+    public setEntry(key: string, value: any): void {
+        localStorage.setItem(key, JSON.stringify(value));
     }
 
     public removeEntry(key: string): void {
