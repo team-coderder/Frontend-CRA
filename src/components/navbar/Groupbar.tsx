@@ -9,7 +9,7 @@ import {
     Bottom,
     List,
 } from '../../styles/navbar/groupbar';
-import useMyTeams from '../../hooks/swr/team/useMyTeams';
+import { useMyTeams } from '../../hooks';
 
 function Groupbar() {
     const { myTeams } = useMyTeams();
