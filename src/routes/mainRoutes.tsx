@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import AuthLayout from '../layouts/AuthLayout';
-import AnonymousLayout from '../layouts/AnonymousLayout';
+import { AuthLayout, AnonymousLayout } from '../components';
 import {
     Login,
     Signup,
@@ -10,9 +9,10 @@ import {
     TeamSchedule,
     NotFound,
 } from '../views';
+import { useMyInfo } from '../hooks';
 
 const mainRoutes = () => {
-    const user = localStorage.getItem('token');
+    const { user } = useMyInfo();
 
     return [
         {

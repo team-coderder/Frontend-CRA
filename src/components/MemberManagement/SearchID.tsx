@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from '@emotion/styled/macro';
 import { BsSearch } from 'react-icons/bs';
-import TextInput from '../TextInput';
+import { TextInput } from '..';
 import { findByUsername } from '../../api';
 import { User } from '../../types';
 

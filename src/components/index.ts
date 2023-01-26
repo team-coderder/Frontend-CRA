@@ -1,8 +1,14 @@
-// Reusable Atomic components
-export { default as Modal } from './Modal';
-export { default as Button } from './Button';
-export { default as TextInput } from './TextInput';
-export { default as Nav } from './Nav';
-export { default as Member } from './Member';
-// Other Components
-export { default as MemberManagement } from './MemberManagement/MemberManagement';
+// Common
+export { default as Modal } from './common/Modal';
+export { default as Button } from './common/Button';
+export { default as TextInput } from './common/TextInput';
+export { default as Nav } from './common/Nav';
+export { default as Member } from './common/Member';
+// Layouts
+export { default as AnonymousLayout } from './layouts/AnonymousLayout';
+export { default as AuthLayout } from './layouts/AuthLayout';
+// Member Management
+export { default as MemberManagement } from './memberManagement/MemberManagement';
+// Navbar
+export { default as Groupbar } from './navbar/Groupbar';
+export { default as Navbar } from './navbar/Navbar';

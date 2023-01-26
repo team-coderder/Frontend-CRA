@@ -4,10 +4,11 @@ import styled from '@emotion/styled/macro';
 
 interface LinkProps {
     size?: 'large' | 'medium' | 'small';
-    weight?: 'bold';
+    weight?: 'bold' | 'normal';
     color?: 'black' | 'white';
     underLine?: true | false;
     fill?: boolean;
+    center?: boolean;
     children: React.ReactNode;
     url: string;
 }
@@ -18,6 +19,7 @@ const Nav = ({
     color,
     underLine,
     fill,
+    center,
     children,
     url,
 }: LinkProps) => {
@@ -29,8 +31,8 @@ const Nav = ({
         display: block;
         height: ${fill && '100%'};
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: ${center ? 'center' : 'normal'};
+        align-items: ${center ? 'center' : 'normal'};
     `;
     return <Component to={url}>{children}</Component>;
 };

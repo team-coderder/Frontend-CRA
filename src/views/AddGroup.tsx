@@ -4,17 +4,20 @@ import { TextInput, Button, MemberManagement } from '../components';
 import { createTeam, inviteUser } from '../api';
 import { User } from '../types';
 import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
+import { useMyTeams } from '../hooks';
 
 const AddGroup = () => {
+    const navigate = useNavigate();
     const [groupName, setGroupName] = useState('');
     const [newMembers, setNewMembers] = useState(new Map<number, User>());
-    const navigate = useNavigate();
+    const { myTeams, mutate } = useMyTeams();
 
     const handleCreateGroup = async () => {
         try {
             const correctName = groupName && /\s/.test(groupName) === false;
             if (correctName) {
                 const { data } = await createTeam({ name: groupName });
+                mutate({ teams: myTeams ? [...myTeams, data] : [data] });
                 await inviteUser(data.teamId, Array.from(newMembers.keys()));
                 navigate('/teamschedule/' + data.teamId);
             } else {
