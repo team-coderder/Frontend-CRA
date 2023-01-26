@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { Icon } from '../../styles/badge/badge';
 import { Button, Nav } from '..';
 import {
     VerticalBar,
@@ -9,6 +8,7 @@ import {
     Bottom,
     List,
 } from '../../styles/navbar/groupbar';
+import { Icon } from '../../styles/globalStyle/PageLayout';
 import { useMyTeams } from '../../hooks';
 
 function Groupbar() {

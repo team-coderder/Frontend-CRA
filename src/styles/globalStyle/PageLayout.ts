@@ -36,3 +36,15 @@ export const AlignRight = styled.div`
         margin-left: 10px;
     }
 `;
+
+export const Icon = styled.div<{ background?: string }>`
+    border-radius: 50%;
+    background-color: ${(props) => props.background ?? 'transparent'};
+    font-size: 1.5rem;
+    cursor: pointer;
+    height: 1.5em;
+    width: 1.5em;
+    text-align: center;
+    line-height: 1.5em;
+    // padding: 5px;
+`;

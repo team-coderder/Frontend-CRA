@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router';
 import { Modal, Button, Nav } from '..';
 import { BsBell } from 'react-icons/bs';
-import { Icon } from '../../styles/badge/badge';
 import { Name, HorizontalBar, Menu } from '../../styles/navbar/navbar';
+import { Icon } from '../../styles/globalStyle/PageLayout';
 import Invitations from './Invitations';
 import { useMyInfo } from '../../hooks';
 
