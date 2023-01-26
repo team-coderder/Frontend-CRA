@@ -1,6 +1,6 @@
 import { setupWorker, rest } from 'msw';
 
-const MSW_MODE = true;
+const MSW_MODE = false;
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -13,10 +13,9 @@ const authHandlers = [
             ctx.status(200),
             ctx.set('Authorization', `Bearer ${token}}`),
             ctx.json({
-                data: {
-                    username: 'max@gmail.com',
-                    nickname: 'max',
-                },
+                id: 3,
+                username: 'max@gmail.com',
+                nickname: 'max',
             }),
         );
     }),
