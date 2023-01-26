@@ -4,11 +4,12 @@ import {
     acceptInvitation,
     rejectInvitation,
 } from '../../../api';
-import storage from '../../../lib/storage';
+import { useMyInfo } from '../../../hooks';
 
 const useMyInvitations = () => {
+    const { token } = useMyInfo();
     const { data, error, mutate } = useSWR(
-        ['useMyInvitations', storage.getEntry('token')],
+        ['useMyInvitations', token],
         async () => {
             const { data } = await getMyInvitations();
             return data;

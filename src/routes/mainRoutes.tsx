@@ -9,10 +9,10 @@ import {
     TeamSchedule,
     NotFound,
 } from '../views';
-import storage from '../lib/storage';
+import { useMyInfo } from '../hooks';
 
 const mainRoutes = () => {
-    const user = storage.getEntry('token');
+    const { user } = useMyInfo();
 
     return [
         {

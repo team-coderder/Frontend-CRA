@@ -1,19 +1,21 @@
 import useSWR from 'swr';
 import { getMyTeams } from '../../../api';
-import storage from '../../../lib/storage';
+import { useMyInfo } from '../../../hooks';
 
 type useMyTeamsReturnType = {
     teams: { teamId: number; name: string }[];
 };
 
-const fetcher = async () => {
-    const response = await getMyTeams();
-    return response.data;
-};
-
 const useMyTeams = () => {
+    const { token } = useMyInfo();
+
+    const fetcher = async () => {
+        const response = await getMyTeams();
+        return response.data;
+    };
+
     const { data, error, isLoading, mutate } = useSWR<useMyTeamsReturnType>(
-        ['useMyTeams', storage.getEntry('token')],
+        ['useMyTeams', token],
         fetcher,
     );
 

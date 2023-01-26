@@ -9,11 +9,11 @@ import {
     NavBox,
     ExplainBox,
 } from '../styles/account/layout';
-import { login } from '../api';
-import storage from '../lib/storage';
+import { useMyInfo } from '../hooks';
 
 const Login = () => {
     const navigate = useNavigate();
+    const { login } = useMyInfo();
     const [form, setForm] = useState({ username: '', password: '' });
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,15 +27,8 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const userData = await login(form);
-            if (userData.headers.authorization) {
-                storage.setEntry('token', userData.headers.authorization);
-                storage.setEntry('username', userData.data.username);
-                storage.setEntry('nickname', userData.data.nickname);
-                navigate('/');
-            } else {
-                throw new Error('No authorization token');
-            }
+            await login(form);
+            navigate('/');
         } catch (e) {
             alert('로그인 정보를 다시 확인해주세요');
         }
