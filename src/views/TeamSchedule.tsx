@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
 import { DayPilot, DayPilotCalendar } from '@daypilot/daypilot-lite-react';
 import { Button, Member } from '../components';
+import { Button, Nav, Member } from '../components';
 import { generateColor } from '../hooks/ColorMethod';
 import {
     Container,
@@ -103,7 +104,14 @@ const TeamSchedule: React.FC = () => {
                 <h1>그룹 이름 {params.teamId}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
                     <Button width="11em" hoverBgColor="black" height="2.5rem">
-                        그룹 정보 수정
+                        <Nav
+                            url={`/groupinfo/${params.teamId}`}
+                            size="medium"
+                            fill
+                            center
+                        >
+                            그룹 정보 수정
+                        </Nav>
                     </Button>
                     <Button width="11em" hoverBgColor="black" height="2.5rem">
                         그룹 스케줄 수정

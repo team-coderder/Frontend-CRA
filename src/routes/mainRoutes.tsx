@@ -48,7 +48,9 @@ const mainRoutes = () => {
                     children: [
                         {
                             index: true,
-                            element: <NotFound message='No group found under this ID' />,
+                            element: (
+                                <NotFound message="No group found under this ID" />
+                            ),
                         },
                         {
                             path: ':teamId',
@@ -62,7 +64,18 @@ const mainRoutes = () => {
                 },
                 {
                     path: '/groupinfo',
-                    element: <GroupInfo />,
+                    children: [
+                        {
+                            index: true,
+                            element: (
+                                <NotFound message="No group found under this ID" />
+                            ),
+                        },
+                        {
+                            path: ':teamId',
+                            element: <GroupInfo />,
+                        },
+                    ],
                 },
             ],
         },
