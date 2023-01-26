@@ -1,7 +1,7 @@
 import API from './base';
 import { User, Invitation } from '../types';
 
-type CreateTeamResponse = {
+type UpdateTeamResponse = {
     teamId: number;
     name: string;
 };
@@ -13,7 +13,7 @@ type TeamMember = {
     teamRole: string;
 };
 
-type GetTeamInfoResponse = CreateTeamResponse & {
+type GetTeamInfoResponse = UpdateTeamResponse & {
     teamMembers: Array<TeamMember>;
     invitations: Array<Invitation>;
 };
@@ -27,10 +27,13 @@ type GetMyTeamsResponse = {
 };
 
 export const createTeam = (teamInfo: { name: string }) =>
-    API.post<CreateTeamResponse>('/api/team', teamInfo);
+    API.post<UpdateTeamResponse>('/api/team', teamInfo);
 
 export const getTeamInfo = (teamId: number) =>
     API.get<GetTeamInfoResponse>(`/api/team?teamId=${teamId}`);
+
+export const updateTeamInfo = (teamId: number, newName: { name: string }) =>
+    API.patch<UpdateTeamResponse>(`/api/team?teamId=${teamId}`, newName);
 
 export const findByUsername = (userName: string) =>
     API.get<FindByUsernameResponse>(
