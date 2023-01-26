@@ -3,3 +3,11 @@ export type User = {
     username: string;
     nickname: string;
 };
+
+export type Invitation = {
+    invitationId: number;
+    fromTeamId: number;
+    fromMemberId: number;
+    toMemberId: number;
+    createdAt: string;
+};
