@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTeamInfo } from '../hooks';
 import { isNameValid } from '../utils';
-import { TextInput, Button, SearchID } from '../components';
+import { TextInput, Button, SearchID, Members } from '../components';
 import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 
 const GroupInfo = () => {
@@ -47,6 +47,12 @@ const GroupInfo = () => {
                     <SearchID
                         height="30px"
                         handleAddMember={inviteMember}
+                    />
+                    <Members
+                        members={teamInfo?.teamMembers}
+                    />
+                    <Members
+                        members={teamInfo?.invitations}
                     />
                 </div>
             </Field>

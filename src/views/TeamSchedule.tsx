@@ -2,8 +2,8 @@ import React, { useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
 import { DayPilot, DayPilotCalendar } from '@daypilot/daypilot-lite-react';
-import { Button, Member } from '../components';
-import { Button, Nav, Member } from '../components';
+import { Button, Nav, Members } from '../components';
+import { useTeamInfo } from '../hooks';
 import { generateColor } from '../hooks/ColorMethod';
 import {
     Container,
@@ -40,6 +40,7 @@ const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재', 
 
 const TeamSchedule: React.FC = () => {
     const params = useParams();
+    const { teamInfo, error } = useTeamInfo(Number(params.teamId));
     const calendarRef: any = useRef();
     const todayDate = DayPilot.Date.today();
     const newmodal = DayPilot.Modal;
@@ -130,20 +131,7 @@ const TeamSchedule: React.FC = () => {
             </MainSchedule>
             <Field>
                 <h3>그룹원</h3>
-                <MemberBox>
-                    {dummy.map((x, idx) => (
-                        <Member
-                            key={idx}
-                            space={5}
-                            backgroundColor={generateColor(x)}
-                            color="white"
-                            disable={false}
-                            onClick={() => setName(x)}
-                        >
-                            {x}
-                        </Member>
-                    ))}
-                </MemberBox>
+                <Members members={teamInfo?.teamMembers} />
             </Field>
             <Field>
                 <h3>보기모드</h3>

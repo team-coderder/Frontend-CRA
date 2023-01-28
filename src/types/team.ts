@@ -4,6 +4,13 @@ export type User = {
     nickname: string;
 };
 
+export type TeamMember = {
+    memberId: number;
+    username: string;
+    nickname: string;
+    teamRole: string;
+};
+
 export type Invitation = {
     invitationId: number;
     fromTeamId: number;

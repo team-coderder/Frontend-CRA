@@ -1,1 +1,1 @@
-export type { User, Invitation } from './team';
+export type { User, TeamMember, Invitation } from './team';
