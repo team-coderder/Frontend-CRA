@@ -25,24 +25,7 @@ const MemberManagement = ({
     newMembers,
     setNewMembers,
 }: MemberManagementProp) => {
-    const [focus, setFocus] = useState(false);
     const [searchId, setSearchId] = useState('');
-    const searchRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        function handleClickOutside(event: MouseEvent): void {
-            if (
-                searchRef.current &&
-                !searchRef.current.contains(event.target as Node)
-            ) {
-                setFocus(false);
-            }
-        }
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [searchRef]);
 
     const handleAddMember = () => {
         const addMember = async (searchId: string) => {
@@ -69,6 +52,8 @@ const MemberManagement = ({
             }
         };
         addMember(searchId);
+    const handleAddId = () => {
+        alert('handleAddMember');
     };
 
     const handleDeleteMember = (id: number) => {
@@ -80,20 +65,12 @@ const MemberManagement = ({
     return (
         <>
             <Field>
-                <h3>멤버 추가</h3>
-                <div ref={searchRef} onFocus={() => setFocus(true)}>
                     <SearchID
-                        focus={focus}
                         height="30px"
                         searchId={searchId}
                         setSearchId={setSearchId}
+                        handleAddId={handleAddId}
                     />
-                </div>
-                <BsPlusCircle
-                    size="18"
-                    style={{ cursor: 'pointer' }}
-                    onClick={handleAddMember}
-                />
             </Field>
             <MemberBox>
                 {(() => {

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled/macro';
-import { BsSearch } from 'react-icons/bs';
+import { BsSearch, BsPlusCircle } from 'react-icons/bs';
 import { TextInput } from '..';
 import { findByUsername } from '../../api';
+import { onClickOutside } from '../../utils';
 import { User } from '../../types';
 
 type SearchProps = {
@@ -14,6 +15,7 @@ type SearchProps = {
     missing?: boolean;
     searchId: string;
     setSearchId: React.Dispatch<React.SetStateAction<string>>;
+    handleAddId: () => void;
 };
 type ResultBoxProps = {
     onClick?: () => void;
@@ -55,10 +57,12 @@ const SearchID = ({
     width,
     height,
     space,
-    focus,
     searchId,
     setSearchId,
+    handleAddId,
 }: SearchProps) => {
+    const [focus, setFocus] = useState(false);
+    const searchRef = useRef<HTMLDivElement>(null);
     const [matchedUsers, setMatchedUsers] = useState<User[]>([]);
 
     useEffect(() => {
@@ -75,12 +79,24 @@ const SearchID = ({
         findIds();
     }, [searchId]);
 
+    useEffect(() => {
+        function unFocus(event: MouseEvent): void {
+            onClickOutside(event, searchRef, () => setFocus(false));
+        }
+        document.addEventListener('mousedown', unFocus);
+        return () => document.removeEventListener('mousedown', unFocus);
+    }, []);
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchId(event.currentTarget.value);
     };
 
     return (
-        <SearchContainer space={space}>
+        <SearchContainer
+            space={space}
+            ref={searchRef}
+            onFocus={() => setFocus(true)}
+        >
             <TextInput
                 width={width}
                 height={height}
@@ -92,7 +108,7 @@ const SearchID = ({
             <ResultContainer>
                 {matchedUsers.length && focus
                     ? searchId &&
-                      matchedUsers.map((user: User) => (
+                      matchedUsers.map((user) => (
                           <ResultBox
                               onClick={() => setSearchId(user.username)}
                               height={height}
@@ -109,6 +125,11 @@ const SearchID = ({
                           </ResultBox>
                       )}
             </ResultContainer>
+            <BsPlusCircle
+                size="18"
+                style={{ cursor: 'pointer' }}
+                onClick={handleAddId}
+            />
         </SearchContainer>
     );
 };

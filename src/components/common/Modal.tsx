@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled/macro';
+import { onClickOutside } from '../../utils';
 
 type ModalProps = {
     icon: React.ReactNode;
@@ -20,18 +21,12 @@ const Modal = ({ icon, children }: ModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const closeModal = (e) => {
-            if (
-                isOpen &&
-                (!modalRef.current || !modalRef.current.contains(e.target))
-            ) {
-                setIsOpen(false);
-            }
+        const closeModal = (e: MouseEvent) => {
+            onClickOutside(e, modalRef, () => setIsOpen(false));
         };
         document.addEventListener('click', closeModal);
-
         return () => document.removeEventListener('click', closeModal);
-    }, [isOpen]);
+    }, []);
 
     const toggleModal = () => {
         setIsOpen((prev) => !prev);
