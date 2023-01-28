@@ -12,19 +12,25 @@ const MemberBox = styled.div`
 
 type MembersProp = {
     members: TeamMember[] | Invitation[] | undefined;
-    handleDeleteMember?: () => void;
+    handleDeleteMember?: (id: number) => Promise<void>;
 };
 
 const Members = ({ members, handleDeleteMember }: MembersProp) => {
+    const isInvitationList = members?.length && members[0].hasOwnProperty('invitationId');
+    const idProperty = isInvitationList ? 'invitationId' : 'memberId';
+    const nameProperty = isInvitationList ? 'toMemberId' : 'nickname';
+
     return (
         <MemberBox>
             {members?.map((member) => (
                 <Member
-                    key={member.memberId}
-                    backgroundColor={generateColor(member.username)}
+                    key={member[idProperty]}
+                    backgroundColor={generateColor(member[nameProperty])}
                     disable={handleDeleteMember ? true : false}
-                    memberId={member.memberId}
-                    onDelete={handleDeleteMember}
+                    memberId={member[idProperty]}
+                    onDelete={() => {
+                        handleDeleteMember!(member[idProperty]);
+                    }}
                 >
                     {member.nickname ?? member.toMemberId}
                 </Member>

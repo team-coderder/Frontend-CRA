@@ -7,7 +7,8 @@ import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 
 const GroupInfo = () => {
     const params = useParams();
-    const { teamInfo, error, changeName, inviteMember } = useTeamInfo(Number(params.teamId));
+    const { teamInfo, error, changeName, inviteMember, uninviteMember } =
+        useTeamInfo(Number(params.teamId));
     const [name, setName] = useState<string | undefined>(teamInfo?.name);
 
     if (error) {
@@ -44,15 +45,11 @@ const GroupInfo = () => {
             <Field>
                 <h3>멤버 관리</h3>
                 <div>
-                    <SearchID
-                        height="30px"
-                        handleAddMember={inviteMember}
-                    />
-                    <Members
-                        members={teamInfo?.teamMembers}
-                    />
+                    <SearchID height="30px" handleAddMember={inviteMember} />
+                    <Members members={teamInfo?.teamMembers} />
                     <Members
                         members={teamInfo?.invitations}
+                        handleDeleteMember={uninviteMember}
                     />
                 </div>
             </Field>

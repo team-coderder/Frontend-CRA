@@ -8,6 +8,7 @@ export {
 } from './team';
 export {
     inviteUser,
+    uninviteUser,
     getMyInvitations,
     acceptInvitation,
     rejectInvitation,

@@ -18,6 +18,9 @@ export const inviteUser = (teamId: number, memberIds: Array<number>) =>
         memberIds: memberIds,
     });
 
+export const uninviteUser = (inviteId: number) =>
+    API.patch(`/api/invite/cancel?invitationId=${inviteId}`);
+
 export const getMyInvitations = () =>
     API.get<getMyInvitationsReturnType>('/api/invite');
 

@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { AxiosError } from 'axios';
-import { getTeamInfo, updateTeamInfo, inviteUser } from '../../../api';
+import { getTeamInfo, updateTeamInfo, inviteUser, uninviteUser } from '../../../api';
 import type { User } from '../../../types';
 
 const useTeamInfo = (teamId: number) => {
@@ -36,11 +36,26 @@ const useTeamInfo = (teamId: number) => {
             }
         }
     };
+
+    const uninviteMember = async (inviteId: number) => {
+        try {
+            await uninviteUser(inviteId);
+            mutate();
+        } catch (err) {
+            if (err instanceof AxiosError) {
+                alert(err.response?.data?.message);
+            } else {
+                alert(err);
+            }
+        }
+    };
+
     return {
         teamInfo: data,
         error,
         changeName,
         inviteMember,
+        uninviteMember,
     };
 };
 
