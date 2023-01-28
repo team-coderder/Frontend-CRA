@@ -1,14 +1,13 @@
-import { TextInput, Button, Member } from '../components';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTeamInfo } from '../hooks';
 import { isNameValid } from '../utils';
-import { TextInput, Button, Member, MemberManagement } from '../components';
+import { TextInput, Button, SearchID } from '../components';
 import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 
 const GroupInfo = () => {
     const params = useParams();
-    const { teamInfo, error, changeName } = useTeamInfo(Number(params.teamId));
+    const { teamInfo, error, changeName, inviteMember } = useTeamInfo(Number(params.teamId));
     const [name, setName] = useState<string | undefined>(teamInfo?.name);
 
     if (error) {
@@ -44,6 +43,12 @@ const GroupInfo = () => {
             </Field>
             <Field>
                 <h3>멤버 관리</h3>
+                <div>
+                    <SearchID
+                        height="30px"
+                        handleAddMember={inviteMember}
+                    />
+                </div>
             </Field>
             <Field>
                 <h3>그룹 삭제</h3>

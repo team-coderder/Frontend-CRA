@@ -9,6 +9,7 @@ export { default as AnonymousLayout } from './layouts/AnonymousLayout';
 export { default as AuthLayout } from './layouts/AuthLayout';
 // Member Management
 export { default as MemberManagement } from './memberManagement/MemberManagement';
+export { default as SearchID } from './memberManagement/SearchID';
 // Navbar
 export { default as Groupbar } from './navbar/Groupbar';
 export { default as Navbar } from './navbar/Navbar';

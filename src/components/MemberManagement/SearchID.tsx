@@ -9,13 +9,7 @@ import { User } from '../../types';
 type SearchProps = {
     width?: string;
     height?: string;
-    space?: string;
-    onClick?: () => void;
-    focus?: boolean;
-    missing?: boolean;
-    searchId: string;
-    setSearchId: React.Dispatch<React.SetStateAction<string>>;
-    handleAddId: () => void;
+    handleAddMember: (member: User) => Promise<void>;
 };
 type ResultBoxProps = {
     onClick?: () => void;
@@ -23,10 +17,10 @@ type ResultBoxProps = {
     missing?: boolean;
 };
 
-const SearchContainer = styled.div<{ space: string | undefined }>`
+const SearchContainer = styled.div`
     position: relative;
     z-index: 2;
-    margin: ${({ space }) => space};
+    margin-bottom: 10px;
 `;
 const ResultContainer = styled.div`
     max-height: 150px;
@@ -53,23 +47,18 @@ const ResultId = styled.div`
     padding-left: 13px;
 `;
 
-const SearchID = ({
-    width,
-    height,
-    space,
-    searchId,
-    setSearchId,
-    handleAddId,
-}: SearchProps) => {
+const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
     const [focus, setFocus] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
+    const [searchName, setSearchName] = useState('');
     const [matchedUsers, setMatchedUsers] = useState<User[]>([]);
+    const [selected, setSelected] = useState(false);
 
     useEffect(() => {
         const findIds = async () => {
-            if (searchId) {
+            if (!selected && searchName) {
                 try {
-                    const { data } = await findByUsername(searchId);
+                    const { data } = await findByUsername(searchName);
                     setMatchedUsers(data.members);
                 } catch (e) {
                     console.log(e);
@@ -77,7 +66,7 @@ const SearchID = ({
             }
         };
         findIds();
-    }, [searchId]);
+    }, [selected, searchName]);
 
     useEffect(() => {
         function unFocus(event: MouseEvent): void {
@@ -87,30 +76,38 @@ const SearchID = ({
         return () => document.removeEventListener('mousedown', unFocus);
     }, []);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchId(event.currentTarget.value);
+    const handleClickAdd = async () => {
+        if (matchedUsers.length && matchedUsers[0].username === searchName) {
+            await handleAddMember(matchedUsers[0]);
+        }
+    };
+
+    const handleClickMatch = (user: User) => {
+        setSearchName(user.username);
+        setMatchedUsers([user]);
+        setSelected(true);
+    };
+
+    const handleChangeSearchName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchName(e.currentTarget.value);
+        setSelected(false);
     };
 
     return (
-        <SearchContainer
-            space={space}
-            ref={searchRef}
-            onFocus={() => setFocus(true)}
-        >
+        <SearchContainer ref={searchRef} onFocus={() => setFocus(true)}>
             <TextInput
                 width={width}
                 height={height}
-                placeholder="id검색"
-                value={searchId}
-                onChange={handleChange}
-                color="white"
+                placeholder="ID 검색"
+                value={searchName}
+                onChange={handleChangeSearchName}
             />
             <ResultContainer>
                 {matchedUsers.length && focus
-                    ? searchId &&
+                    ? searchName &&
                       matchedUsers.map((user) => (
                           <ResultBox
-                              onClick={() => setSearchId(user.username)}
+                              onClick={() => handleClickMatch(user)}
                               height={height}
                               key={user.id}
                           >
@@ -128,7 +125,7 @@ const SearchID = ({
             <BsPlusCircle
                 size="18"
                 style={{ cursor: 'pointer' }}
-                onClick={handleAddId}
+                onClick={handleClickAdd}
             />
         </SearchContainer>
     );

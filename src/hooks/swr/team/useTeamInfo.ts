@@ -1,13 +1,16 @@
 import useSWR from 'swr';
-import { getTeamInfo, updateTeamInfo } from '../../../api';
+import { AxiosError } from 'axios';
+import { getTeamInfo, updateTeamInfo, inviteUser } from '../../../api';
+import type { User } from '../../../types';
 
 const useTeamInfo = (teamId: number) => {
-    const fetcher = async () => {
+    const { data, error, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
+
+    async function fetcher() {
         const response = await getTeamInfo(teamId);
         return response.data;
-    };
+    }
 
-    const { data, error, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
 
     const changeName = async (newName: string) => {
         try {
@@ -19,10 +22,25 @@ const useTeamInfo = (teamId: number) => {
         }
     };
 
+    const inviteMember = async (member: User) => {
+        try {
+            if (data?.teamId && member.id) {
+                await inviteUser(data.teamId, [member.id]);
+                mutate();
+            }
+        } catch (err) {
+            if (err instanceof AxiosError) {
+                alert(err.response?.data?.message);
+            } else {
+                alert(err);
+            }
+        }
+    };
     return {
         teamInfo: data,
         error,
         changeName,
+        inviteMember,
     };
 };
 
