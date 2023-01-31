@@ -1,6 +1,6 @@
 import { setupWorker, rest } from 'msw';
 
-const MSW_MODE = false;
+const MSW_MODE = true;
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -214,45 +214,52 @@ const teamHandlers = [
 ];
 
 const scheduleHandlers = [
-    // 일정 조회하기
-    rest.get(
-        BASE_URL + `/api/schedule/calendar?userId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json([
-                    {
-                        userId: 'coderder815',
-                        name: 'test_schedule',
-                        weekday: 'MON',
-                        startTime: '11:00',
-                        finishTime: '12:30',
-                        memo: null,
-                        groupId: null,
-                    },
-                    {
-                        userId: 'coderder815',
-                        name: 'test_schedule12',
-                        weekday: 'TUE',
-                        startTime: '13:00',
-                        finishTime: '14:30',
-                        memo: null,
-                        groupId: null,
-                    },
-                ]),
-            );
-        },
-    ),
+    // 내 일정 조회하기
+    rest.get(BASE_URL + `/api/schedule/calendar`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json([
+                {
+                    id: 'dsflkkjeSDKFLJ',
+                    title: 'tea time',
+                    start: '2023-01-03T11:00:00',
+                    end: '2023-01-03T12:30:00',
+                    resourceId: 'coderder',
+                    nickname: '영희',
+                },
+                {
+                    id: 'jslskdjf234ks',
+                    title: 'break',
+                    start: '2023-01-03T12:30:00',
+                    end: '2023-01-03T14:40:00',
+                    resourceId: 'coderder',
+                    nickname: '영희',
+                },
+            ]),
+        );
+    }),
     // 내 일정 만들기
-    rest.patch(BASE_URL + `/api/schedule/myschedule`, async (req, res, ctx) => {
+    rest.post(BASE_URL + `/api/schedule/myschedule`, async (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json({
-                message: '개인 스케쥴 test_schedule추가 완료',
+                id: 'ksdljfkeWEER',
+                title: 'new Event',
+                start: '2023-01-04T12:30:00',
+                end: '2023-01-04T14:40:00',
+                resourceId: 'coderder',
+                nickname: '영희',
             }),
         );
     }),
-    // 팀원 전체 일정 조회
+    // 내 일정 삭제하기
+    rest.delete(
+        BASE_URL + `/api/schedule/myschedule?eventId={'asdf'}`,
+        async (req, res, ctx) => {
+            return res(ctx.status(200));
+        },
+    ),
+    // 팀 모든 멤버 일정 조회
     rest.get(
         BASE_URL + `/api/schedule/myteam?teamId=${1}`,
         async (req, res, ctx) => {
@@ -260,36 +267,40 @@ const scheduleHandlers = [
                 ctx.status(200),
                 ctx.json([
                     {
-                        userId: 'coderder815',
-                        name: 'test_schedule',
-                        weekday: 'MON',
-                        startTime: '11:00',
-                        finishTime: '12:30',
-                        memo: null,
-                        groupId: null,
+                        username: 'coderder815',
+                        schedule: [
+                            {
+                                id: 'klajsekfjAWEF',
+                                title: 'tea time',
+                                start: '2023-01-03T11:00:00',
+                                end: '2023-01-03T12:30:00',
+                                resourceId: 'coderder815',
+                                nickname: '영희',
+                            },
+                            {
+                                id: 'sddsfdsfEESD',
+                                title: 'break',
+                                start: '2023-01-03T12:00:00',
+                                end: '2023-01-03T14:40:00',
+                                resourceId: 'coderder815',
+                                nickname: '영희',
+                            },
+                        ],
                     },
                     {
-                        userId: 'coderder815',
-                        name: 'test_schedule',
-                        weekday: 'MON',
-                        startTime: '11:00',
-                        finishTime: '12:30',
-                        memo: null,
-                        groupId: null,
+                        username: 'coderder',
+                        schedule: [
+                            {
+                                id: 'DSEFFSdsfkljsde',
+                                title: 'work',
+                                start: '2023-01-03T09:00:00',
+                                end: '2023-01-03T12:30:00',
+                                resourceId: 'coderder',
+                                nickname: '민영',
+                            },
+                        ],
                     },
                 ]),
-            );
-        },
-    ),
-    // 팀 일정 생성하기
-    rest.post(
-        BASE_URL + `/api/schedule/teamschedule`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    message: '팀 스케쥴 team1_weekly_study 추가 완료',
-                }),
             );
         },
     ),
@@ -301,39 +312,42 @@ const scheduleHandlers = [
                 ctx.status(200),
                 ctx.json([
                     {
-                        name: 'team1_weekly_study',
-                        weekday: 'mon',
-                        startTime: '09:00:00',
-                        finishTime: '10:00:00',
-                        memo: null,
-                    },
-                    {
-                        name: 'team1_weekly_study',
-                        weekday: 'mon',
-                        startTime: '09:00:00',
-                        finishTime: '10:00:00',
-                        memo: null,
+                        id: 'dfERERRsdf',
+                        title: 'team1_weekly_study',
+                        start: '2023-01-05T09:00:00',
+                        end: '2023-01-05T12:30:00',
+                        resourceId: 'team',
                     },
                 ]),
             );
         },
     ),
+    // 팀 일정 생성하기
+    rest.post(
+        BASE_URL + `/api/schedule/teamschedule?teamId=${1}`,
+        async (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    id: 'sdlkfEEWEERsdf',
+                    title: 'new_study',
+                    start: '2023-01-05T14:00:00',
+                    end: '2023-01-05T15:30:00',
+                    resourceId: 'team',
+                }),
+            );
+        },
+    ),
     // 팀 시간 추천
     rest.get(
-        BASE_URL + `/api/schedule/recommendations`,
+        BASE_URL + `/api/schedule/recommendations?teamId=5&span=120`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
                 ctx.json([
                     {
-                        weekday: 'mon',
-                        start_time: '00:00:00',
-                        finish_time: '00:30:00',
-                    },
-                    {
-                        weekday: 'mon',
-                        start_time: '00:30:00',
-                        finish_time: '01:00:00',
+                        start: '2023-01-05T06:00:00',
+                        end: '2023-01-05T06:30:00',
                     },
                 ]),
             );
