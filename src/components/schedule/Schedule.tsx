@@ -15,6 +15,7 @@ import { WEEK_START, START_TIME } from '../../constant';
 import type { Event, EventSource } from '../../types';
 
 type ScheduleProps = {
+    selectable?: boolean;
     events?: Event[];
     eventSources?: EventSource[];
     handleEvents?: (events: EventApi[]) => void;
@@ -27,6 +28,7 @@ type ScheduleProps = {
 };
 
 const Schedule = ({
+    selectable,
     events,
     eventSources,
     handleEvents,
@@ -48,7 +50,7 @@ const Schedule = ({
             firstDay={1}
             weekends={true}
             slotEventOverlap={false}
-            selectable={true}
+            selectable={selectable ? true : false}
             selectMirror={true}
             editable={false}
             events={events}
