@@ -13,3 +13,5 @@ export { default as SearchID } from './members/SearchID';
 // Navbar
 export { default as Groupbar } from './navbar/Groupbar';
 export { default as Navbar } from './navbar/Navbar';
+// Schedule
+export { default as Schedule } from './schedule/Schedule';
