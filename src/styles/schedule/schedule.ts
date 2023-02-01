@@ -1,5 +1,5 @@
 import styled from '@emotion/styled/macro';
-import { generateColor } from '../../hooks/ColorMethod';
+import { generateColor } from '../../utils';
 
 export const MainSchedule = styled.div<{ name: string }>`
     margin-bottom: 50px;

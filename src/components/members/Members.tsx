@@ -1,6 +1,6 @@
 import styled from '@emotion/styled/macro';
 import { Member } from '..';
-import { generateColor } from '../../hooks/ColorMethod';
+import { generateColor } from '../../utils';
 import type { TeamMember, Invitation } from '../../types';
 
 const MemberBox = styled.div`
