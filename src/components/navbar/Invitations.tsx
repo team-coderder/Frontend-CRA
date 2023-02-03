@@ -17,7 +17,6 @@ function Invitations() {
                                 <td>
                                     <Button
                                         width="4em"
-                                        height="2.4em"
                                         onClick={() =>
                                             acceptInvite(invite.invitationId)
                                         }
@@ -28,7 +27,6 @@ function Invitations() {
                                 <td>
                                     <Button
                                         width="4em"
-                                        height="2.4em"
                                         onClick={() =>
                                             rejectInvite(invite.invitationId)
                                         }

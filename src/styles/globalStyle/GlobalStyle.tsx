@@ -22,7 +22,14 @@ const reset = css`
         line-height: 1;
         height: 100%;
         overflow: auto;
-        background-color: #84d3ec;
+        // background-color: #84d3ec;
+        background: linear-gradient(119.36deg, #464C6E 0%, #272B45 100%);
+    }
+    #root {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     a {
         text-decoration: none;

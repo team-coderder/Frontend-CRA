@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextInput, Button } from '../components';
-import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
+import { Main, Header, Field } from '../styles/globalStyle/PageLayout';
 import { useMyTeams } from '../hooks';
 import { isNameValid } from '../utils';
 
@@ -25,7 +25,7 @@ const AddGroup = () => {
     };
 
     return (
-        <Container>
+        <Main>
             <Header>
                 <h1>그룹 생성하기</h1>
             </Header>
@@ -49,7 +49,7 @@ const AddGroup = () => {
                     생성하기
                 </Button>
             </Field>
-        </Container>
+        </Main>
     );
 };
 

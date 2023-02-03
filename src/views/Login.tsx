@@ -40,7 +40,8 @@ const Login = () => {
             <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
-                    width="344px"
+                    // width="344px"
+                    width="100%"
                     height="30px"
                     margin="30px"
                     type="id"
@@ -49,7 +50,7 @@ const Login = () => {
                 />
                 <TextInput
                     id="password"
-                    width="344px"
+                    width="100%"
                     height="30px"
                     margin="30px"
                     type="password"
@@ -60,12 +61,10 @@ const Login = () => {
                     로그인
                 </Button>
                 <ExplainBox>
-                    <HelpBox>계정이 없다면?</HelpBox>
-                    <NavBox>
-                        <Nav url="/signup" color="white" underLine={true}>
-                            회원가입
-                        </Nav>
-                    </NavBox>
+                    계정이 없다면?&nbsp;&nbsp;
+                    <Nav url="/signup" color="white" underLine={true}>
+                        회원가입
+                    </Nav>
                 </ExplainBox>
             </FormBox>
         </FormContainer>

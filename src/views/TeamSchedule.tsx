@@ -4,7 +4,7 @@ import styled from '@emotion/styled/macro';
 import { Button, Nav, Members } from '../components';
 import { useTeamInfo } from '../hooks';
 import {
-    Container,
+    Main,
     Header,
     Field,
     AlignRight,
@@ -25,7 +25,7 @@ const TeamSchedule: React.FC = () => {
     const [name, setName] = useState('');
 
     return (
-        <Container>
+        <Main>
             <Header>
                 <h1>그룹 이름 {params.teamId}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
@@ -71,7 +71,7 @@ const TeamSchedule: React.FC = () => {
                     진하게
                 </Button>
             </Field>
-        </Container>
+        </Main>
     );
 };
 

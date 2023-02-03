@@ -50,7 +50,8 @@ const Component = styled.input<TextInputProps>`
     }
 `;
 
-const Label = styled.label`
+const Label = styled.label<{ width?: string }>`
+    width: ${(props) => props.width ?? '300px'};
     flex-direction: column;
     font-size: ${({ theme }) => theme.font.size.small};
 `;
@@ -69,7 +70,7 @@ const TextInput = ({
     onChange,
 }: TextInputProps) => {
     return (
-        <Label>
+        <Label width={width}>
             <Component
                 id={id}
                 type={type}

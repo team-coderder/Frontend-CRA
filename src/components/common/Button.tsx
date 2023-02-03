@@ -31,8 +31,8 @@ const Button = ({
     onClick,
 }: ButtonProps) => {
     const Component = styled.button`
-        width: ${width ?? '200px'};
-        height: ${height ?? '50px'};
+        width: ${width ?? '250px'};
+        height: ${height ?? '2.4em'};
         font-size: ${({ theme }) =>
             !fontSize ? theme.font.size.medium : theme.font.size[fontSize]};
         font-weight: ${({ theme }) =>
@@ -40,28 +40,27 @@ const Button = ({
                 ? theme.font.weight.normal
                 : theme.font.weight[fontWeight]};
         color: ${({ theme }) =>
-            !color ? theme.color.white : theme.color.black};
+            !color ? '#d0d6ff' : theme.color.black};
         background-color: ${({ theme }) =>
             !backgroundColor
-                ? theme.color.sub.common
+                ? '#1B222D'
                 : backgroundColor == 'main'
-                ? theme.color.main.common
-                : theme.color.gray};
+                    ? theme.color.main.common
+                    : theme.color.gray};
         cursor: pointer;
         border: none;
         border-radius: ${({ theme }) =>
             radius === 'small'
                 ? theme.borderRadius.small
                 : radius === 'large'
-                ? theme.borderRadius.large
-                : theme.borderRadius.medium};
+                    ? theme.borderRadius.large
+                    : theme.borderRadius.medium};
 
         transition: all 0.5s;
         &:hover {
             color: ${({ theme }) =>
-                !hoverColor ? color : theme.color[hoverColor]};
-            background-color: ${({ theme }) =>
-                !hoverBgColor ? backgroundColor : theme.color[hoverBgColor]};
+            !hoverColor ? color : theme.color[hoverColor]};
+            background-color: #090B0F;
         }
     `;
     return (

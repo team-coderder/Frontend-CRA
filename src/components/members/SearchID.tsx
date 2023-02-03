@@ -30,7 +30,7 @@ const ResultContainer = styled.div`
 `;
 const ResultBox = styled.div<ResultBoxProps>`
     background-color: ${({ theme, missing }) =>
-        !missing ? theme.color.main.light : theme.color.gray};
+        !missing ? '#1B222D' : theme.color.gray};
     height: ${({ height }) => height ?? 'auto'};
     padding: 5px;
     display: flex;
@@ -38,7 +38,7 @@ const ResultBox = styled.div<ResultBoxProps>`
     &:hover {
         cursor: pointer;
         background-color: ${({ theme, missing }) =>
-            !missing ? theme.color.main.dark : theme.color.gray};
+        !missing ? '#090B0F' : theme.color.gray};
     }
     z-index: 2;
     box-shadow: 1px 5px 5px gray;
@@ -105,22 +105,22 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
             <ResultContainer>
                 {matchedUsers.length && focus
                     ? searchName &&
-                      matchedUsers.map((user) => (
-                          <ResultBox
-                              onClick={() => handleClickMatch(user)}
-                              height={height}
-                              key={user.id}
-                          >
-                              <BsSearch />
-                              <ResultId>{user.username}</ResultId>
-                          </ResultBox>
-                      ))
+                    matchedUsers.map((user) => (
+                        <ResultBox
+                            onClick={() => handleClickMatch(user)}
+                            height={height}
+                            key={user.id}
+                        >
+                            <BsSearch />
+                            <ResultId>{user.username}</ResultId>
+                        </ResultBox>
+                    ))
                     : focus && (
-                          <ResultBox height={height} missing>
-                              <BsSearch />
-                              <ResultId>검색결과 없음</ResultId>
-                          </ResultBox>
-                      )}
+                        <ResultBox height={height} missing>
+                            <BsSearch />
+                            <ResultId>검색결과 없음</ResultId>
+                        </ResultBox>
+                    )}
             </ResultContainer>
             <BsPlusCircle
                 size="18"

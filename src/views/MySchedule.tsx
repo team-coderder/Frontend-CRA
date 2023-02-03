@@ -1,12 +1,12 @@
 import { Button } from '../components';
 import {
-    Container,
+    Main,
     Header,
     AlignRight,
 } from '../styles/globalStyle/PageLayout';
 
 const MySchedule = () => (
-    <Container>
+    <Main>
         <Header>
             <h1>내 스케쥴</h1>
             <AlignRight>
@@ -16,7 +16,7 @@ const MySchedule = () => (
             </AlignRight>
         </Header>
         (스케줄)
-    </Container>
+    </Main>
 );
 
 export default MySchedule;

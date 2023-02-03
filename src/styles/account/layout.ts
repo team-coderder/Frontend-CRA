@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro';
 
 const FormContainer = styled.div`
-    width: 400px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,8 +32,11 @@ const FormBox = styled.form`
 const ExplainBox = styled.div`
     display: flex;
     flex-direction: row;
-    width: 200px;
-    justify-content: space-around;
+    margin-top: 20px;
+    // width: 200px;
+    width: 100%;
+    justify-content: center;
+    font-size: small;
 `;
 
 const HelpBox = styled.div`

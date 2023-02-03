@@ -25,7 +25,7 @@ const Nav = ({
 }: LinkProps) => {
     const Component = styled(Link)`
         font-size: ${({ theme }) => theme.font.size[size ?? 'small']};
-        font-weight: ${({ theme }) => theme.font.weight[weight ?? 'bold']};
+        font-weight: ${({ theme }) => theme.font.weight[weight ?? '300']};
         color: ${color};
         text-decoration: ${underLine ? 'underline' : 'none'};
         display: block;
