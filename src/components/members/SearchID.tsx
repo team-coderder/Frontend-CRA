@@ -3,7 +3,7 @@ import styled from '@emotion/styled/macro';
 import { BsSearch, BsPlusCircle } from 'react-icons/bs';
 import { TextInput } from '..';
 import { findByUsername } from '../../api';
-import { onClickOutside } from '../../utils';
+import { onClickOutside, handleError } from '../../utils';
 import { User } from '../../types';
 
 type SearchProps = {
@@ -61,7 +61,7 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
                     const { data } = await findByUsername(searchName);
                     setMatchedUsers(data.members);
                 } catch (e) {
-                    console.log(e);
+                    handleError(e);
                 }
             }
         };

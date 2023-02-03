@@ -1,7 +1,12 @@
 import useSWR from 'swr';
-import { AxiosError } from 'axios';
-import { getTeamInfo, updateTeamInfo, inviteUser, uninviteUser } from '../../../api';
+import {
+    getTeamInfo,
+    updateTeamInfo,
+    inviteUser,
+    uninviteUser,
+} from '../../../api';
 import type { User } from '../../../types';
+import { handleError, isNameValid } from '../../../utils';
 
 const useTeamInfo = (teamId: number) => {
     const { data, error, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
@@ -11,14 +16,17 @@ const useTeamInfo = (teamId: number) => {
         return response.data;
     }
 
-
-    const changeName = async (newName: string) => {
+    const changeName = async (newName: string | undefined) => {
         try {
-            const { data } = await updateTeamInfo(teamId, { name: newName });
-            mutate();
-            alert(`그룹 이름이 ${data.name} 으로 바뀌었습니다`);
+            if (isNameValid(newName)) {
+                const { data } = await updateTeamInfo(teamId, {
+                    name: newName as string,
+                });
+                mutate();
+                alert(`그룹 이름이 ${data.name} 으로 바뀌었습니다`);
+            }
         } catch (e) {
-            alert(e);
+            handleError(e);
         }
     };
 
@@ -28,12 +36,8 @@ const useTeamInfo = (teamId: number) => {
                 await inviteUser(data.teamId, [member.id]);
                 mutate();
             }
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                alert(err.response?.data?.message);
-            } else {
-                alert(err);
-            }
+        } catch (e) {
+            handleError(e);
         }
     };
 
@@ -41,12 +45,8 @@ const useTeamInfo = (teamId: number) => {
         try {
             await uninviteUser(inviteId);
             mutate();
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                alert(err.response?.data?.message);
-            } else {
-                alert(err);
-            }
+        } catch (e) {
+            handleError(e);
         }
     };
 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
 import {
     FormBox,
@@ -12,7 +11,6 @@ import {
 import { useMyInfo } from '../hooks';
 
 const Login = () => {
-    const navigate = useNavigate();
     const { login } = useMyInfo();
     const [form, setForm] = useState({ username: '', password: '' });
 
@@ -25,13 +23,7 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        try {
-            await login(form);
-            navigate('/');
-        } catch (e) {
-            alert('로그인 정보를 다시 확인해주세요');
-        }
+        await login(form, '/');
     };
 
     return (

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTeamInfo } from '../hooks';
-import { isNameValid } from '../utils';
 import { TextInput, Button, SearchID, Members } from '../components';
 import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 
@@ -19,12 +18,6 @@ const GroupInfo = () => {
         );
     }
 
-    const handleChangeName = async () => {
-        if (isNameValid(name)) {
-            await changeName(name as string);
-        }
-    };
-
     return (
         <Container>
             <Header>
@@ -38,7 +31,11 @@ const GroupInfo = () => {
                     value={name}
                     onChange={(e) => setName(e.currentTarget.value)}
                 />
-                <Button height="2.5rem" width="9em" onClick={handleChangeName}>
+                <Button
+                    height="2.5rem"
+                    width="9em"
+                    onClick={async () => await changeName(name)}
+                >
                     이름 수정하기
                 </Button>
             </Field>
@@ -65,7 +62,7 @@ const GroupInfo = () => {
                     그룹 탈퇴
                 </Button>
             </Field>
-        </Container>
+        </Container >
     );
 };
 

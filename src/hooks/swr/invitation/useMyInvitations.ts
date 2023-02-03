@@ -5,6 +5,7 @@ import {
     rejectInvitation,
 } from '../../../api';
 import { useMyInfo } from '../../../hooks';
+import { handleError } from '../../../utils';
 
 const useMyInvitations = () => {
     const { token } = useMyInfo();
@@ -22,7 +23,7 @@ const useMyInvitations = () => {
             mutate();
             alert(`초대를 수락했습니다`);
         } catch (e) {
-            alert(e);
+            handleError(e);
         }
     };
 
@@ -32,7 +33,7 @@ const useMyInvitations = () => {
             mutate();
             alert(`초대를 거절했습니다`);
         } catch (e) {
-            alert(e);
+            handleError(e);
         }
     };
 

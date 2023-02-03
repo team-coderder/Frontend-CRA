@@ -10,6 +10,7 @@ import {
     HelpBox,
 } from '../styles/account/layout';
 import { sign_up } from '../api';
+import { handleError } from '../utils';
 
 type signUpForm = {
     username: string;
@@ -61,7 +62,7 @@ const Signup = () => {
                 await sign_up(form); // {"id":29,"username":"coderder100","nickname":"check-filter"}
                 navigate('/login');
             } catch (e) {
-                alert('이미 존재하는 아이디입니다');
+                handleError(e);
             }
         }
     };

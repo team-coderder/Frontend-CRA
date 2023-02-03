@@ -1,9 +1,12 @@
 import useSWR from 'swr';
+import { useNavigate } from 'react-router-dom';
 import storage from '../../../lib/storage';
 import { User } from '../../../types';
 import { login, getMyInfo } from '../../../api';
+import { handleError } from '../../../utils';
 
 const useMyInfo = () => {
+    const navigate = useNavigate();
     const { data: token, mutate: mutateToken } = useSWR(
         'token',
         () => storage.getEntry('token') as string | null,
@@ -19,13 +22,13 @@ const useMyInfo = () => {
             storage.setEntry('user', data);
             mutateUser();
         } catch (e) {
-            alert(e);
+            handleError(e);
         }
     };
 
     useSWR(user?.id ? ['useMyInfo', user?.id] : null, useMyInfoFetcher);
 
-    const logIn = async (formData) => {
+    const logIn = async (formData, navTo: string) => {
         try {
             const loginData = await login(formData);
             const userData = loginData.data;
@@ -35,8 +38,10 @@ const useMyInfo = () => {
             storage.setEntry('token', tokenData);
             mutateUser();
             mutateToken();
+
+            navigate(navTo);
         } catch (e) {
-            alert(e);
+            handleError(e);
         }
     };
 
