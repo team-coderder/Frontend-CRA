@@ -1,10 +1,17 @@
 export type Event = {
     id?: string;
-    title?: string;
-    start: string;
-    end: string;
-    resourceId?: string;
-    nickname?: string;
+    title: string;
+    start: string | Date;
+    end: string | Date;
+};
+
+export type UserEvent = Event & {
+    username: string;
+    nickname: string;
+};
+
+export type TeamEvent = Event & {
+    teamId: number;
 };
 
 export type EventSource = {

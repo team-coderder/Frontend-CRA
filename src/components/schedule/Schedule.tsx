@@ -12,12 +12,12 @@ import {
 } from '@fullcalendar/core';
 import { renderEventContent } from '../../utils';
 import { WEEK_START, START_TIME } from '../../constant';
-import type { Event, EventSource } from '../../types';
+import type { UserEvent, EventSource } from '../../types';
 
 type ScheduleProps = {
     selectable?: boolean;
-    events?: Event[];
-    eventSources?: EventSource[];
+    events?: UserEvent[] | undefined;
+    eventSources?: EventSource[] | undefined;
     handleEvents?: (events: EventApi[]) => void;
     handleDateSelect?: (selectInfo: DateSelectArg) => void;
     handleEventClick?: (clickInfo: EventClickArg) => void;
@@ -53,8 +53,8 @@ const Schedule = ({
             selectable={selectable ? true : false}
             selectMirror={true}
             editable={false}
-            events={events}
-            eventSources={eventSources}
+            events={events ?? []}
+            eventSources={eventSources ?? []}
             eventContent={renderEventContent}
             /* update local calendar */
             eventsSet={handleEvents}
