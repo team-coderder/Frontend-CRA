@@ -1,9 +1,8 @@
-export { sign_up, login, getMyInfo } from './auth';
+export { sign_up, login, getMyInfo, findByUsername } from './auth';
 export {
     createTeam,
     getTeamInfo,
     updateTeamInfo,
-    findByUsername,
     getMyTeams,
 } from './team';
 export {

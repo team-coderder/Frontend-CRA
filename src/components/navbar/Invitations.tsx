@@ -13,7 +13,7 @@ function Invitations() {
                     <tbody>
                         {myInvitations.map((invite) => (
                             <tr key={invite.invitationId}>
-                                <th>{invite.fromTeamId}</th>
+                                <th>{invite.team.name}</th>
                                 <td>
                                     <Button
                                         width="4em"
