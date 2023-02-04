@@ -14,6 +14,7 @@ type TeamMember = {
 };
 
 type GetTeamInfoResponse = UpdateTeamResponse & {
+    myRole: string;
     teamMembers: Array<TeamMember>;
     invitations: Array<Invitation>;
 };

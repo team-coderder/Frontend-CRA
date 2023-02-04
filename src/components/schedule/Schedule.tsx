@@ -11,7 +11,7 @@ import {
     EventRemoveArg,
 } from '@fullcalendar/core';
 import { renderEventContent } from '../../utils';
-import { WEEK_START, START_TIME } from '../../constant';
+import { START_DATE, START_TIME } from '../../constant';
 import type { UserEvent, EventSource } from '../../types';
 
 type ScheduleProps = {
@@ -45,7 +45,7 @@ const Schedule = ({
             headerToolbar={false}
             dayHeaderFormat={{ weekday: 'short' }}
             allDaySlot={false}
-            initialDate={WEEK_START}
+            initialDate={START_DATE}
             slotMinTime={START_TIME}
             firstDay={1}
             weekends={true}
