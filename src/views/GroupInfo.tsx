@@ -1,13 +1,20 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useTeamInfo } from '../hooks';
+import { useTeamInfo, useMyInfo } from '../hooks';
 import { TextInput, Button, SearchID, Members } from '../components';
 import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 
 const GroupInfo = () => {
     const params = useParams();
-    const { teamInfo, error, changeName, inviteMember, uninviteMember } =
-        useTeamInfo(Number(params.teamId));
+    const {
+        teamInfo,
+        error,
+        changeName,
+        removeMember,
+        inviteMember,
+        uninviteMember,
+    } = useTeamInfo(Number(params.teamId));
+    const { user } = useMyInfo();
     const [name, setName] = useState<string | undefined>(teamInfo?.name);
 
     if (error) {
@@ -43,7 +50,11 @@ const GroupInfo = () => {
                 <h3>멤버 관리</h3>
                 <div>
                     <SearchID height="30px" handleAddMember={inviteMember} />
-                    <Members members={teamInfo?.teamMembers} />
+                    <Members
+                        myUsername={user?.username}
+                        members={teamInfo?.teamMembers}
+                        handleDeleteMember={removeMember}
+                    />
                     <Members
                         members={teamInfo?.invitations}
                         handleDeleteMember={uninviteMember}

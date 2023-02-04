@@ -2,6 +2,7 @@ import useSWR from 'swr';
 import {
     getTeamInfo,
     updateTeamInfo,
+    removeUser,
     inviteUser,
     uninviteUser,
 } from '../../../api';
@@ -24,6 +25,17 @@ const useTeamInfo = (teamId: number) => {
                 });
                 mutate();
                 alert(`그룹 이름이 ${data.name} 으로 바뀌었습니다`);
+            }
+        } catch (e) {
+            handleError(e);
+        }
+    };
+
+    const removeMember = async (memberId: number) => {
+        try {
+            if (data?.teamId) {
+                await removeUser(teamId, memberId);
+                mutate();
             }
         } catch (e) {
             handleError(e);
@@ -54,6 +66,7 @@ const useTeamInfo = (teamId: number) => {
         teamInfo: data,
         error,
         changeName,
+        removeMember,
         inviteMember,
         uninviteMember,
     };

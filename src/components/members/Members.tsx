@@ -11,29 +11,35 @@ const MemberBox = styled.div`
 `;
 
 type MembersProp = {
+    myUsername?: string;
     members: TeamMember[] | Invitation[] | undefined;
     handleDeleteMember?: (id: number) => Promise<void>;
 };
 
-const Members = ({ members, handleDeleteMember }: MembersProp) => {
+const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
     const isInvitation = members?.length && members[0].hasOwnProperty('invitationId');
     const idProperty = isInvitation ? 'invitationId' : 'memberId';
 
     return (
         <MemberBox>
-            {members?.map((member) => (
-                <Member
-                    key={member[idProperty]}
-                    backgroundColor={generateColor(member.username ?? member.toMember?.username)}
-                    disable={handleDeleteMember ? true : false}
-                    memberId={member[idProperty]}
-                    onDelete={() => {
-                        handleDeleteMember!(member[idProperty]);
-                    }}
-                >
-                    {member.nickname ?? member.toMember?.nickname}
-                </Member>
-            ))}
+            {members?.map((member) => {
+                const isMe = member.username && member.username === myUsername;
+                return (
+                    <Member
+                        key={member[idProperty]}
+                        backgroundColor={generateColor(member.username ?? member.toMember?.username)}
+                        disable={!isMe && handleDeleteMember ? true : false}
+                        memberId={member[idProperty]}
+                        onDelete={() => {
+                            handleDeleteMember!(member[idProperty]);
+                        }}
+                    >
+                        {isMe
+                            ? '나'
+                            : member.nickname ?? member.toMember?.nickname}
+                    </Member>
+                );
+            })}
         </MemberBox>
     );
 };

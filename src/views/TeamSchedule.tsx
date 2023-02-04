@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import { Button, Nav, Members, Schedule } from '../components';
-import { useTeamInfo, useMemberSchedule, useTeamSchedule } from '../hooks';
+import { useMyInfo, useTeamInfo, useMemberSchedule, useTeamSchedule } from '../hooks';
 import { isEventAllowed } from '../utils';
 import {
     Container,
@@ -16,6 +16,7 @@ const TeamSchedule: React.FC = () => {
     const { teamId } = useParams();
     const [isLeader, setIsLeader] = useState(true);
     const [events, setEvents] = useState<EventApi[]>([]);
+    const { user } = useMyInfo();
     const { teamInfo } = useTeamInfo(Number(teamId));
     const { memberSchedule } = useMemberSchedule(Number(teamId));
     const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(Number(teamId));
@@ -99,7 +100,10 @@ const TeamSchedule: React.FC = () => {
             </MainSchedule>
             <Field>
                 <h3>그룹원</h3>
-                <Members members={teamInfo?.teamMembers} />
+                <Members
+                    myUsername={user?.username}
+                    members={teamInfo?.teamMembers}
+                />
             </Field>
             {/* <Field>
                 <h3>보기모드</h3>
