@@ -16,23 +16,22 @@ type MembersProp = {
 };
 
 const Members = ({ members, handleDeleteMember }: MembersProp) => {
-    const isInvitationList = members?.length && members[0].hasOwnProperty('invitationId');
-    const idProperty = isInvitationList ? 'invitationId' : 'memberId';
-    const nameProperty = isInvitationList ? 'toMemberId' : 'nickname';
+    const isInvitation = members?.length && members[0].hasOwnProperty('invitationId');
+    const idProperty = isInvitation ? 'invitationId' : 'memberId';
 
     return (
         <MemberBox>
             {members?.map((member) => (
                 <Member
                     key={member[idProperty]}
-                    backgroundColor={generateColor(member[nameProperty])}
+                    backgroundColor={generateColor(member.username ?? member.toMember?.username)}
                     disable={handleDeleteMember ? true : false}
                     memberId={member[idProperty]}
                     onDelete={() => {
                         handleDeleteMember!(member[idProperty]);
                     }}
                 >
-                    {member.nickname ?? member.toMemberId}
+                    {member.nickname ?? member.toMember?.nickname}
                 </Member>
             ))}
         </MemberBox>

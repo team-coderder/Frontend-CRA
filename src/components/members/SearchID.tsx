@@ -109,7 +109,7 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
                           <ResultBox
                               onClick={() => handleClickMatch(user)}
                               height={height}
-                              key={user.id}
+                              key={user.memberId}
                           >
                               <BsSearch />
                               <ResultId>{user.username}</ResultId>

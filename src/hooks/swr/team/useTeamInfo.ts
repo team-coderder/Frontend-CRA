@@ -32,8 +32,8 @@ const useTeamInfo = (teamId: number) => {
 
     const inviteMember = async (member: User) => {
         try {
-            if (data?.teamId && member.id) {
-                await inviteUser(data.teamId, [member.id]);
+            if (data?.teamId && member.memberId) {
+                await inviteUser(data.teamId, [member.memberId]);
                 mutate();
             }
         } catch (e) {

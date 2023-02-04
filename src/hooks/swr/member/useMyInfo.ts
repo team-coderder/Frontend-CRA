@@ -26,7 +26,7 @@ const useMyInfo = () => {
         }
     };
 
-    useSWR(user?.id ? ['useMyInfo', user?.id] : null, useMyInfoFetcher);
+    useSWR(user?.memberId ? ['useMyInfo', user?.memberId] : null, useMyInfoFetcher);
 
     const logIn = async (formData, navTo: string) => {
         try {
