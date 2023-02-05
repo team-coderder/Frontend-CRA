@@ -24,3 +24,6 @@ export const removeUser = (teamId: number, memberId: number) =>
 
 export const getMyTeams = () =>
     API.get<{ teams: Team[] }>(`/api/team/myteams`);
+
+export const leaveTeam = (teamId: number) =>
+    API.delete(`/api/team/myteam?teamId=${teamId}`);

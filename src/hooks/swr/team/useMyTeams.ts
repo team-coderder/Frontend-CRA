@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { getMyTeams, createTeam, deleteTeam } from '../../../api';
+import { getMyTeams, createTeam, deleteTeam, leaveTeam } from '../../../api';
 import { useMyInfo } from '../../../hooks';
 import { handleError, isNameValid } from '../../../utils';
 
@@ -44,6 +44,16 @@ const useMyTeams = () => {
         }
     };
 
+    const handleLeaveTeam = async (teamId: number) => {
+        try {
+            await leaveTeam(teamId);
+            alert(`그룹을 탈퇴했습니다`);
+            mutate();
+        } catch (e) {
+            handleError(e);
+        }
+    };
+
     return {
         myTeams: data?.teams,
         error,
@@ -51,6 +61,7 @@ const useMyTeams = () => {
         mutate,
         handleCreateTeam,
         handleDeleteTeam,
+        handleLeaveTeam,
     };
 };
 

@@ -6,6 +6,7 @@ export {
     deleteTeam,
     removeUser,
     getMyTeams,
+    leaveTeam,
 } from './team';
 export {
     inviteUser,

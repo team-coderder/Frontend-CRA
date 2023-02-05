@@ -76,12 +76,6 @@ const GroupInfo = () => {
                     그룹 삭제
                 </Button>
             </Field>
-            <Field>
-                <h3>그룹 탈퇴</h3>
-                <Button height="2.5rem" width="9em">
-                    그룹 탈퇴
-                </Button>
-            </Field>
         </Container>
     );
 };

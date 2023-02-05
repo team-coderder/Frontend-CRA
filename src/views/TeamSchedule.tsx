@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import { Button, Nav, Members, Schedule } from '../components';
-import { useMyInfo, useTeamInfo, useMemberSchedule, useTeamSchedule } from '../hooks';
+import {
+    useMyInfo,
+    useMyTeams,
+    useTeamInfo,
+    useMemberSchedule,
+    useTeamSchedule,
+} from '../hooks';
 import { isEventAllowed } from '../utils';
 import {
     Container,
@@ -14,9 +20,11 @@ import { MainSchedule } from '../styles/schedule/schedule';
 
 const TeamSchedule: React.FC = () => {
     const { teamId } = useParams();
-    const [isLeader, setIsLeader] = useState(true);
+    const navigate = useNavigate();
+    const [isLeader, setIsLeader] = useState(false);
     const [events, setEvents] = useState<EventApi[]>([]);
     const { user } = useMyInfo();
+    const { handleLeaveTeam } = useMyTeams();
     const { teamInfo } = useTeamInfo(Number(teamId));
     const { memberSchedule } = useMemberSchedule(Number(teamId));
     const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(Number(teamId));
@@ -65,12 +73,17 @@ const TeamSchedule: React.FC = () => {
         }
     }
 
+    async function handleClickLeave() {
+        await handleLeaveTeam(Number(teamId));
+        navigate(`/mySchedule`);
+    }
+
     return (
         <Container>
             <Header>
                 <h1>{teamInfo?.name}</h1>
-                {isLeader && (
-                    <AlignRight style={{ marginTop: '15px' }}>
+                <AlignRight style={{ marginTop: '15px' }}>
+                    {isLeader ? (
                         <Button hoverBgColor="black" height="2.5rem">
                             <Nav
                                 url={`/groupinfo/${teamId}`}
@@ -81,8 +94,10 @@ const TeamSchedule: React.FC = () => {
                                 그룹 정보 수정
                             </Nav>
                         </Button>
-                    </AlignRight>
-                )}
+                    ) : (
+                        <Button onClick={handleClickLeave}>그룹 탈퇴</Button>
+                    )}
+                </AlignRight>
             </Header>
             <MainSchedule>
                 <Schedule
