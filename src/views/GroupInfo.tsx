@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTeamInfo, useMyInfo } from '../hooks';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useTeamInfo, useMyInfo, useMyTeams } from '../hooks';
 import { TextInput, Button, SearchID, Members } from '../components';
 import { Container, Header, Field } from '../styles/globalStyle/PageLayout';
 
 const GroupInfo = () => {
     const params = useParams();
+    const navigate = useNavigate();
     const {
         teamInfo,
         error,
@@ -15,7 +16,15 @@ const GroupInfo = () => {
         uninviteMember,
     } = useTeamInfo(Number(params.teamId));
     const { user } = useMyInfo();
+    const { handleDeleteTeam } = useMyTeams();
     const [name, setName] = useState<string | undefined>(teamInfo?.name);
+
+    async function handleClickDelete() {
+        if (params.teamId) {
+            await handleDeleteTeam(Number(params.teamId));
+            navigate('/myschedule');
+        }
+    }
 
     if (error) {
         return (
@@ -63,7 +72,7 @@ const GroupInfo = () => {
             </Field>
             <Field>
                 <h3>그룹 삭제</h3>
-                <Button height="2.5rem" width="9em">
+                <Button height="2.5rem" width="9em" onClick={handleClickDelete}>
                     그룹 삭제
                 </Button>
             </Field>
@@ -73,7 +82,7 @@ const GroupInfo = () => {
                     그룹 탈퇴
                 </Button>
             </Field>
-        </Container >
+        </Container>
     );
 };
 

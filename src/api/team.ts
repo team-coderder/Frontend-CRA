@@ -16,6 +16,9 @@ export const getTeamInfo = (teamId: number) =>
 export const updateTeamInfo = (teamId: number, newName: { name: string }) =>
     API.patch<Team>(`/api/team?teamId=${teamId}`, newName);
 
+export const deleteTeam = (teamId: number) =>
+    API.delete(`/api/team?teamId=${teamId}`);
+
 export const removeUser = (teamId: number, memberId: number) =>
     API.delete(`/api/team/members?teamId=${teamId}&memberId=${memberId}`);
 

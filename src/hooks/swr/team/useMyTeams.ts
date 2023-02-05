@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { getMyTeams, createTeam } from '../../../api';
+import { getMyTeams, createTeam, deleteTeam } from '../../../api';
 import { useMyInfo } from '../../../hooks';
 import { handleError, isNameValid } from '../../../utils';
 
@@ -34,12 +34,23 @@ const useMyTeams = () => {
         }
     };
 
+    const handleDeleteTeam = async (teamId: number) => {
+        try {
+            await deleteTeam(teamId);
+            alert(`그룹이 삭제되었습니다`);
+            mutate();
+        } catch (e) {
+            handleError(e);
+        }
+    };
+
     return {
         myTeams: data?.teams,
         error,
         isLoading,
         mutate,
         handleCreateTeam,
+        handleDeleteTeam,
     };
 };
 

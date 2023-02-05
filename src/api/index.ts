@@ -3,6 +3,7 @@ export {
     createTeam,
     getTeamInfo,
     updateTeamInfo,
+    deleteTeam,
     removeUser,
     getMyTeams,
 } from './team';
