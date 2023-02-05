@@ -1,26 +1,25 @@
 import API from './base';
-
-type signUpForm = {
-    username: string;
-    password: string;
-    nickname: string;
-};
+import type { User } from '../types';
 
 type loginForm = {
     username: string;
     password: string;
 };
 
-type getMyInfoResponse = {
-    id: number;
-    username: string;
+type signUpForm = loginForm & {
     nickname: string;
 };
 
 export const sign_up = (signUpData: signUpForm) =>
-    API.post('/join', signUpData);
+    API.post<User>(`/join`, signUpData);
 
-export const login = (loginData: loginForm) => API.post('/login', loginData);
+export const login = (loginData: loginForm) =>
+    API.post<User>(`/login`, loginData);
 
 export const getMyInfo = (id: number) =>
-    API.get<getMyInfoResponse>(`/api/member/mypage?memberId=${id}`);
+    API.get<User>(`/api/member/mypage?memberId=${id}`);
+
+export const findByUsername = (userName: string) =>
+    API.get<{ members: User[] }>(
+        `/api/member/search/username?query=${userName}`,
+    );

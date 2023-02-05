@@ -13,11 +13,11 @@ import { useMyTeams } from '../../hooks';
 
 function Groupbar() {
     const { myTeams } = useMyTeams();
-    const [toggleGroups, setToggleGroups] = useState(false);
+    const [toggleGroups, setToggleGroups] = useState(true);
     const toggle = () => setToggleGroups(!toggleGroups);
 
     return (
-        <VerticalBar width={toggleGroups ? '15rem' : '4rem'}>
+        <VerticalBar width={toggleGroups ? '200px' : '4rem'}>
             <GroupList>
                 <Icon>
                     <FiMenu onClick={toggle} />
@@ -40,7 +40,7 @@ function Groupbar() {
                             ))}
                         </List>
                         <Bottom>
-                            <Button width="200px">
+                            <Button width="150px">
                                 <Nav url="/addGroup" size="medium" center>
                                     그룹 추가하기
                                 </Nav>

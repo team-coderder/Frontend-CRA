@@ -7,9 +7,7 @@ const FormContainer = styled.div`
     justify-content: center;
     align-items: center;
     /* background-color: ${({ theme }) => theme.color.white}; */
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     color: white;
 `;
 

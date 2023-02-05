@@ -1,44 +1,29 @@
 import API from './base';
-import { User, Invitation } from '../types';
+import type { Team, TeamMember, Invitation } from '../types';
 
-type UpdateTeamResponse = {
-    teamId: number;
-    name: string;
-};
-
-type TeamMember = {
-    memberId: number;
-    username: string;
-    nickname: string;
-    teamRole: string;
-};
-
-type GetTeamInfoResponse = UpdateTeamResponse & {
-    teamMembers: Array<TeamMember>;
-    invitations: Array<Invitation>;
-};
-
-type FindByUsernameResponse = {
-    members: User[];
-};
-
-type GetMyTeamsResponse = {
-    teams: Array<{ teamId: number; name: string }>;
+type GetTeamInfoResponse = Team & {
+    myRole: string;
+    teamMembers: TeamMember[];
+    invitations: Invitation[];
 };
 
 export const createTeam = (teamInfo: { name: string }) =>
-    API.post<UpdateTeamResponse>('/api/team', teamInfo);
+    API.post<Team>(`/api/team`, teamInfo);
 
 export const getTeamInfo = (teamId: number) =>
     API.get<GetTeamInfoResponse>(`/api/team?teamId=${teamId}`);
 
 export const updateTeamInfo = (teamId: number, newName: { name: string }) =>
-    API.patch<UpdateTeamResponse>(`/api/team?teamId=${teamId}`, newName);
+    API.patch<Team>(`/api/team?teamId=${teamId}`, newName);
 
-export const findByUsername = (userName: string) =>
-    API.get<FindByUsernameResponse>(
-        `/api/member/search/username?query=${userName}`,
-    );
+export const deleteTeam = (teamId: number) =>
+    API.delete(`/api/team?teamId=${teamId}`);
+
+export const removeUser = (teamId: number, memberId: number) =>
+    API.delete(`/api/team/members?teamId=${teamId}&memberId=${memberId}`);
 
 export const getMyTeams = () =>
-    API.get<GetMyTeamsResponse>('/api/team/myteams?');
+    API.get<{ teams: Team[] }>(`/api/team/myteams`);
+
+export const leaveTeam = (teamId: number) =>
+    API.delete(`/api/team/myteam?teamId=${teamId}`);

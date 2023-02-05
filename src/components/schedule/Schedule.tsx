@@ -11,13 +11,14 @@ import {
     EventRemoveArg,
 } from '@fullcalendar/core';
 import { renderEventContent } from '../../utils';
-import { WEEK_START, START_TIME } from '../../constant';
-import type { Event, EventSource } from '../../types';
+import { START_DATE, START_TIME } from '../../constant';
+import type { UserEvent, EventSource } from '../../types';
+import './schedule.css';
 
 type ScheduleProps = {
     selectable?: boolean;
-    events?: Event[];
-    eventSources?: EventSource[];
+    events?: UserEvent[] | undefined;
+    eventSources?: EventSource[] | undefined;
     handleEvents?: (events: EventApi[]) => void;
     handleDateSelect?: (selectInfo: DateSelectArg) => void;
     handleEventClick?: (clickInfo: EventClickArg) => void;
@@ -45,7 +46,7 @@ const Schedule = ({
             headerToolbar={false}
             dayHeaderFormat={{ weekday: 'short' }}
             allDaySlot={false}
-            initialDate={WEEK_START}
+            initialDate={START_DATE}
             slotMinTime={START_TIME}
             firstDay={1}
             weekends={true}
@@ -53,8 +54,8 @@ const Schedule = ({
             selectable={selectable ? true : false}
             selectMirror={true}
             editable={false}
-            events={events}
-            eventSources={eventSources}
+            events={events ?? []}
+            eventSources={eventSources ?? []}
             eventContent={renderEventContent}
             /* update local calendar */
             eventsSet={handleEvents}

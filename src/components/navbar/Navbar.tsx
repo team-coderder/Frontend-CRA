@@ -37,12 +37,12 @@ function Navbar() {
                 }
             >
                 <Menu>
-                    <Button>
+                    <Button width="250px">
                         <Nav url="/mySchedule" size="medium" center>
                             내 스케쥴
                         </Nav>
                     </Button>
-                    <Button onClick={handleLogOut}>
+                    <Button width="250px" onClick={handleLogOut}>
                         로그아웃
                     </Button>
                 </Menu>

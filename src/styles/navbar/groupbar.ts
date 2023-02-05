@@ -1,31 +1,26 @@
 import styled from '@emotion/styled/macro';
 
-type VerticalBarProps = {
-    width: string;
-};
-
 export const Container = styled.div`
-    // margin: auto;
+    margin: auto;
+    padding: 0 30px 30px 200px;
 `;
 export const Flex = styled.div`
     display: flex;
     position: relative;
 `;
 
-export const VerticalBar = styled.div<VerticalBarProps>`
+export const VerticalBar = styled.div<{ width: string }>`
     height: 100%;
-    border: 1px solid yellow;
     width: ${({ width }) => width};
+    padding: 10px;
     transition: all 0.2s;
     position: absolute;
     left: calc(-1 * ${({ width }) => width});
 `;
 export const GroupList = styled.div`
-    border: 1px solid red;
     position: sticky;
     top: 3rem;
-    padding: 1em;
-    // height: calc(100vh - 3rem);
+    height: min(100%, 70vh);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -34,18 +29,18 @@ export const GroupList = styled.div`
 export const GroupName = styled.div`
     height: 3em;
     padding: 1em 0.5em;
-    font-size: 1rem;
+    font-size: 0.8rem;
     white-space: nowrap;
     overflow: hidden;
 `;
 export const List = styled.div`
-    // height: calc(100vh - 12rem);
-    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: calc(100% - 4rem);
     overflow: auto;
-    border: 1px solid pink;
+    padding-top: 10px;
 `;
 export const Bottom = styled.div`
-    position: absolute;
-    bottom: 0;
-    padding-bottom: 1rem;
+    padding-top: 10px;
 `;

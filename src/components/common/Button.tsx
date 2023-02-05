@@ -31,7 +31,7 @@ const Button = ({
     onClick,
 }: ButtonProps) => {
     const Component = styled.button`
-        width: ${width ?? '250px'};
+        width: ${width ?? '150px'};
         height: ${height ?? '2.4em'};
         font-size: ${({ theme }) =>
             !fontSize ? theme.font.size.medium : theme.font.size[fontSize]};
@@ -55,6 +55,7 @@ const Button = ({
                 : radius === 'large'
                     ? theme.borderRadius.large
                     : theme.borderRadius.medium};
+        overflow: hidden;
 
         transition: all 0.5s;
         &:hover {

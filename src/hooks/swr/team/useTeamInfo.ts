@@ -1,7 +1,13 @@
 import useSWR from 'swr';
-import { AxiosError } from 'axios';
-import { getTeamInfo, updateTeamInfo, inviteUser, uninviteUser } from '../../../api';
+import {
+    getTeamInfo,
+    updateTeamInfo,
+    removeUser,
+    inviteUser,
+    uninviteUser,
+} from '../../../api';
 import type { User } from '../../../types';
+import { handleError, isNameValid } from '../../../utils';
 
 const useTeamInfo = (teamId: number) => {
     const { data, error, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
@@ -11,29 +17,39 @@ const useTeamInfo = (teamId: number) => {
         return response.data;
     }
 
-
-    const changeName = async (newName: string) => {
+    const changeName = async (newName: string | undefined) => {
         try {
-            const { data } = await updateTeamInfo(teamId, { name: newName });
-            mutate();
-            alert(`그룹 이름이 ${data.name} 으로 바뀌었습니다`);
+            if (isNameValid(newName)) {
+                const { data } = await updateTeamInfo(teamId, {
+                    name: newName as string,
+                });
+                mutate();
+                alert(`그룹 이름이 ${data.name} 으로 바뀌었습니다`);
+            }
         } catch (e) {
-            alert(e);
+            handleError(e);
+        }
+    };
+
+    const removeMember = async (memberId: number) => {
+        try {
+            if (data?.teamId) {
+                await removeUser(teamId, memberId);
+                mutate();
+            }
+        } catch (e) {
+            handleError(e);
         }
     };
 
     const inviteMember = async (member: User) => {
         try {
-            if (data?.teamId && member.id) {
-                await inviteUser(data.teamId, [member.id]);
+            if (data?.teamId && member.memberId) {
+                await inviteUser(data.teamId, [member.memberId]);
                 mutate();
             }
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                alert(err.response?.data?.message);
-            } else {
-                alert(err);
-            }
+        } catch (e) {
+            handleError(e);
         }
     };
 
@@ -41,12 +57,8 @@ const useTeamInfo = (teamId: number) => {
         try {
             await uninviteUser(inviteId);
             mutate();
-        } catch (err) {
-            if (err instanceof AxiosError) {
-                alert(err.response?.data?.message);
-            } else {
-                alert(err);
-            }
+        } catch (e) {
+            handleError(e);
         }
     };
 
@@ -54,6 +66,7 @@ const useTeamInfo = (teamId: number) => {
         teamInfo: data,
         error,
         changeName,
+        removeMember,
         inviteMember,
         uninviteMember,
     };

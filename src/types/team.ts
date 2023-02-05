@@ -1,20 +1,10 @@
-export type User = {
-    id: number;
-    username: string;
-    nickname: string;
+import type { User } from '.';
+
+export type Team = {
+    teamId: number;
+    name: string;
 };
 
-export type TeamMember = {
-    memberId: number;
-    username: string;
-    nickname: string;
+export type TeamMember = User & {
     teamRole: string;
-};
-
-export type Invitation = {
-    invitationId: number;
-    fromTeamId: number;
-    fromMemberId: number;
-    toMemberId: number;
-    createdAt: string;
 };

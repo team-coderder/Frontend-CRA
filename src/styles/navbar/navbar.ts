@@ -29,7 +29,7 @@ export const Menu = styled.div`
 
     border-radius: 10px;
 
-    background: linear-gradient(135.32deg, rgba(93, 101, 142, 0.48) 0%, rgba(35, 39, 62, 0) 68.37%);
+    background: linear-gradient(135.32deg, rgba(93, 101, 142, 0.8) 0%, rgba(35, 39, 62, 0.8) 68.37%);
     border: 1px solid;
     border-image-source: linear-gradient(135.32deg, rgba(93, 101, 142, 0.48) 68.37%, rgba(35, 39, 62, 0) 0%);
     box-shadow: -32px -32px 48px rgba(76, 83, 118, 0.17),

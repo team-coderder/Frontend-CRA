@@ -1,31 +1,17 @@
 import API from './base';
+import type { Invitation } from '../types';
 
-type Invitation = {
-    invitationId: number;
-    fromTeamId: number;
-    fromMemberId: number;
-    toMemberId: number;
-    createdAt: string;
-};
-
-type getMyInvitationsReturnType = {
-    invitations: Array<Invitation>;
-};
-
-export const inviteUser = (teamId: number, memberIds: Array<number>) =>
-    API.post('/api/invite', {
-        teamId: teamId,
-        memberIds: memberIds,
-    });
+export const inviteUser = (teamId: number, memberIds: number[]) =>
+    API.post(`/api/invite?teamId=${teamId}`, { memberIds: memberIds });
 
 export const uninviteUser = (inviteId: number) =>
     API.patch(`/api/invite/cancel?invitationId=${inviteId}`);
 
 export const getMyInvitations = () =>
-    API.get<getMyInvitationsReturnType>('/api/invite');
+    API.get<{ invitations: Invitation[] }>(`/api/invite`);
 
-export const acceptInvitation = (id: number) =>
-    API.patch(`/api/invite/accept?invitationId=${id}`);
+export const acceptInvitation = (inviteId: number) =>
+    API.patch(`/api/invite/accept?invitationId=${inviteId}`);
 
-export const rejectInvitation = (id: number) =>
-    API.patch(`/api/invite/refuse?invitationId=${id}`);
+export const rejectInvitation = (inviteId: number) =>
+    API.patch(`/api/invite/refuse?invitationId=${inviteId}`);

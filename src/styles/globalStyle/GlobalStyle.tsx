@@ -26,10 +26,12 @@ const reset = css`
         background: linear-gradient(119.36deg, #464C6E 0%, #272B45 100%);
     }
     #root {
-        height: 100%;
+        min-height: 100%;
+        margin: auto;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        // justify-content: center;
+        // align-items: center;
+        // overflow: auto;
     }
     a {
         text-decoration: none;

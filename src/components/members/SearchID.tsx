@@ -3,7 +3,7 @@ import styled from '@emotion/styled/macro';
 import { BsSearch, BsPlusCircle } from 'react-icons/bs';
 import { TextInput } from '..';
 import { findByUsername } from '../../api';
-import { onClickOutside } from '../../utils';
+import { onClickOutside, handleError } from '../../utils';
 import { User } from '../../types';
 
 type SearchProps = {
@@ -20,17 +20,23 @@ type ResultBoxProps = {
 const SearchContainer = styled.div`
     position: relative;
     z-index: 2;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    display: flex;
+`;
+const InputBox = styled.div`
+    margin-right: 10px;
 `;
 const ResultContainer = styled.div`
     max-height: 150px;
     overflow: auto;
     position: absolute;
-    width: 100%;
+    width: 300px;
 `;
 const ResultBox = styled.div<ResultBoxProps>`
     background-color: ${({ theme, missing }) =>
         !missing ? '#1B222D' : theme.color.gray};
+    color: ${({ theme, missing }) =>
+        missing && '#1B222D'};
     height: ${({ height }) => height ?? 'auto'};
     padding: 5px;
     display: flex;
@@ -61,7 +67,7 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
                     const { data } = await findByUsername(searchName);
                     setMatchedUsers(data.members);
                 } catch (e) {
-                    console.log(e);
+                    handleError(e);
                 }
             }
         };
@@ -95,36 +101,38 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
 
     return (
         <SearchContainer ref={searchRef} onFocus={() => setFocus(true)}>
-            <TextInput
-                width={width}
-                height={height}
-                placeholder="ID 검색"
-                value={searchName}
-                onChange={handleChangeSearchName}
-            />
-            <ResultContainer>
-                {matchedUsers.length && focus
-                    ? searchName &&
-                    matchedUsers.map((user) => (
-                        <ResultBox
-                            onClick={() => handleClickMatch(user)}
-                            height={height}
-                            key={user.id}
-                        >
-                            <BsSearch />
-                            <ResultId>{user.username}</ResultId>
-                        </ResultBox>
-                    ))
-                    : focus && (
-                        <ResultBox height={height} missing>
-                            <BsSearch />
-                            <ResultId>검색결과 없음</ResultId>
-                        </ResultBox>
-                    )}
-            </ResultContainer>
+            <InputBox>
+                <TextInput
+                    width={width}
+                    height={height}
+                    placeholder="ID 검색"
+                    value={searchName}
+                    onChange={handleChangeSearchName}
+                />
+                <ResultContainer>
+                    {matchedUsers.length && focus
+                        ? searchName &&
+                        matchedUsers.map((user) => (
+                            <ResultBox
+                                onClick={() => handleClickMatch(user)}
+                                height={height}
+                                key={user.memberId}
+                            >
+                                <BsSearch />
+                                <ResultId>{user.username}</ResultId>
+                            </ResultBox>
+                        ))
+                        : focus && (
+                            <ResultBox height={height} missing>
+                                <BsSearch />
+                                <ResultId>검색결과 없음</ResultId>
+                            </ResultBox>
+                        )}
+                </ResultContainer>
+            </InputBox>
             <BsPlusCircle
                 size="18"
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', lineHeight: '2.4em', margin: 'auto' }}
                 onClick={handleClickAdd}
             />
         </SearchContainer>

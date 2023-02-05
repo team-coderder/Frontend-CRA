@@ -1,7 +1,13 @@
 // common
 export { onClickOutside } from './common/onClickOutside';
 export { generateColor } from './common/generateColor';
-// team
-export { isNameValid } from './team/isNameValid';
+export { handleError } from './common/handleError';
 // schedule
 export { renderEventContent } from './schedule/renderEventContent';
+export { isEventAllowed } from './schedule/isEventAllowed';
+export {
+    generateDateFromString,
+    generateStringFromDate,
+} from './schedule/convertDate';
+// team
+export { isNameValid } from './team/isNameValid';

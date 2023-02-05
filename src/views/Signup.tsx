@@ -10,6 +10,7 @@ import {
     HelpBox,
 } from '../styles/account/layout';
 import { sign_up } from '../api';
+import { handleError } from '../utils';
 
 type signUpForm = {
     username: string;
@@ -39,8 +40,8 @@ const Signup = () => {
 
     const hasError = () =>
         form.password.length >= 6 &&
-        form.password.search(/[a-zA-z]/) > -1 &&
-        form.password.search(/[~!@#$%^&*_\-\+=`|\(){}[\]:;"'<>,./]/) > -1
+            form.password.search(/[a-zA-z]/) > -1 &&
+            form.password.search(/[~!@#$%^&*_\-\+=`|\(){}[\]:;"'<>,./]/) > -1
             ? false
             : true;
 
@@ -61,7 +62,7 @@ const Signup = () => {
                 await sign_up(form); // {"id":29,"username":"coderder100","nickname":"check-filter"}
                 navigate('/login');
             } catch (e) {
-                alert('이미 존재하는 아이디입니다');
+                handleError(e);
             }
         }
     };
@@ -72,7 +73,7 @@ const Signup = () => {
             <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
-                    width="344px"
+                    width="100%"
                     height="30px"
                     margin="30px"
                     type="id"
@@ -82,7 +83,7 @@ const Signup = () => {
                 />
                 <TextInput
                     id="password"
-                    width="344px"
+                    width="100%"
                     height="30px"
                     margin="30px"
                     type="password"
@@ -93,7 +94,7 @@ const Signup = () => {
                     error={hasError()}
                 />
                 <TextInput
-                    width="344px"
+                    width="100%"
                     height="30px"
                     margin="30px"
                     type="password"
@@ -105,7 +106,7 @@ const Signup = () => {
                 />
                 <TextInput
                     id="nickname"
-                    width="344px"
+                    width="100%"
                     height="30px"
                     margin="30px"
                     type="none"
@@ -117,12 +118,10 @@ const Signup = () => {
                     회원가입
                 </Button>
                 <ExplainBox>
-                    <HelpBox>이미 계정이 있다면</HelpBox>
-                    <NavBox>
-                        <Nav url="/login" color="white" underLine={true}>
-                            로그인
-                        </Nav>
-                    </NavBox>
+                    이미 계정이 있다면?&nbsp;&nbsp;
+                    <Nav url="/login" color="white" underLine={true}>
+                        로그인
+                    </Nav>
                 </ExplainBox>
             </FormBox>
         </FormContainer>

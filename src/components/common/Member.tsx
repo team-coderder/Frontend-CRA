@@ -23,7 +23,7 @@ const Component = styled.div<MemberProps>`
     position: relative;
     z-index: 1;
     width: ${(props) => props.width ?? '150px'};
-    height: ${(props) => props.height ?? '40px'};
+    height: ${(props) => props.height ?? '2.4em'};
     font-size: ${(props) =>
         ({ theme }) =>
             !props.fontSize
@@ -40,21 +40,22 @@ const Component = styled.div<MemberProps>`
             props.radius === 'small'
                 ? theme.borderRadius.small
                 : props.radius === 'large'
-                ? theme.borderRadius.large
-                : theme.borderRadius.medium};
+                    ? theme.borderRadius.large
+                    : theme.borderRadius.medium};
     transition: all 0.5s;
     &:hover {
         background-color: ${(props) =>
-            ({ theme }) =>
-                !props.focusBgColor
-                    ? props.backgroundColor
-                    : theme.color[props.focusBgColor]};
+        ({ theme }) =>
+            !props.focusBgColor
+                ? props.backgroundColor
+                : theme.color[props.focusBgColor]};
     }
     display: flex;
     justify-content: ${(props) => (props.disable ? 'space-between' : 'center')};
     align-items: center;
     padding-left: 1rem;
     padding-right: 1rem;
+    overflow: hidden;
 `;
 
 const Member = ({

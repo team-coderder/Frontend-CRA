@@ -1,10 +1,12 @@
-export { sign_up, login, getMyInfo } from './auth';
+export { sign_up, login, getMyInfo, findByUsername } from './auth';
 export {
     createTeam,
     getTeamInfo,
     updateTeamInfo,
-    findByUsername,
+    deleteTeam,
+    removeUser,
     getMyTeams,
+    leaveTeam,
 } from './team';
 export {
     inviteUser,
@@ -13,3 +15,13 @@ export {
     acceptInvitation,
     rejectInvitation,
 } from './invitation';
+export {
+    getMySchedule,
+    createMySchedule,
+    deleteMySchedule,
+    getMembersSchedule,
+    getTeamSchedule,
+    createTeamSchedule,
+    deleteTeamSchedule,
+    getRecommendation,
+} from './schedule';

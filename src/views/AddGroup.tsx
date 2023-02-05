@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { TextInput, Button } from '../components';
 import { Main, Header, Field } from '../styles/globalStyle/PageLayout';
 import { useMyTeams } from '../hooks';
-import { isNameValid } from '../utils';
 
 const AddGroup = () => {
     const navigate = useNavigate();
@@ -11,16 +10,9 @@ const AddGroup = () => {
     const { handleCreateTeam } = useMyTeams();
 
     const handleCreateGroup = async () => {
-        try {
-            if (isNameValid(groupName)) {
-                const newTeam = await handleCreateTeam(groupName);
-                navigate(`/teamschedule/${newTeam?.teamId}`);
-                alert(
-                    `팀 ${newTeam?.name}을 만들었습니다.\n[그룹 정보 수정]에서 멤버를 추가해보세요!`,
-                );
-            }
-        } catch (e) {
-            alert(e);
+        const newTeam = await handleCreateTeam(groupName);
+        if (newTeam) {
+            navigate(`/teamschedule/${newTeam?.teamId}`);
         }
     };
 

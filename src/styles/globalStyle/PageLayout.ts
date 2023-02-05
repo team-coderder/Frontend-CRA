@@ -4,7 +4,7 @@ export const Main = styled.main`
     max-width: 70vw;
     min-width: 900px;
     min-height: 600px;
-    padding: 7rem 2rem;
+    padding: 5rem 2rem 3rem 2rem;
     margin: auto;
 
     border-radius: 40px;
@@ -42,6 +42,15 @@ export const Field = styled.section`
         width: 150px;
         margin-right: 50px;
         font-weight: ${({ theme }) => theme.font.weight.normal};
+    }
+    h4 {
+        font-size: 0.8rem;
+        margin-bottom: 0.7rem;
+        font-weight: ${({ theme }) => theme.font.weight.normal};
+        color: #9b9fba;
+    }
+    :last-of-type {
+        margin-bottom: 0px;
     }
 `;
 
