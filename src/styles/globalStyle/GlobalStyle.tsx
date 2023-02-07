@@ -22,8 +22,13 @@ const reset = css`
         line-height: 1;
         height: 100%;
         overflow: auto;
-        // background-color: #84d3ec;
-        background: linear-gradient(119.36deg, #464C6E 0%, #272B45 100%);
+        // background: linear-gradient(119.36deg, #464C6E 0%, #272B45 100%);
+        // background: linear-gradient(119.36deg, #30cfd0 0%, #330867 100%);
+        // background: #0082c8;
+        // background: linear-gradient(119.36deg, #eeaeca 0%, #94bbe9 100%);
+        // background-color: #D9AFD9;
+        // background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
+        background: #eee;
     }
     #root {
         min-height: 100%;
