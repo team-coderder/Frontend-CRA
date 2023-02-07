@@ -114,17 +114,17 @@ const Signup = () => {
                     onChange={onChange}
                     placeholder="닉네임"
                 />
-                <Button type="submit" hoverBgColor="black">
+                <Button type="submit" inverse>
                     회원가입
                 </Button>
                 <ExplainBox>
                     이미 계정이 있다면?&nbsp;&nbsp;
-                    <Nav url="/login" color="white" underLine={true}>
+                    <Nav url="/login" underLine={true}>
                         로그인
                     </Nav>
                 </ExplainBox>
             </FormBox>
-        </FormContainer>
+        </FormContainer >
     );
 };
 

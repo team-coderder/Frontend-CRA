@@ -93,7 +93,7 @@ const TeamSchedule: React.FC = () => {
                 <h1>{teamInfo?.name}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
                     {isLeader ? (
-                        <Button hoverBgColor="black" height="2.5rem">
+                        <Button hoverBgColor="black" height="2.5rem" inverse>
                             <Nav
                                 url={`/groupinfo/${teamId}`}
                                 size="medium"

@@ -24,7 +24,7 @@ const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
 
     return (
         <MemberBox>
-            {members?.map((member) => {
+            {members?.length ? members?.map((member) => {
                 const isMe = member.username && member.username === myUsername;
                 return (
                     <Member
@@ -41,7 +41,7 @@ const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
                             : member.nickname ?? member.toMember?.nickname}
                     </Member>
                 );
-            })}
+            }) : <div>초대한 멤버가 없습니다</div>}
         </MemberBox>
     );
 };

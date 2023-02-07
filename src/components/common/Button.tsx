@@ -4,6 +4,7 @@ import styled from '@emotion/styled/macro';
 interface ButtonProps {
     width?: string;
     height?: string;
+    inverse?: boolean;
     fontSize?: 'large' | 'medium' | 'small';
     fontWeight?: 'bold' | 'normal' | 'thin';
     color?: 'white' | 'black';
@@ -19,6 +20,7 @@ interface ButtonProps {
 const Button = ({
     width,
     height,
+    inverse,
     fontSize,
     fontWeight,
     color,
@@ -39,14 +41,8 @@ const Button = ({
             !fontWeight
                 ? theme.font.weight.normal
                 : theme.font.weight[fontWeight]};
-        color: ${({ theme }) =>
-            !color ? '#d0d6ff' : theme.color.black};
-        background-color: ${({ theme }) =>
-            !backgroundColor
-                ? '#1B222D'
-                : backgroundColor == 'main'
-                    ? theme.color.main.common
-                    : theme.color.gray};
+        color: ${inverse ? '#eee' : '#1b222d'};
+        background-color: ${inverse ? '#1b222d' : '#eee'};
         cursor: pointer;
         border: none;
         border-radius: ${({ theme }) =>
@@ -59,9 +55,7 @@ const Button = ({
 
         transition: all 0.5s;
         &:hover {
-            color: ${({ theme }) =>
-            !hoverColor ? color : theme.color[hoverColor]};
-            background-color: #090B0F;
+            background-color: ${inverse ? '#090B0F' : '#ddd'};
         }
     `;
     return (

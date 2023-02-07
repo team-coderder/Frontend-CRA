@@ -24,11 +24,11 @@ export const GroupList = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    color: rgba(208, 214, 255, 0.7); //#d0d6ff;
 `;
 export const GroupName = styled.div`
     height: 3em;
     padding: 1em 0.5em;
+    // color: #1b222d;
     font-size: 0.8rem;
     white-space: nowrap;
     overflow: hidden;

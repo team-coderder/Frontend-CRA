@@ -49,12 +49,12 @@ const Login = () => {
                     value={form.password}
                     onChange={onChange}
                 />
-                <Button type="submit" hoverBgColor="black">
+                <Button type="submit" inverse>
                     로그인
                 </Button>
                 <ExplainBox>
                     계정이 없다면?&nbsp;&nbsp;
-                    <Nav url="/signup" color="white" underLine={true}>
+                    <Nav url="/signup" underLine={true}>
                         회원가입
                     </Nav>
                 </ExplainBox>

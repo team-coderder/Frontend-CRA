@@ -47,7 +47,7 @@ const GroupInfo = () => {
                     value={name}
                     onChange={(e) => setName(e.currentTarget.value)}
                 />
-                <Button onClick={async () => await changeName(name)}>
+                <Button inverse onClick={async () => await changeName(name)}>
                     이름 수정하기
                 </Button>
             </Field>
@@ -70,7 +70,7 @@ const GroupInfo = () => {
             </Field>
             <Field>
                 <h3>그룹 삭제</h3>
-                <Button height="2.5rem" width="9em" onClick={handleClickDelete}>
+                <Button inverse onClick={handleClickDelete}>
                     그룹 삭제
                 </Button>
             </Field>

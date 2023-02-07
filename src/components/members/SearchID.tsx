@@ -33,10 +33,8 @@ const ResultContainer = styled.div`
     width: 300px;
 `;
 const ResultBox = styled.div<ResultBoxProps>`
-    background-color: ${({ theme, missing }) =>
-        !missing ? '#1B222D' : theme.color.gray};
-    color: ${({ theme, missing }) =>
-        missing && '#1B222D'};
+color: ${({ missing }) => missing ? '#1B222D' : '#eee'};
+background-color: ${({ missing }) => missing ? '#eee' : '#1B222D'};
     height: ${({ height }) => height ?? 'auto'};
     padding: 5px;
     display: flex;
@@ -48,6 +46,9 @@ const ResultBox = styled.div<ResultBoxProps>`
     }
     z-index: 2;
     box-shadow: 1px 5px 5px gray;
+    * ResultId {
+        color: ${({ missing }) => missing ? '#1B222D' : '#eee'};
+    }
 `;
 const ResultId = styled.div`
     padding-left: 13px;

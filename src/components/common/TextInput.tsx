@@ -27,7 +27,8 @@ const Component = styled.input<TextInputProps>`
     width: ${(props) => props.width ?? '300px'};
     height: ${(props) => props.height ?? '2.4em'};
     margin: ${(props) => props.margin ?? '0'};
-    color: ${({ color, theme }) => (!color ? theme.color.white : theme.color.black)};
+    // color: ${({ color, theme }) => (!color ? theme.color.white : theme.color.black)};
+    color: #090B0F;
     margin-left: ${(props) => props.marginLeft ?? '0'};
     border-bottom: ${({ theme }) => theme.color.gray} 1px solid;
     border-left: medium none;
@@ -35,7 +36,8 @@ const Component = styled.input<TextInputProps>`
     border-top: medium none;
     placeholder: ${(props) => props.placeholder};
     ::placeholder {
-        color: ${({ theme }) => theme.color.white};
+        // color: ${({ theme }) => theme.color.white};
+        color: #090B0F;
     }
     &:focus {
         outline: none;
@@ -44,7 +46,7 @@ const Component = styled.input<TextInputProps>`
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus {
-        -webkit-text-fill-color: ${({ theme }) => theme.color.white};
+        -webkit-text-fill-color: color: #090B0F; //${({ theme }) => theme.color.white};
         -webkit-box-shadow: none;
         transition: background-color 5000s ease-in-out 0s;
     }

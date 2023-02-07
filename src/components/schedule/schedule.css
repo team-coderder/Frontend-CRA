@@ -1,7 +1,8 @@
 .fc {
+    position: relative;
     z-index: 0;
 }
 
 .fc-timegrid-event-harness-inset {
-    border: 2px solid white;
+    border: none;
 }

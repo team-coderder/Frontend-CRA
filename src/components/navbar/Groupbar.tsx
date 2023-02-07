@@ -40,7 +40,7 @@ function Groupbar() {
                             ))}
                         </List>
                         <Bottom>
-                            <Button width="150px">
+                            <Button width="150px" inverse>
                                 <Nav url="/addGroup" size="medium" center>
                                     그룹 추가하기
                                 </Nav>

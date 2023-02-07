@@ -10,6 +10,8 @@ export const InvitationTable = styled.table`
         // font-weight: bold;
     }
     th {
+        color: #eee;
+        font-weight: 300;
         width: 8em;
         border-top: 10px solid transparent;
     }
@@ -20,6 +22,8 @@ export const InvitationTable = styled.table`
 `;
 
 export const NoticeText = styled.div`
+
+color: rgba(208, 214, 255, 0.7); //#d0d6ff;
     padding: 1rem;
     display: flex;
     justify-content: center;

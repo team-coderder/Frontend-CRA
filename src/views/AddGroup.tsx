@@ -32,12 +32,7 @@ const AddGroup = () => {
             </Field>
             <Field>
                 <h3>그룹 추가</h3>
-                <Button
-                    onClick={handleCreateGroup}
-                    height="2.5rem"
-                    width="9em"
-                    hoverBgColor="black"
-                >
+                <Button onClick={handleCreateGroup} inverse>
                     생성하기
                 </Button>
             </Field>
