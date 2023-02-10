@@ -22,16 +22,15 @@ const AddGroup = () => {
                 <h1>그룹 생성하기</h1>
             </Header>
             <Field>
-                <h3>그룹 이름</h3>
+                <h2>그룹 이름</h2>
                 <TextInput
-                    height="30px"
-                    placeholder="그룹 이름을 입력해주세요."
+                    placeholder="그룹 이름을 입력해주세요"
                     value={groupName}
                     onChange={(e) => setGroupName(e.currentTarget.value)}
                 />
             </Field>
             <Field>
-                <h3>그룹 추가</h3>
+                <h2>그룹 추가</h2>
                 <Button onClick={handleCreateGroup} inverse>
                     생성하기
                 </Button>

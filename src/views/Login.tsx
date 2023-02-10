@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Button, TextInput, Nav } from '../components';
 import {
-    FormBox,
     FormContainer,
+    FormBox,
     Header,
-    HelpBox,
-    NavBox,
     ExplainBox,
-} from '../styles/account/layout';
+} from '../styles/componentStyle/auth';
 import { useMyInfo } from '../hooks';
 
 const Login = () => {
@@ -28,24 +26,23 @@ const Login = () => {
 
     return (
         <FormContainer>
-            <Header>로그인</Header>
+            <Header>
+                <h1>로그인</h1>
+            </Header>
             <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
-                    // width="344px"
-                    width="100%"
-                    height="30px"
-                    margin="30px"
                     type="id"
+                    width="100%"
+                    placeholder="아이디"
                     value={form.username}
                     onChange={onChange}
                 />
                 <TextInput
                     id="password"
-                    width="100%"
-                    height="30px"
-                    margin="30px"
                     type="password"
+                    width="100%"
+                    placeholder="비밀번호"
                     value={form.password}
                     onChange={onChange}
                 />
@@ -54,7 +51,7 @@ const Login = () => {
                 </Button>
                 <ExplainBox>
                     계정이 없다면?&nbsp;&nbsp;
-                    <Nav url="/signup" underLine={true}>
+                    <Nav url="/signup" underline>
                         회원가입
                     </Nav>
                 </ExplainBox>

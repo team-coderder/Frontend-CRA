@@ -12,6 +12,9 @@ declare module '@emotion/react' {
                         concave: string;
                     };
                 };
+                tan: {
+                    main: string;
+                };
                 dark: {
                     main: string;
                     hover: string;

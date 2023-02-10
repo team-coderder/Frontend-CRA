@@ -2,13 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Nav, TextInput } from '../components';
 import {
-    FormBox,
     FormContainer,
+    FormBox,
     Header,
-    NavBox,
     ExplainBox,
-    HelpBox,
-} from '../styles/account/layout';
+} from '../styles/componentStyle/auth';
 import { sign_up } from '../api';
 import { handleError } from '../utils';
 
@@ -69,62 +67,56 @@ const Signup = () => {
 
     return (
         <FormContainer>
-            <Header>Sign up</Header>
+            <Header>
+                <h1>회원가입</h1>
+            </Header>
             <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
-                    width="100%"
-                    height="30px"
-                    margin="30px"
                     type="id"
+                    width="100%"
+                    placeholder="아이디"
                     value={form.username}
                     onChange={onChange}
-                    placeholder="아이디"
                 />
                 <TextInput
                     id="password"
-                    width="100%"
-                    height="30px"
-                    margin="30px"
                     type="password"
+                    width="100%"
+                    placeholder="비밀번호"
                     value={form.password}
                     onChange={onChange}
-                    placeholder="비밀번호"
-                    message="6자 이상, 1개 이상 문자, 1개 이상 특수문자를 사용하세요."
+                    errorMessage="6자 이상, 1개 이상 특수문자를 사용하세요"
                     error={hasError()}
                 />
                 <TextInput
                     width="100%"
-                    height="30px"
-                    margin="30px"
                     type="password"
+                    placeholder="비밀번호 재확인"
                     value={confirmPassword}
                     onChange={onChangeConfirmPassword}
-                    placeholder="비밀번호 재확인"
-                    message="비밀번호가 일치하지 않습니다."
+                    errorMessage="비밀번호가 일치하지 않습니다."
                     error={notSameError()}
                 />
                 <TextInput
                     id="nickname"
-                    width="100%"
-                    height="30px"
-                    margin="30px"
                     type="none"
+                    width="100%"
+                    placeholder="닉네임"
                     value={form.nickname}
                     onChange={onChange}
-                    placeholder="닉네임"
                 />
                 <Button type="submit" inverse>
                     회원가입
                 </Button>
                 <ExplainBox>
                     이미 계정이 있다면?&nbsp;&nbsp;
-                    <Nav url="/login" underLine={true}>
+                    <Nav url="/login" underline>
                         로그인
                     </Nav>
                 </ExplainBox>
             </FormBox>
-        </FormContainer >
+        </FormContainer>
     );
 };
 

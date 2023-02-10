@@ -5,9 +5,8 @@ import {
     VerticalBar,
     GroupList,
     GroupName,
-    Bottom,
     List,
-} from '../../styles/navbar/groupbar';
+} from '../../styles/componentStyle/navbar';
 import { Icon } from '../../styles/globalStyle/PageLayout';
 import { useMyTeams } from '../../hooks';
 
@@ -29,23 +28,14 @@ function Groupbar() {
                                 <Nav
                                     key={group.teamId}
                                     url={`/teamschedule/${group.teamId}`}
-                                    weight="normal"
                                 >
-                                    <GroupName>
-                                        {toggleGroups
-                                            ? group.name
-                                            : group.name[0]}
-                                    </GroupName>
+                                    <GroupName>{group.name}</GroupName>
                                 </Nav>
                             ))}
                         </List>
-                        <Bottom>
-                            <Button width="150px" inverse>
-                                <Nav url="/addGroup" size="medium" center>
-                                    그룹 추가하기
-                                </Nav>
-                            </Button>
-                        </Bottom>
+                        <Button inverse>
+                            <Nav url="/addGroup">그룹 추가하기</Nav>
+                        </Button>
                     </>
                 )}
             </GroupList>

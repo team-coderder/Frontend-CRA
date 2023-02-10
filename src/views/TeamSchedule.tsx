@@ -16,7 +16,6 @@ import {
     Field,
     AlignRight,
 } from '../styles/globalStyle/PageLayout';
-import { MainSchedule } from '../styles/schedule/schedule';
 
 const TeamSchedule: React.FC = () => {
     const { teamId } = useParams();
@@ -93,13 +92,8 @@ const TeamSchedule: React.FC = () => {
                 <h1>{teamInfo?.name}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
                     {isLeader ? (
-                        <Button hoverBgColor="black" height="2.5rem" inverse>
-                            <Nav
-                                url={`/groupinfo/${teamId}`}
-                                size="medium"
-                                fill
-                                center
-                            >
+                        <Button inverse>
+                            <Nav url={`/groupinfo/${teamId}`}>
                                 그룹 정보 수정
                             </Nav>
                         </Button>
@@ -108,7 +102,7 @@ const TeamSchedule: React.FC = () => {
                     )}
                 </AlignRight>
             </Header>
-            <MainSchedule>
+            <div style={{ marginBottom: '50px' }}>
                 <Schedule
                     selectable={isLeader}
                     eventSources={[
@@ -121,13 +115,15 @@ const TeamSchedule: React.FC = () => {
                     handleEventAdd={handleEventAdd}
                     handleEventRemove={handleEventRemove}
                 />
-            </MainSchedule>
+            </div>
             <Field>
-                <h3>그룹원</h3>
-                <Members
-                    myUsername={user?.username}
-                    members={teamInfo?.teamMembers}
-                />
+                <h2>그룹원</h2>
+                <div style={{ width: '100%' }}>
+                    <Members
+                        myUsername={user?.username}
+                        members={teamInfo?.teamMembers}
+                    />
+                </div>
             </Field>
             {/* <Field>
                 <h3>보기모드</h3>

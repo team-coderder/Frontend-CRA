@@ -15,6 +15,7 @@ const SearchContainer = styled.div`
     z-index: 1;
     margin-bottom: 20px;
     display: flex;
+    align-items: center;
 `;
 
 const ResultContainer = styled.div`
@@ -111,10 +112,7 @@ const SearchID = ({ handleAddMember }: SearchProps) => {
                     : focus && <ResultBox missing>검색결과 없음</ResultBox>}
             </ResultContainer>
             <BsPlusCircle
-                style={{
-                    cursor: 'pointer',
-                    margin: 'auto',
-                }}
+                style={{ cursor: 'pointer' }}
                 onClick={handleClickAdd}
             />
         </SearchContainer>

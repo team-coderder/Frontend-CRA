@@ -11,6 +11,9 @@ const theme: Theme = {
                     concave: 'rgb(204 219 232) 3px 3px 6px 0px inset, rgb(255 255 255 / 50%) -3px -3px 6px 1px inset',
                 },
             },
+            tan: {
+                main: 'rgba(223, 207, 190, 0.8)',
+            },
             dark: {
                 main: '#1B222D',
                 hover: '#090B0F',

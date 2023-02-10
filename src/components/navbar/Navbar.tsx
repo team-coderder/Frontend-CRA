@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { Modal, Button, Nav } from '..';
 import { BsBell, BsPersonFill } from 'react-icons/bs';
-import { Name, HorizontalBar, Menu } from '../../styles/navbar/navbar';
+import { Name, HorizontalBar, Menu } from '../../styles/componentStyle/navbar';
 import { Icon } from '../../styles/globalStyle/PageLayout';
 import Invitations from './Invitations';
 import { useMyInfo } from '../../hooks';
@@ -37,14 +37,10 @@ function Navbar() {
                 }
             >
                 <Menu>
-                    <Button width="250px">
-                        <Nav url="/mySchedule" size="medium" center>
-                            내 스케쥴
-                        </Nav>
+                    <Button>
+                        <Nav url="/mySchedule">내 스케쥴</Nav>
                     </Button>
-                    <Button width="250px" onClick={handleLogOut}>
-                        로그아웃
-                    </Button>
+                    <Button onClick={handleLogOut}>로그아웃</Button>
                 </Menu>
             </Modal>
         </HorizontalBar>
