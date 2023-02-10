@@ -1,40 +1,43 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
 
-interface LinkProps {
-    size?: 'large' | 'medium' | 'small';
-    weight?: 'bold' | 'normal';
-    color?: 'black' | 'white';
-    underLine?: true | false;
-    fill?: boolean;
-    center?: boolean;
+type LinkProps = {
+    fontSize?: string;
+    fontWeight?: 'bold' | 'normal';
+    color?: string;
+    underline?: true | false;
     children: React.ReactNode;
     url: string;
-}
+};
+
+const NavComponent = styled(Link) <Omit<LinkProps, 'url'>>`
+    font-size: ${({ fontSize }) => fontSize ?? 'inherit'};
+    font-weight: ${({ fontWeight, theme }) =>
+        fontWeight ? theme.font.weight[fontWeight] : 'inherit'};
+    color: ${({ color }) => color ?? 'inherit'};
+    text-decoration: ${({ underline }) => (underline ? 'underline' : 'none')};
+    display: block;
+`;
 
 const Nav = ({
-    size,
-    weight,
+    fontSize,
+    fontWeight,
     color,
-    underLine,
-    fill,
-    center,
+    underline,
     children,
     url,
 }: LinkProps) => {
-    const Component = styled(Link)`
-        font-size: ${({ theme }) => theme.font.size[size ?? 'small']};
-        font-weight: ${({ theme }) => theme.font.weight[weight ?? '300']};
-        color: ${color};
-        text-decoration: ${underLine ? 'underline' : 'none'};
-        display: block;
-        height: ${fill && '100%'};
-        display: flex;
-        justify-content: ${center ? 'center' : 'normal'};
-        align-items: ${center ? 'center' : 'normal'};
-    `;
-    return <Component to={url}>{children}</Component>;
+    return (
+        <NavComponent
+            to={url}
+            fontSize={fontSize}
+            fontWeight={fontWeight}
+            color={color}
+            underline={underline}
+        >
+            {children}
+        </NavComponent>
+    );
 };
 
 export default Nav;
