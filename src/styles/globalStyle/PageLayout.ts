@@ -9,6 +9,9 @@ export const Main = styled.main`
     padding: 80px 30px 50px;
     border-radius: ${({ theme }) => theme.borderRadius.large};
     box-shadow: ${({ theme }) => theme.color.background.light.shadow.convex};
+    ::-webkit-scrollbar-track {
+        margin: 30px 0;
+    }
 `;
 
 export const Header = styled.header`

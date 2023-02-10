@@ -28,4 +28,10 @@ const reset = css`
         margin: auto;
         display: flex;
     }
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #c1c9d6;
+    }
 `;
