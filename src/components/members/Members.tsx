@@ -11,7 +11,7 @@ type MembersProp = {
 
 const MembersContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 150px);
+    grid-template-columns: repeat(auto-fill, 130px);
     gap: 5px;
     :not(:last-of-type) {
         margin-bottom: 20px;

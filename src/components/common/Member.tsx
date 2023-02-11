@@ -14,11 +14,11 @@ type MemberProps = {
 
 const MemberComponent = styled.div<MemberProps>`
     position: relative;
-    width: ${({ width }) => width ?? '150px'};
+    width: ${({ width }) => width ?? '130px'};
     height: ${({ height }) => height ?? '2.4em'};
     padding: 0 1rem;
     font-size: ${({ fontSize, theme }) => fontSize ?? theme.font.size.base};
-    color: ${({ theme }) => theme.font.color.main.light};
+    color: ${({ theme }) => theme.font.color.main.dark};
     background-color: ${({ backgroundColor }) => backgroundColor};
     border: none;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
