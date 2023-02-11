@@ -9,22 +9,15 @@ import {
     TeamSchedule,
     NotFound,
 } from '../views';
-import { useMyInfo } from '../hooks';
 
 const mainRoutes = () => {
-    const { user } = useMyInfo();
-
     return [
         {
             path: '/',
-            element: user ? (
-                <Navigate to="/myschedule" />
-            ) : (
-                <Navigate to="/login" />
-            ),
+            element: <Navigate to="/myschedule" />,
         },
         {
-            element: <AnonymousLayout user={user} />,
+            element: <AnonymousLayout />,
             children: [
                 {
                     path: '/login',
@@ -37,7 +30,7 @@ const mainRoutes = () => {
             ],
         },
         {
-            element: <AuthLayout user={user} />,
+            element: <AuthLayout />,
             children: [
                 {
                     path: '/myschedule',
