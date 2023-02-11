@@ -20,6 +20,7 @@ import {
     Header,
     Field,
     AlignRight,
+    Spinner,
 } from '../styles/globalStyle/PageLayout';
 
 const TeamSchedule: React.FC = () => {
@@ -29,7 +30,7 @@ const TeamSchedule: React.FC = () => {
     const [events, setEvents] = useState<EventApi[]>([]);
     const { user } = useMyInfo();
     const { handleLeaveTeam } = useMyTeams();
-    const { teamInfo } = useTeamInfo(Number(teamId));
+    const { teamInfo, isLoading: infoLoading } = useTeamInfo(Number(teamId));
     const { memberSchedule } = useMemberSchedule(Number(teamId));
     const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(Number(teamId));
 
@@ -93,6 +94,14 @@ const TeamSchedule: React.FC = () => {
 
     function handleMouseLeave(leaveInfo: EventHoveringArg) {
         hideTooltip(leaveInfo);
+    }
+
+    if (infoLoading) {
+        return (
+            <Main>
+                <Spinner />
+            </Main>
+        );
     }
 
     return (

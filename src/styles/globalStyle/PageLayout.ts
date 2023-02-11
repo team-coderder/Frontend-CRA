@@ -1,4 +1,5 @@
 import styled from '@emotion/styled/macro';
+import { keyframes } from '@emotion/react';
 
 export const Main = styled.main`
     max-width: 70vw;
@@ -63,4 +64,23 @@ export const Icon = styled.div<{ background?: string }>`
     :hover {
         box-shadow: ${({ theme }) => theme.color.background.light.shadow.concave};
     }
+`;
+
+const spinner = keyframes`
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }  
+`;
+
+export const Spinner = styled.div`
+    width: 40px;
+    height: 40px;
+    border: 10px solid ${({ theme }) => theme.color.background.tan.main};
+    border-top: 10px solid ${({ theme }) => theme.color.background.dark.main};
+    border-radius: 50%;
+    animation: ${spinner} 1s linear infinite;
+    margin: auto;
 `;
