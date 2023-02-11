@@ -24,3 +24,17 @@
 .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link {
     box-shadow: none;
 }
+.tooltip {
+    display: none;
+    position: fixed;
+    white-space: pre;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 0.8em;
+    color: white;
+    background: #1B222D; /*deeppink;*/
+    z-index: 1;
+}
+.tooltip.show {
+    display: block;
+}

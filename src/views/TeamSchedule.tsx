@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
+import {
+    EventApi,
+    DateSelectArg,
+    EventClickArg,
+    EventHoveringArg,
+} from '@fullcalendar/core';
 import { Button, Nav, Members, Schedule } from '../components';
 import {
     useMyInfo,
@@ -9,7 +14,7 @@ import {
     useMemberSchedule,
     useTeamSchedule,
 } from '../hooks';
-import { isEventAllowed, setInset } from '../utils';
+import { isEventAllowed, setInset, showTooltip, hideTooltip } from '../utils';
 import {
     Main,
     Header,
@@ -69,6 +74,7 @@ const TeamSchedule: React.FC = () => {
     }
 
     function handleEventClick(clickInfo: EventClickArg) {
+        hideTooltip(clickInfo);
         if (isLeader && clickInfo.event.extendedProps.teamId) {
             if (confirm(`일정 '${clickInfo.event.title}' 를 지울까요?`)) {
                 clickInfo.event.remove();
@@ -79,6 +85,14 @@ const TeamSchedule: React.FC = () => {
     async function handleClickLeave() {
         await handleLeaveTeam(Number(teamId));
         navigate(`/mySchedule`);
+    }
+
+    function handleMouseEnter(hoverInfo: EventHoveringArg) {
+        showTooltip(hoverInfo);
+    }
+
+    function handleMouseLeave(leaveInfo: EventHoveringArg) {
+        hideTooltip(leaveInfo);
     }
 
     return (
@@ -107,6 +121,8 @@ const TeamSchedule: React.FC = () => {
                     handleEvents={handleEvents}
                     handleDateSelect={handleDateSelect}
                     handleEventClick={handleEventClick}
+                    handleMouseEnter={handleMouseEnter}
+                    handleMouseLeave={handleMouseLeave}
                     handleEventAdd={handleEventAdd}
                     handleEventRemove={handleEventRemove}
                 />

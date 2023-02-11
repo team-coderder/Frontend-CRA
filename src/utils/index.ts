@@ -10,5 +10,6 @@ export {
     generateStringFromDate,
 } from './schedule/convertDate';
 export { setInset } from './schedule/setInset';
+export { showTooltip, hideTooltip } from './schedule/handleTooltip';
 // team
 export { isNameValid } from './team/isNameValid';
