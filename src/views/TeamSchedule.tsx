@@ -9,7 +9,7 @@ import {
     useMemberSchedule,
     useTeamSchedule,
 } from '../hooks';
-import { isEventAllowed } from '../utils';
+import { isEventAllowed, setInset } from '../utils';
 import {
     Main,
     Header,
@@ -35,13 +35,8 @@ const TeamSchedule: React.FC = () => {
     }, [teamInfo?.myRole]);
 
     useEffect(() => {
-        const els = document.getElementsByClassName('fc-timegrid-event-harness-inset');
-        const columns = teamInfo?.teamMembers?.length;
-        console.log(els, typeof els, Array.isArray(els), '멤버수', columns);
-        for (const el of Object.entries(els)) {
-            console.log();
-        }
-    }, [memberSchedule]);
+        setInset(teamInfo?.teamMembers?.length);
+    }, [teamSchedule, memberSchedule, teamInfo?.teamMembers]);
 
     function handleEvents(events: EventApi[]) {
         const teamEvents = events.filter(

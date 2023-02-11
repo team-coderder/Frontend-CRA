@@ -9,5 +9,6 @@ export {
     generateDateFromString,
     generateStringFromDate,
 } from './schedule/convertDate';
+export { setInset } from './schedule/setInset';
 // team
 export { isNameValid } from './team/isNameValid';

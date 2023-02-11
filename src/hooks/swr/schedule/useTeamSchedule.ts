@@ -32,6 +32,7 @@ const useTeamSchedule = (teamId: number) => {
             {
                 id: 'team',
                 events: events,
+                className: ['team-event'],
             },
         ];
         return eventSource;
