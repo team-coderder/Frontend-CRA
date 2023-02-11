@@ -13,8 +13,10 @@ const useTeamInfo = (teamId: number) => {
     const { data, error, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
 
     async function fetcher() {
-        const response = await getTeamInfo(teamId);
-        return response.data;
+        const { data } = await getTeamInfo(teamId);
+        data.teamMembers = data.teamMembers.sort((a, b) => a.memberId - b.memberId);
+        data.invitations = data.invitations.sort((a, b) => a.toMember.memberId - b.toMember.memberId);
+        return data;
     }
 
     const changeName = async (newName: string | undefined) => {
