@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Button } from '..';
 import {
     InvitationsContainer,
@@ -18,7 +19,7 @@ function Invitations() {
                         <NoticeText>초대 받은 그룹</NoticeText>
                         <Grid>
                             {myInvitations.map((invite) => (
-                                <>
+                                <Fragment key={invite.invitationId}>
                                     <InviteName>{invite.team.name}</InviteName>
                                     <Button
                                         width="50px"
@@ -36,7 +37,7 @@ function Invitations() {
                                     >
                                         거절
                                     </Button>
-                                </>
+                                </Fragment>
                             ))}
                         </Grid>
                     </>
