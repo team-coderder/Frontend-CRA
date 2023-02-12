@@ -37,6 +37,8 @@ const TeamSchedule: React.FC = () => {
     useEffect(() => {
         if (teamInfo?.myRole === 'LEADER') {
             setIsLeader(true);
+        } else {
+            setIsLeader(false);
         }
     }, [teamInfo?.myRole]);
 
@@ -116,7 +118,7 @@ const TeamSchedule: React.FC = () => {
                             </Nav>
                         </Button>
                     ) : (
-                        <Button onClick={handleClickLeave}>그룹 탈퇴</Button>
+                        <Button onClick={handleClickLeave} inverse>그룹 탈퇴</Button>
                     )}
                 </AlignRight>
             </Header>
