@@ -111,7 +111,7 @@ const Signup = () => {
                 </Button>
                 <ExplainBox>
                     이미 계정이 있다면?&nbsp;&nbsp;
-                    <Nav url="/login" underline>
+                    <Nav url="/login" underline="underline">
                         로그인
                     </Nav>
                 </ExplainBox>

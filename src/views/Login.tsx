@@ -51,7 +51,7 @@ const Login = () => {
                 </Button>
                 <ExplainBox>
                     계정이 없다면?&nbsp;&nbsp;
-                    <Nav url="/signup" underline>
+                    <Nav url="/signup" underline="underline">
                         회원가입
                     </Nav>
                 </ExplainBox>

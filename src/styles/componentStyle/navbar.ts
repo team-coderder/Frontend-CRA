@@ -67,7 +67,7 @@ export const Menu = styled.div`
     padding: 15px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     background: ${({ theme }) => theme.color.background.tan.main};
-    & > Button:first-child {
+    & > Button:first-of-type {
         margin-bottom: 10px;
     }
 `;

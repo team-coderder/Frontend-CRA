@@ -5,7 +5,7 @@ type LinkProps = {
     fontSize?: string;
     fontWeight?: 'bold' | 'normal';
     color?: string;
-    underline?: true | false;
+    underline?: 'underline';
     children: React.ReactNode;
     url: string;
 };
