@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Nav, TextInput } from '../components';
 import {
-    FormBox,
     FormContainer,
+    FormBox,
     Header,
-    NavBox,
     ExplainBox,
-    HelpBox,
-} from '../styles/account/layout';
+} from '../styles/componentStyle/auth';
 import { sign_up } from '../api';
+import { handleError } from '../utils';
 
 type signUpForm = {
     username: string;
@@ -39,8 +38,8 @@ const Signup = () => {
 
     const hasError = () =>
         form.password.length >= 6 &&
-        form.password.search(/[a-zA-z]/) > -1 &&
-        form.password.search(/[~!@#$%^&*_\-\+=`|\(){}[\]:;"'<>,./]/) > -1
+            form.password.search(/[a-zA-z]/) > -1 &&
+            form.password.search(/[~!@#$%^&*_\-\+=`|\(){}[\]:;"'<>,./]/) > -1
             ? false
             : true;
 
@@ -61,68 +60,60 @@ const Signup = () => {
                 await sign_up(form); // {"id":29,"username":"coderder100","nickname":"check-filter"}
                 navigate('/login');
             } catch (e) {
-                alert('이미 존재하는 아이디입니다');
+                handleError(e);
             }
         }
     };
 
     return (
         <FormContainer>
-            <Header>Sign up</Header>
+            <Header>
+                <h1>회원가입</h1>
+            </Header>
             <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
-                    width="344px"
-                    height="30px"
-                    margin="30px"
                     type="id"
+                    width="100%"
+                    placeholder="아이디"
                     value={form.username}
                     onChange={onChange}
-                    placeholder="아이디"
                 />
                 <TextInput
                     id="password"
-                    width="344px"
-                    height="30px"
-                    margin="30px"
                     type="password"
+                    width="100%"
+                    placeholder="비밀번호"
                     value={form.password}
                     onChange={onChange}
-                    placeholder="비밀번호"
-                    message="6자 이상, 1개 이상 문자, 1개 이상 특수문자를 사용하세요."
+                    errorMessage="6자 이상, 1개 이상 특수문자를 사용하세요"
                     error={hasError()}
                 />
                 <TextInput
-                    width="344px"
-                    height="30px"
-                    margin="30px"
+                    width="100%"
                     type="password"
+                    placeholder="비밀번호 재확인"
                     value={confirmPassword}
                     onChange={onChangeConfirmPassword}
-                    placeholder="비밀번호 재확인"
-                    message="비밀번호가 일치하지 않습니다."
+                    errorMessage="비밀번호가 일치하지 않습니다."
                     error={notSameError()}
                 />
                 <TextInput
                     id="nickname"
-                    width="344px"
-                    height="30px"
-                    margin="30px"
                     type="none"
+                    width="100%"
+                    placeholder="닉네임"
                     value={form.nickname}
                     onChange={onChange}
-                    placeholder="닉네임"
                 />
-                <Button type="submit" hoverBgColor="black">
+                <Button type="submit" inverse>
                     회원가입
                 </Button>
                 <ExplainBox>
-                    <HelpBox>이미 계정이 있다면</HelpBox>
-                    <NavBox>
-                        <Nav url="/login" color="white" underLine={true}>
-                            로그인
-                        </Nav>
-                    </NavBox>
+                    이미 계정이 있다면?&nbsp;&nbsp;
+                    <Nav url="/login" underline="underline">
+                        로그인
+                    </Nav>
                 </ExplainBox>
             </FormBox>
         </FormContainer>

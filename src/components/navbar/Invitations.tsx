@@ -1,5 +1,10 @@
 import { Button } from '..';
-import { InvitationTable, NoticeText } from '../../styles/navbar/invitations';
+import {
+    InvitationsContainer,
+    NoticeText,
+    Grid,
+    InviteName,
+} from '../../styles/componentStyle/navbar';
 import { useMyInvitations } from '../../hooks';
 
 function Invitations() {
@@ -7,42 +12,38 @@ function Invitations() {
 
     return (
         <>
-            <InvitationTable>
-                <caption>초대 받은 그룹</caption>
+            <InvitationsContainer>
                 {myInvitations?.length ? (
-                    <tbody>
-                        {myInvitations.map((invite) => (
-                            <tr key={invite.invitationId}>
-                                <th>{invite.fromTeamId}</th>
-                                <td>
+                    <>
+                        <NoticeText>초대 받은 그룹</NoticeText>
+                        <Grid>
+                            {myInvitations.map((invite) => (
+                                <>
+                                    <InviteName>{invite.team.name}</InviteName>
                                     <Button
-                                        width="4em"
-                                        height="2.4em"
+                                        width="50px"
                                         onClick={() =>
                                             acceptInvite(invite.invitationId)
                                         }
                                     >
                                         수락
                                     </Button>
-                                </td>
-                                <td>
                                     <Button
-                                        width="4em"
-                                        height="2.4em"
+                                        width="50px"
                                         onClick={() =>
                                             rejectInvite(invite.invitationId)
                                         }
                                     >
                                         거절
                                     </Button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
+                                </>
+                            ))}
+                        </Grid>
+                    </>
                 ) : (
                     <NoticeText>초대장이 없습니다</NoticeText>
                 )}
-            </InvitationTable>
+            </InvitationsContainer>
         </>
     );
 }

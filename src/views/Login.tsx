@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
 import {
-    FormBox,
     FormContainer,
+    FormBox,
     Header,
-    HelpBox,
-    NavBox,
     ExplainBox,
-} from '../styles/account/layout';
+} from '../styles/componentStyle/auth';
 import { useMyInfo } from '../hooks';
 
 const Login = () => {
-    const navigate = useNavigate();
     const { login } = useMyInfo();
     const [form, setForm] = useState({ username: '', password: '' });
 
@@ -25,47 +21,39 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        try {
-            await login(form);
-            navigate('/');
-        } catch (e) {
-            alert('로그인 정보를 다시 확인해주세요');
-        }
+        await login(form, '/');
     };
 
     return (
         <FormContainer>
-            <Header>로그인</Header>
+            <Header>
+                <h1>로그인</h1>
+            </Header>
             <FormBox onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
-                    width="344px"
-                    height="30px"
-                    margin="30px"
                     type="id"
+                    width="100%"
+                    placeholder="아이디"
                     value={form.username}
                     onChange={onChange}
                 />
                 <TextInput
                     id="password"
-                    width="344px"
-                    height="30px"
-                    margin="30px"
                     type="password"
+                    width="100%"
+                    placeholder="비밀번호"
                     value={form.password}
                     onChange={onChange}
                 />
-                <Button type="submit" hoverBgColor="black">
+                <Button type="submit" inverse>
                     로그인
                 </Button>
                 <ExplainBox>
-                    <HelpBox>계정이 없다면?</HelpBox>
-                    <NavBox>
-                        <Nav url="/signup" color="white" underLine={true}>
-                            회원가입
-                        </Nav>
-                    </NavBox>
+                    계정이 없다면?&nbsp;&nbsp;
+                    <Nav url="/signup" underline="underline">
+                        회원가입
+                    </Nav>
                 </ExplainBox>
             </FormBox>
         </FormContainer>

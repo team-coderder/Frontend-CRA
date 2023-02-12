@@ -1,15 +1,20 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { Navbar, Groupbar } from '..';
-import { Flex } from '../../styles/navbar/groupbar';
+import { Container, Flex } from '../../styles/componentStyle/navbar';
+import { useMyInfo } from '../../hooks';
 
-const AuthLayout = ({ user }) => {
+const AuthLayout = () => {
+    const { user } = useMyInfo();
+
     return user ? (
         <>
-            <Navbar />
-            <Flex>
-                <Groupbar />
-                <Outlet />
-            </Flex>
+            <Container>
+                <Navbar />
+                <Flex>
+                    <Groupbar />
+                    <Outlet />
+                </Flex>
+            </Container>
         </>
     ) : (
         <Navigate to="/login" />

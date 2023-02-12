@@ -9,22 +9,15 @@ import {
     TeamSchedule,
     NotFound,
 } from '../views';
-import { useMyInfo } from '../hooks';
 
 const mainRoutes = () => {
-    const { user } = useMyInfo();
-
     return [
         {
             path: '/',
-            element: user ? (
-                <Navigate to="/myschedule" />
-            ) : (
-                <Navigate to="/login" />
-            ),
+            element: <Navigate to="/myschedule" />,
         },
         {
-            element: <AnonymousLayout user={user} />,
+            element: <AnonymousLayout />,
             children: [
                 {
                     path: '/login',
@@ -37,7 +30,7 @@ const mainRoutes = () => {
             ],
         },
         {
-            element: <AuthLayout user={user} />,
+            element: <AuthLayout />,
             children: [
                 {
                     path: '/myschedule',
@@ -48,7 +41,9 @@ const mainRoutes = () => {
                     children: [
                         {
                             index: true,
-                            element: <NotFound message='No group found under this ID' />,
+                            element: (
+                                <NotFound message="No group found under this ID" />
+                            ),
                         },
                         {
                             path: ':teamId',
@@ -62,7 +57,18 @@ const mainRoutes = () => {
                 },
                 {
                     path: '/groupinfo',
-                    element: <GroupInfo />,
+                    children: [
+                        {
+                            index: true,
+                            element: (
+                                <NotFound message="No group found under this ID" />
+                            ),
+                        },
+                        {
+                            path: ':teamId',
+                            element: <GroupInfo />,
+                        },
+                    ],
                 },
             ],
         },

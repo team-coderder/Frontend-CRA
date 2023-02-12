@@ -1,143 +1,151 @@
-import React, { useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
-import styled from '@emotion/styled/macro';
-import { DayPilot, DayPilotCalendar } from '@daypilot/daypilot-lite-react';
-import { Button, Member } from '../components';
-import { generateColor } from '../hooks/ColorMethod';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
-    Container,
+    EventApi,
+    DateSelectArg,
+    EventClickArg,
+    EventHoveringArg,
+} from '@fullcalendar/core';
+import { Button, Nav, Members, Schedule } from '../components';
+import {
+    useMyInfo,
+    useMyTeams,
+    useTeamInfo,
+    useMemberSchedule,
+    useTeamSchedule,
+} from '../hooks';
+import { isEventAllowed, setInset, showTooltip, hideTooltip } from '../utils';
+import {
+    Main,
     Header,
     Field,
     AlignRight,
+    Spinner,
 } from '../styles/globalStyle/PageLayout';
-import { MainSchedule, MemberBox } from '../styles/schedule/schedule';
-
-const data = [
-    {
-        id: 1,
-        start: DayPilot.Date.today().addHours(12),
-        end: DayPilot.Date.today().addHours(13),
-        text: 'Event 1',
-    },
-    {
-        id: 2,
-        start: DayPilot.Date.today().addHours(18),
-        end: DayPilot.Date.today().addHours(20),
-        text: 'Event 2',
-    },
-];
-
-export const IconBox = styled.div`
-    display: flex;
-    min-width: 30px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-`;
-
-const dummy = ['강정구', '진지연', '송민진', '임지우', '권영재', '김철수'];
 
 const TeamSchedule: React.FC = () => {
-    const params = useParams();
-    const calendarRef: any = useRef();
-    const todayDate = DayPilot.Date.today();
-    const newmodal = DayPilot.Modal;
-    const [name, setName] = useState('');
-    // const init = (args) => (args.control.events.list = data);
-    // useEffect(() => {
-    //     calendarRef.control.events.list = data;
-    // }, []);
-    const state = {
-        viewType: 'Week',
-        durationBarVisible: false,
-        timeRangeSelectedHandling: 'Enabled',
-        dayBeginsHour: 9,
-        businessEndsHour: 24,
-        heightSpec: 'BusinessHoursNoScroll',
-        onBeforeHeaderRender: (args: any) => {
-            args.header.html = args.heaer.start.toString('yyyy/M/d');
-        },
-        onTimeRangeSelected: async (args: any) => {
-            console.log('args : ', args);
-            const dp = args.control;
-            console.log('dp : ', dp);
-            // dp.update({ startDate, data });
-            const modal = await newmodal.prompt(
-                '생성할 스케줄 이름 : ',
-                'Schedule 1',
-                { theme: 'modal_rounded' },
-            );
-            dp.clearSelection();
-            if (!modal.result) {
-                return;
+    const { teamId } = useParams();
+    const navigate = useNavigate();
+    const [isLeader, setIsLeader] = useState(false);
+    const [events, setEvents] = useState<EventApi[]>([]);
+    const { user } = useMyInfo();
+    const { handleLeaveTeam } = useMyTeams();
+    const { teamInfo, isLoading: infoLoading } = useTeamInfo(Number(teamId));
+    const { memberSchedule } = useMemberSchedule(Number(teamId));
+    const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(Number(teamId));
+
+    useEffect(() => {
+        if (teamInfo?.myRole === 'LEADER') {
+            setIsLeader(true);
+        }
+    }, [teamInfo?.myRole]);
+
+    useEffect(() => {
+        setInset(teamInfo?.teamMembers?.length);
+    }, [teamSchedule, memberSchedule, teamInfo?.teamMembers]);
+
+    function handleEvents(events: EventApi[]) {
+        const teamEvents = events.filter(
+            (event) => event.extendedProps.teamId !== undefined,
+        );
+        setEvents(teamEvents);
+    }
+
+    function handleDateSelect(selectInfo: DateSelectArg) {
+        const start = selectInfo.startStr;
+        const end = selectInfo.endStr;
+        const calendarApi = selectInfo.view.calendar;
+
+        if (isEventAllowed(start, end, calendarApi, events)) {
+            const title = prompt('일정을 입력하세요');
+            if (title) {
+                if (title.length > 20) {
+                    alert('일정 이름이 너무 깁니다 (20자 이하)');
+                    return;
+                }
+                calendarApi.addEvent({
+                    id: 'temp_id', // 바로 삭제하기 위해 필요
+                    title,
+                    start,
+                    end,
+                    teamId: teamId,
+                });
             }
-            dp.events.add({
-                start: args.start,
-                end: args.end,
-                id: DayPilot.guid(),
-                text: modal.result,
-            });
-            console.log(args.start);
-            console.log(args.end);
-        },
-        eventDeleteHandling: 'Update',
-        onEventClick: async (args: any) => {
-            const dp = args.control;
-            const modal = await DayPilot.Modal.prompt(
-                '변경할 스케줄 이름 : ',
-                args.e.text(),
-                { theme: 'modal_rounded' },
-            );
-            if (!modal.result) {
-                return;
+        }
+    }
+
+    function handleEventClick(clickInfo: EventClickArg) {
+        hideTooltip(clickInfo);
+        if (isLeader && clickInfo.event.extendedProps.teamId) {
+            if (confirm(`일정 '${clickInfo.event.title}' 를 지울까요?`)) {
+                clickInfo.event.remove();
             }
-            const e = args.e;
-            e.data.text = modal.result;
-            dp.events.update(e);
-        },
-    };
+        }
+    }
+
+    async function handleClickLeave() {
+        await handleLeaveTeam(Number(teamId));
+        navigate(`/mySchedule`);
+    }
+
+    function handleMouseEnter(hoverInfo: EventHoveringArg) {
+        showTooltip(hoverInfo);
+    }
+
+    function handleMouseLeave(leaveInfo: EventHoveringArg) {
+        hideTooltip(leaveInfo);
+    }
+
+    if (infoLoading) {
+        return (
+            <Main>
+                <Spinner />
+            </Main>
+        );
+    }
 
     return (
-        <Container>
+        <Main>
             <Header>
-                <h1>그룹 이름 {params.teamId}</h1>
+                <h1>{teamInfo?.name}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
-                    <Button width="11em" hoverBgColor="black" height="2.5rem">
-                        그룹 정보 수정
-                    </Button>
-                    <Button width="11em" hoverBgColor="black" height="2.5rem">
-                        그룹 스케줄 수정
-                    </Button>
+                    {isLeader ? (
+                        <Button inverse>
+                            <Nav url={`/groupinfo/${teamId}`}>
+                                그룹 정보 수정
+                            </Nav>
+                        </Button>
+                    ) : (
+                        <Button onClick={handleClickLeave}>그룹 탈퇴</Button>
+                    )}
                 </AlignRight>
             </Header>
-            <MainSchedule name={name}>
-                <DayPilotCalendar
-                    days={7}
-                    startDate={todayDate}
-                    ref={calendarRef}
-                    cellHeight={30}
-                    cellDuration={30}
-                    {...state}
+            <div style={{ marginBottom: '50px' }}>
+                <Schedule
+                    selectable={isLeader}
+                    eventSources={[
+                        ...(teamSchedule ?? []),
+                        ...(memberSchedule ?? []),
+                    ]}
+                    handleEvents={handleEvents}
+                    handleDateSelect={handleDateSelect}
+                    handleEventClick={handleEventClick}
+                    handleMouseEnter={handleMouseEnter}
+                    handleMouseLeave={handleMouseLeave}
+                    handleEventAdd={handleEventAdd}
+                    handleEventRemove={handleEventRemove}
                 />
-            </MainSchedule>
+            </div>
             <Field>
-                <h3>그룹원</h3>
-                <MemberBox>
-                    {dummy.map((x, idx) => (
-                        <Member
-                            key={idx}
-                            space={5}
-                            backgroundColor={generateColor(x)}
-                            color="white"
-                            disable={false}
-                            onClick={() => setName(x)}
-                        >
-                            {x}
-                        </Member>
-                    ))}
-                </MemberBox>
+                <h2>그룹원</h2>
+                <div style={{ width: '100%' }}>
+                    <Members
+                        myUsername={user?.username}
+                        members={teamInfo?.teamMembers}
+                    />
+                </div>
             </Field>
-            <Field>
+            {/* <Field>
                 <h3>보기모드</h3>
                 <div style={{ marginRight: '10px' }}>
                     <Button
@@ -157,8 +165,8 @@ const TeamSchedule: React.FC = () => {
                 >
                     진하게
                 </Button>
-            </Field>
-        </Container>
+                </Field>*/}
+        </Main>
     );
 };
 

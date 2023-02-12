@@ -1,14 +1,16 @@
 import { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled/macro';
+import { onClickOutside } from '../../utils';
 
 type ModalProps = {
     icon: React.ReactNode;
     children?: React.ReactNode;
 };
 
-const ModalContainer = styled.div`
+const ModalComponent = styled.div`
     position: relative;
 `;
+
 const ToggleMenu = styled.div`
     position: absolute;
     top: 50px;
@@ -20,28 +22,22 @@ const Modal = ({ icon, children }: ModalProps) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const closeModal = (e) => {
-            if (
-                isOpen &&
-                (!modalRef.current || !modalRef.current.contains(e.target))
-            ) {
-                setIsOpen(false);
-            }
+        const closeModal = (e: MouseEvent) => {
+            onClickOutside(e, modalRef, () => setIsOpen(false));
         };
         document.addEventListener('click', closeModal);
-
         return () => document.removeEventListener('click', closeModal);
-    }, [isOpen]);
+    }, []);
 
     const toggleModal = () => {
         setIsOpen((prev) => !prev);
     };
 
     return (
-        <ModalContainer ref={modalRef}>
+        <ModalComponent ref={modalRef}>
             <div onClick={toggleModal}>{icon}</div>
             {isOpen && <ToggleMenu>{children}</ToggleMenu>}
-        </ModalContainer>
+        </ModalComponent>
     );
 };
 
