@@ -1,18 +1,11 @@
 import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { Button, Nav } from '..';
-import {
-    VerticalBar,
-    GroupList,
-    GroupName,
-    Bottom,
-    List,
-} from '../../styles/navbar/groupbar';
+import Groups from './Groups';
+import { VerticalBar, GroupList, Bottom } from '../../styles/navbar/groupbar';
 import { Icon } from '../../styles/globalStyle/PageLayout';
-import { useMyTeams } from '../../hooks';
 
 function Groupbar() {
-    const { myTeams } = useMyTeams();
     const [toggleGroups, setToggleGroups] = useState(false);
     const toggle = () => setToggleGroups(!toggleGroups);
 
@@ -24,21 +17,7 @@ function Groupbar() {
                 </Icon>
                 {toggleGroups && (
                     <>
-                        <List>
-                            {myTeams?.map((group) => (
-                                <Nav
-                                    key={group.teamId}
-                                    url={`/teamschedule/${group.teamId}`}
-                                    weight="normal"
-                                >
-                                    <GroupName>
-                                        {toggleGroups
-                                            ? group.name
-                                            : group.name[0]}
-                                    </GroupName>
-                                </Nav>
-                            ))}
-                        </List>
+                        <Groups />
                         <Bottom>
                             <Button>
                                 <Nav url="/addGroup" size="medium" fill center>
