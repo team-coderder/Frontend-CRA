@@ -84,8 +84,10 @@ const TeamSchedule: React.FC = () => {
     }
 
     async function handleClickLeave() {
-        await handleLeaveTeam(Number(teamId));
-        navigate(`/mySchedule`);
+        if (confirm(`그룹을 탈퇴할까요?`)) {
+            await handleLeaveTeam(Number(teamId));
+            navigate(`/mySchedule`);
+        }
     }
 
     function handleMouseEnter(hoverInfo: EventHoveringArg) {

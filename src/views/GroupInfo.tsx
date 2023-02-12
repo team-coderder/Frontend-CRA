@@ -21,8 +21,10 @@ const GroupInfo = () => {
 
     async function handleClickDelete() {
         if (params.teamId) {
-            await handleDeleteTeam(Number(params.teamId));
-            navigate('/myschedule');
+            if (confirm(`그룹을 삭제할까요?`)) {
+                await handleDeleteTeam(Number(params.teamId));
+                navigate('/myschedule');
+            }
         }
     }
 

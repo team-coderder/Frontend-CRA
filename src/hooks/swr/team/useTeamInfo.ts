@@ -36,8 +36,10 @@ const useTeamInfo = (teamId: number) => {
     const removeMember = async (memberId: number) => {
         try {
             if (data?.teamId) {
-                await removeUser(teamId, memberId);
-                mutate();
+                if (confirm(`멤버를 탈퇴시킬까요?`)) {
+                    await removeUser(teamId, memberId);
+                    mutate();
+                }
             }
         } catch (e) {
             handleError(e);
@@ -57,8 +59,10 @@ const useTeamInfo = (teamId: number) => {
 
     const uninviteMember = async (inviteId: number) => {
         try {
-            await uninviteUser(inviteId);
-            mutate();
+            if (confirm(`초대를 취소할까요?`)) {
+                await uninviteUser(inviteId);
+                mutate();
+            }
         } catch (e) {
             handleError(e);
         }

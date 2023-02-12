@@ -19,9 +19,11 @@ const useMyInvitations = () => {
 
     const acceptInvite = async (id: number) => {
         try {
-            await acceptInvitation(id);
-            mutate();
-            alert(`초대를 수락했습니다`);
+            if (confirm(`초대를 수락할까요?`)) {
+                await acceptInvitation(id);
+                mutate();
+                alert(`초대를 수락했습니다`);
+            }
         } catch (e) {
             handleError(e);
         }
@@ -29,9 +31,11 @@ const useMyInvitations = () => {
 
     const rejectInvite = async (id: number) => {
         try {
-            await rejectInvitation(id);
-            mutate();
-            alert(`초대를 거절했습니다`);
+            if (confirm(`초대를 거절할까요?`)) {
+                await rejectInvitation(id);
+                mutate();
+                alert(`초대를 거절했습니다`);
+            }
         } catch (e) {
             handleError(e);
         }
