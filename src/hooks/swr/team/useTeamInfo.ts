@@ -10,7 +10,7 @@ import type { User } from '../../../types';
 import { handleError, isNameValid } from '../../../utils';
 
 const useTeamInfo = (teamId: number) => {
-    const { data, error, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
+    const { data, error, isLoading, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
 
     async function fetcher() {
         const { data } = await getTeamInfo(teamId);
@@ -67,6 +67,7 @@ const useTeamInfo = (teamId: number) => {
     return {
         teamInfo: data,
         error,
+        isLoading,
         changeName,
         removeMember,
         inviteMember,

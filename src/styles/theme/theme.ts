@@ -2,41 +2,51 @@ import { Theme } from '@emotion/react';
 
 const theme: Theme = {
     color: {
-        main: {
-            dark: '#287CC0',
-            common: '#84D3EC',
-            light: '#BDE1EC',
-        },
-        sub: {
-            common: '#F5E299',
-            light: '#FFF0B6',
-        },
-        black: '#000000',
-        white: '#F7F7F7',
-        gray: '#D3D3D3',
-        warning: '#F8623F',
-        success: '#06FC6A',
-    },
-
-    font: {
-        weight: {
-            bold: 600,
-            normal: 400,
-            thin: 200,
-        },
-        size: {
-            large: '30px',
-            medium: '16px',
-            small: '12px',
+        background: {
+            light: {
+                main: '#EEEEEE',
+                hover: '#DDDDDD',
+                shadow: {
+                    convex: 'rgb(255 255 255 / 50%) 3px 3px 6px 0px inset, rgb(204 219 232) -3px -3px 6px 1px inset',
+                    concave: 'rgb(204 219 232) 3px 3px 6px 0px inset, rgb(255 255 255 / 50%) -3px -3px 6px 1px inset',
+                },
+            },
+            tan: {
+                main: 'rgba(223, 207, 190, 0.8)',
+            },
+            dark: {
+                main: '#1B222D',
+                hover: '#090B0F',
+                shadow: {
+                    convex: 'rgb(135 160 199 / 50%) 3px 3px 6px 0px inset, rgb(13 16 20) -3px -3px 6px 1px inset',
+                },
+            },
         },
     },
     borderRadius: {
-        large: '20px',
+        large: '40px',
         medium: '10px',
-        small: '5px',
+    },
+
+    font: {
+        color: {
+            main: {
+                dark: '#1B222D',
+                light: '#EEEEEE',
+            },
+            sub: '#9B9FBA',
+            warning: '#F8623F',
+        },
+        size: {
+            header: '1.8rem',
+            base: '1rem',
+            label: '0.8rem',
+        },
+        weight: {
+            bold: 700,
+            normal: 400,
+        },
     },
 };
 
 export default theme;
-
-// theme 추가 사항 필요

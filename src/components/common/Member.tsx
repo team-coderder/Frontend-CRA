@@ -1,105 +1,74 @@
-import React from 'react';
 import styled from '@emotion/styled/macro';
-import { RiCloseCircleFill } from 'react-icons/ri';
+import { BsXCircle } from 'react-icons/bs';
 
 type MemberProps = {
     width?: string;
     height?: string;
-    fontSize?: 'large' | 'medium' | 'small';
-    color?: 'white' | 'black';
+    fontSize?: string;
     backgroundColor?: string;
-    radius?: 'large' | 'medium' | 'small';
-    focusBgColor?: 'black' | 'white';
-    disable?: boolean;
-    space?: number;
-    memberId?: number;
+    deletable?: boolean;
     children: React.ReactNode;
-    onClick?: () => void;
+    memberId?: number;
     onDelete?: (id: number) => void;
-    // url: string;
 };
 
-const Component = styled.div<MemberProps>`
+const MemberComponent = styled.div<MemberProps>`
     position: relative;
-    z-index: 1;
-    width: ${(props) => props.width ?? '150px'};
-    height: ${(props) => props.height ?? '40px'};
-    font-size: ${(props) =>
-        ({ theme }) =>
-            !props.fontSize
-                ? theme.font.size.medium
-                : theme.font.size[props.fontSize]};
-    color: ${(props) =>
-        ({ theme }) =>
-            props.color === 'black' ? theme.color.black : theme.color.white};
-    background-color: ${(props) => props.backgroundColor};
-    cursor: ${(props) => props.onClick && 'pointer'};
+    width: ${({ width }) => width ?? '130px'};
+    height: ${({ height }) => height ?? '2.4em'};
+    padding: 0 1rem;
+    font-size: ${({ fontSize, theme }) => fontSize ?? theme.font.size.base};
+    color: ${({ theme }) => theme.font.color.main.dark};
+    background-color: ${({ backgroundColor }) => backgroundColor};
     border: none;
-    border-radius: ${(props) =>
-        ({ theme }) =>
-            props.radius === 'small'
-                ? theme.borderRadius.small
-                : props.radius === 'large'
-                ? theme.borderRadius.large
-                : theme.borderRadius.medium};
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
     transition: all 0.5s;
     &:hover {
-        background-color: ${(props) =>
-            ({ theme }) =>
-                !props.focusBgColor
-                    ? props.backgroundColor
-                    : theme.color[props.focusBgColor]};
+        box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
     }
+
     display: flex;
-    justify-content: ${(props) => (props.disable ? 'space-between' : 'center')};
+    justify-content: ${({ deletable }) => deletable && 'space-between'};
     align-items: center;
-    padding-left: 1rem;
-    padding-right: 1rem;
+`;
+
+const Name = styled.div<{ deletable?: boolean }>`
+    max-width: ${({ deletable }) => deletable && '100px'};
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const Member = ({
     width,
     height,
     fontSize,
-    color,
     backgroundColor,
-    radius,
-    focusBgColor,
-    disable,
-    space,
-    memberId,
+    deletable,
     children,
-    onClick,
+    memberId,
     onDelete,
 }: MemberProps) => {
     return (
-        <Component
+        <MemberComponent
             width={width}
             height={height}
             fontSize={fontSize}
-            color={color}
             backgroundColor={backgroundColor}
-            radius={radius}
-            focusBgColor={focusBgColor}
-            disable={disable}
-            space={space}
-            onClick={onClick}
+            deletable={deletable}
         >
             <>
-                {children}
-                {disable && (
-                    <RiCloseCircleFill
-                        style={{
-                            color: `${({ theme }) => theme.color.white}`,
-                            cursor: 'pointer',
-                        }}
+                <Name deletable={deletable}>{children}</Name>
+                {deletable && (
+                    <BsXCircle
+                        style={{ cursor: 'pointer', maxWidth: '16px', flex: 1 }}
                         onClick={() =>
                             onDelete && memberId && onDelete(memberId)
                         }
                     />
                 )}
             </>
-        </Component>
+        </MemberComponent>
     );
 };
 

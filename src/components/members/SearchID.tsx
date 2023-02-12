@@ -1,53 +1,50 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import styled from '@emotion/styled/macro';
-import { BsSearch, BsPlusCircle } from 'react-icons/bs';
+import { BsPlusCircle } from 'react-icons/bs';
 import { TextInput } from '..';
 import { findByUsername } from '../../api';
 import { onClickOutside, handleError } from '../../utils';
 import { User } from '../../types';
 
 type SearchProps = {
-    width?: string;
-    height?: string;
     handleAddMember: (member: User) => Promise<void>;
-};
-type ResultBoxProps = {
-    onClick?: () => void;
-    height?: string;
-    missing?: boolean;
 };
 
 const SearchContainer = styled.div`
     position: relative;
-    z-index: 2;
-    margin-bottom: 10px;
+    z-index: 1;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 `;
+
 const ResultContainer = styled.div`
+    position: absolute;
+    top: 30px;
+    width: 300px;
     max-height: 150px;
     overflow: auto;
-    position: absolute;
-    width: 100%;
 `;
-const ResultBox = styled.div<ResultBoxProps>`
-    background-color: ${({ theme, missing }) =>
-        !missing ? theme.color.main.light : theme.color.gray};
-    height: ${({ height }) => height ?? 'auto'};
+
+const ResultBox = styled.div<{ missing?: boolean }>`
+    height: 30px;
+    background-color: ${({ missing, theme }) =>
+        missing
+            ? theme.color.background.light.hover
+            : theme.color.background.dark.main};
+    color: ${({ missing, theme }) =>
+        missing ? theme.font.color.main.dark : theme.font.color.main.light};
     padding: 5px;
     display: flex;
     align-items: center;
     &:hover {
-        cursor: pointer;
+        cursor: ${({ missing }) => !missing && 'pointer'};
         background-color: ${({ theme, missing }) =>
-            !missing ? theme.color.main.dark : theme.color.gray};
+            !missing && theme.color.background.dark.hover};
     }
-    z-index: 2;
-    box-shadow: 1px 5px 5px gray;
-`;
-const ResultId = styled.div`
-    padding-left: 13px;
 `;
 
-const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
+const SearchID = ({ handleAddMember }: SearchProps) => {
     const [focus, setFocus] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
     const [searchName, setSearchName] = useState('');
@@ -96,8 +93,7 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
     return (
         <SearchContainer ref={searchRef} onFocus={() => setFocus(true)}>
             <TextInput
-                width={width}
-                height={height}
+                margin="0 10px 0 0"
                 placeholder="ID 검색"
                 value={searchName}
                 onChange={handleChangeSearchName}
@@ -107,23 +103,15 @@ const SearchID = ({ width, height, handleAddMember }: SearchProps) => {
                     ? searchName &&
                       matchedUsers.map((user) => (
                           <ResultBox
-                              onClick={() => handleClickMatch(user)}
-                              height={height}
                               key={user.memberId}
+                              onClick={() => handleClickMatch(user)}
                           >
-                              <BsSearch />
-                              <ResultId>{user.username}</ResultId>
+                              {user.username}
                           </ResultBox>
                       ))
-                    : focus && (
-                          <ResultBox height={height} missing>
-                              <BsSearch />
-                              <ResultId>검색결과 없음</ResultId>
-                          </ResultBox>
-                      )}
+                    : focus && <ResultBox missing>검색결과 없음</ResultBox>}
             </ResultContainer>
             <BsPlusCircle
-                size="18"
                 style={{ cursor: 'pointer' }}
                 onClick={handleClickAdd}
             />

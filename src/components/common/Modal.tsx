@@ -7,9 +7,10 @@ type ModalProps = {
     children?: React.ReactNode;
 };
 
-const ModalContainer = styled.div`
+const ModalComponent = styled.div`
     position: relative;
 `;
+
 const ToggleMenu = styled.div`
     position: absolute;
     top: 50px;
@@ -33,10 +34,10 @@ const Modal = ({ icon, children }: ModalProps) => {
     };
 
     return (
-        <ModalContainer ref={modalRef}>
+        <ModalComponent ref={modalRef}>
             <div onClick={toggleModal}>{icon}</div>
             {isOpen && <ToggleMenu>{children}</ToggleMenu>}
-        </ModalContainer>
+        </ModalComponent>
     );
 };
 

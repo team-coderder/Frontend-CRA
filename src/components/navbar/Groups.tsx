@@ -1,5 +1,5 @@
 import { Nav } from '..';
-import { GroupName, List } from '../../styles/navbar/groupbar';
+import { GroupName, List } from '../../styles/componentStyle/navbar';
 import { useMyTeams } from '../../hooks';
 
 function Groups() {
@@ -8,11 +8,7 @@ function Groups() {
     return (
         <List>
             {myTeams?.map((group) => (
-                <Nav
-                    key={group.teamId}
-                    url={`/teamschedule/${group.teamId}`}
-                    weight="normal"
-                >
+                <Nav key={group.teamId} url={`/teamschedule/${group.teamId}`}>
                     <GroupName>{group.name}</GroupName>
                 </Nav>
             ))}

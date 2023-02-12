@@ -3,7 +3,7 @@ import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import { Schedule } from '../components';
 import { useMySchedule } from '../hooks';
 import { isEventAllowed } from '../utils';
-import { Container, Header } from '../styles/globalStyle/PageLayout';
+import { Main, Header } from '../styles/globalStyle/PageLayout';
 
 const MySchedule = () => {
     const { mySchedule, handleEventAdd, handleEventRemove } = useMySchedule();
@@ -42,7 +42,7 @@ const MySchedule = () => {
     }
 
     return (
-        <Container>
+        <Main>
             <Header>
                 <h1>내 스케쥴</h1>
             </Header>
@@ -55,7 +55,7 @@ const MySchedule = () => {
                 handleEventAdd={handleEventAdd}
                 handleEventRemove={handleEventRemove}
             />
-        </Container>
+        </Main>
     );
 };
 

@@ -19,4 +19,5 @@ export type EventSource = {
     events: Event[];
     backgroundColor?: string;
     editable?: boolean;
+    className?: string[];
 };

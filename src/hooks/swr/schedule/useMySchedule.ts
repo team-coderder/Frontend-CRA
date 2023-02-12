@@ -26,6 +26,7 @@ const useMySchedule = () => {
                 ...event,
                 start: generateDateFromString(event.start as string),
                 end: generateDateFromString(event.end as string),
+                classNames: ['my-event'],
             };
         });
         return events;

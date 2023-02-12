@@ -10,7 +10,7 @@ const useMemberSchedule = (teamId: number) => {
         const { data } = await getMembersSchedule(teamId);
 
         const eventSource: EventSource[] = data.map(
-            ({ username, schedule }) => {
+            ({ username, schedule }, index) => {
                 const events = schedule.map((event) => {
                     return {
                         ...event,
@@ -24,6 +24,7 @@ const useMemberSchedule = (teamId: number) => {
                     events: events,
                     backgroundColor: generateColor(username),
                     editable: false,
+                    className: [`index-${index}`],
                 };
             },
         );

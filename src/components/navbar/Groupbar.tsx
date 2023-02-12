@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { Button, Nav } from '..';
 import Groups from './Groups';
-import { VerticalBar, GroupList, Bottom } from '../../styles/navbar/groupbar';
+import { VerticalBar, GroupList } from '../../styles/componentStyle/navbar';
 import { Icon } from '../../styles/globalStyle/PageLayout';
 
 function Groupbar() {
@@ -10,7 +10,7 @@ function Groupbar() {
     const toggle = () => setToggleGroups(!toggleGroups);
 
     return (
-        <VerticalBar width={toggleGroups ? '15rem' : '4rem'}>
+        <VerticalBar width={toggleGroups ? '200px' : '4rem'}>
             <GroupList>
                 <Icon>
                     <FiMenu onClick={toggle} />
@@ -18,13 +18,9 @@ function Groupbar() {
                 {toggleGroups && (
                     <>
                         <Groups />
-                        <Bottom>
-                            <Button>
-                                <Nav url="/addGroup" size="medium" fill center>
-                                    그룹 추가하기
-                                </Nav>
-                            </Button>
-                        </Bottom>
+                        <Button inverse>
+                            <Nav url="/addGroup">그룹 추가하기</Nav>
+                        </Button>
                     </>
                 )}
             </GroupList>

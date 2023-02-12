@@ -3,37 +3,50 @@ import '@emotion/react';
 declare module '@emotion/react' {
     export interface Theme {
         color: {
-            main: {
-                dark: string;
-                common: string;
-                light: string;
-            };
-            sub: {
-                common: string;
-                light: string;
-            };
-            black: string;
-            white: string;
-            gray: string;
-            warning: string;
-            success: string;
-        };
-        font: {
-            weight: {
-                bold: number;
-                normal: number;
-                thin: number;
-            };
-            size: {
-                large: string;
-                medium: string;
-                small: string;
+            background: {
+                light: {
+                    main: string;
+                    hover: string;
+                    shadow: {
+                        convex: string;
+                        concave: string;
+                    };
+                };
+                tan: {
+                    main: string;
+                };
+                dark: {
+                    main: string;
+                    hover: string;
+                    shadow: {
+                        convex: string;
+                    };
+                };
             };
         };
         borderRadius: {
             large: string;
             medium: string;
-            small: string;
+        };
+
+        font: {
+            color: {
+                main: {
+                    dark: string;
+                    light: string;
+                };
+                sub: string;
+                warning: string;
+            };
+            size: {
+                header: string;
+                base: string;
+                label: string;
+            };
+            weight: {
+                bold: number;
+                normal: number;
+            };
         };
     }
 }

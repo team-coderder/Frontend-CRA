@@ -1,30 +1,44 @@
 import styled from '@emotion/styled/macro';
+import { keyframes } from '@emotion/react';
 
-export const Container = styled.main`
+export const Main = styled.main`
     max-width: 70vw;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
-    margin-top: 7rem;
-    margin-bottom: 7rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    color: ${({ theme }) => theme.color.white};
+    min-width: 900px;
+    max-height: 85vh;
+    min-height: 600px;
+    overflow: auto;
+    padding: 80px 30px 50px;
+    border-radius: ${({ theme }) => theme.borderRadius.large};
+    box-shadow: ${({ theme }) => theme.color.background.light.shadow.convex};
+    ::-webkit-scrollbar-track {
+        margin: 30px 0;
+    }
 `;
 
 export const Header = styled.header`
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    & h1 {
+        font-size: ${({ theme }) => theme.font.size.header};
+    }
 `;
 
 export const Field = styled.section`
-    margin-bottom: 25px;
     display: flex;
     align-items: baseline;
-    > h3 {
-        width: 150px;
+    margin-bottom: 25px;
+    :last-of-type {
+        margin-bottom: 0px;
+    }
+    & h2 {
+        min-width: 150px;
         margin-right: 50px;
+        font-size: ${({ theme }) => theme.font.size.base};
+        font-weight: ${({ theme }) => theme.font.weight.normal};
+    }
+    & h3 {
+        margin-bottom: 10px;
+        color: ${({ theme }) => theme.font.color.sub};
+        font-size: ${({ theme }) => theme.font.size.label};
         font-weight: ${({ theme }) => theme.font.weight.normal};
     }
 `;
@@ -38,13 +52,35 @@ export const AlignRight = styled.div`
 `;
 
 export const Icon = styled.div<{ background?: string }>`
-    border-radius: 50%;
-    background-color: ${(props) => props.background ?? 'transparent'};
-    font-size: 1.5rem;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
+    box-shadow: ${({ theme }) => theme.color.background.light.shadow.convex};
+    font-size: 1.2rem;
     cursor: pointer;
-    height: 1.5em;
-    width: 1.5em;
-    text-align: center;
-    line-height: 1.5em;
-    // padding: 5px;
+    :hover {
+        box-shadow: ${({ theme }) => theme.color.background.light.shadow.concave};
+    }
+`;
+
+const spinner = keyframes`
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }  
+`;
+
+export const Spinner = styled.div`
+    width: 40px;
+    height: 40px;
+    border: 10px solid ${({ theme }) => theme.color.background.tan.main};
+    border-top: 10px solid ${({ theme }) => theme.color.background.dark.main};
+    border-radius: 50%;
+    animation: ${spinner} 1s linear infinite;
+    margin: auto;
 `;

@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
+import {
+    EventApi,
+    DateSelectArg,
+    EventClickArg,
+    EventHoveringArg,
+} from '@fullcalendar/core';
 import { Button, Nav, Members, Schedule } from '../components';
 import {
     useMyInfo,
@@ -9,14 +14,14 @@ import {
     useMemberSchedule,
     useTeamSchedule,
 } from '../hooks';
-import { isEventAllowed } from '../utils';
+import { isEventAllowed, setInset, showTooltip, hideTooltip } from '../utils';
 import {
-    Container,
+    Main,
     Header,
     Field,
     AlignRight,
+    Spinner,
 } from '../styles/globalStyle/PageLayout';
-import { MainSchedule } from '../styles/schedule/schedule';
 
 const TeamSchedule: React.FC = () => {
     const { teamId } = useParams();
@@ -25,7 +30,7 @@ const TeamSchedule: React.FC = () => {
     const [events, setEvents] = useState<EventApi[]>([]);
     const { user } = useMyInfo();
     const { handleLeaveTeam } = useMyTeams();
-    const { teamInfo } = useTeamInfo(Number(teamId));
+    const { teamInfo, isLoading: infoLoading } = useTeamInfo(Number(teamId));
     const { memberSchedule } = useMemberSchedule(Number(teamId));
     const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(Number(teamId));
 
@@ -34,6 +39,10 @@ const TeamSchedule: React.FC = () => {
             setIsLeader(true);
         }
     }, [teamInfo?.myRole]);
+
+    useEffect(() => {
+        setInset(teamInfo?.teamMembers?.length);
+    }, [teamSchedule, memberSchedule, teamInfo?.teamMembers]);
 
     function handleEvents(events: EventApi[]) {
         const teamEvents = events.filter(
@@ -66,6 +75,7 @@ const TeamSchedule: React.FC = () => {
     }
 
     function handleEventClick(clickInfo: EventClickArg) {
+        hideTooltip(clickInfo);
         if (isLeader && clickInfo.event.extendedProps.teamId) {
             if (confirm(`일정 '${clickInfo.event.title}' 를 지울까요?`)) {
                 clickInfo.event.remove();
@@ -78,19 +88,30 @@ const TeamSchedule: React.FC = () => {
         navigate(`/mySchedule`);
     }
 
+    function handleMouseEnter(hoverInfo: EventHoveringArg) {
+        showTooltip(hoverInfo);
+    }
+
+    function handleMouseLeave(leaveInfo: EventHoveringArg) {
+        hideTooltip(leaveInfo);
+    }
+
+    if (infoLoading) {
+        return (
+            <Main>
+                <Spinner />
+            </Main>
+        );
+    }
+
     return (
-        <Container>
+        <Main>
             <Header>
                 <h1>{teamInfo?.name}</h1>
                 <AlignRight style={{ marginTop: '15px' }}>
                     {isLeader ? (
-                        <Button hoverBgColor="black" height="2.5rem">
-                            <Nav
-                                url={`/groupinfo/${teamId}`}
-                                size="medium"
-                                fill
-                                center
-                            >
+                        <Button inverse>
+                            <Nav url={`/groupinfo/${teamId}`}>
                                 그룹 정보 수정
                             </Nav>
                         </Button>
@@ -99,7 +120,7 @@ const TeamSchedule: React.FC = () => {
                     )}
                 </AlignRight>
             </Header>
-            <MainSchedule>
+            <div style={{ marginBottom: '50px' }}>
                 <Schedule
                     selectable={isLeader}
                     eventSources={[
@@ -109,16 +130,20 @@ const TeamSchedule: React.FC = () => {
                     handleEvents={handleEvents}
                     handleDateSelect={handleDateSelect}
                     handleEventClick={handleEventClick}
+                    handleMouseEnter={handleMouseEnter}
+                    handleMouseLeave={handleMouseLeave}
                     handleEventAdd={handleEventAdd}
                     handleEventRemove={handleEventRemove}
                 />
-            </MainSchedule>
+            </div>
             <Field>
-                <h3>그룹원</h3>
-                <Members
-                    myUsername={user?.username}
-                    members={teamInfo?.teamMembers}
-                />
+                <h2>그룹원</h2>
+                <div style={{ width: '100%' }}>
+                    <Members
+                        myUsername={user?.username}
+                        members={teamInfo?.teamMembers}
+                    />
+                </div>
             </Field>
             {/* <Field>
                 <h3>보기모드</h3>
@@ -140,8 +165,8 @@ const TeamSchedule: React.FC = () => {
                 >
                     진하게
                 </Button>
-            </Field> */}
-        </Container>
+                </Field>*/}
+        </Main>
     );
 };
 

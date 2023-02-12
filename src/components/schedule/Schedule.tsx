@@ -13,6 +13,7 @@ import {
 import { renderEventContent } from '../../utils';
 import { START_DATE, START_TIME } from '../../constant';
 import type { UserEvent, EventSource } from '../../types';
+import '../../styles/componentStyle/schedule.css';
 
 type ScheduleProps = {
     selectable?: boolean;
@@ -22,6 +23,7 @@ type ScheduleProps = {
     handleDateSelect?: (selectInfo: DateSelectArg) => void;
     handleEventClick?: (clickInfo: EventClickArg) => void;
     handleMouseEnter?: (enterInfo: EventHoveringArg) => void;
+    handleMouseLeave?: (leaveInfo: EventHoveringArg) => void;
     handleEventAdd?: (addInfo: EventAddArg) => void;
     handleEventChange?: (changeInfo: EventChangeArg) => void;
     handleEventRemove?: (removeInfo: EventRemoveArg) => void;
@@ -35,37 +37,43 @@ const Schedule = ({
     handleDateSelect,
     handleEventClick,
     handleMouseEnter,
+    handleMouseLeave,
     handleEventAdd,
     handleEventChange,
     handleEventRemove,
 }: ScheduleProps) => {
     return (
-        <FullCalendar
-            plugins={[timeGridPlugin, interactionPlugin]}
-            headerToolbar={false}
-            dayHeaderFormat={{ weekday: 'short' }}
-            allDaySlot={false}
-            initialDate={START_DATE}
-            slotMinTime={START_TIME}
-            firstDay={1}
-            weekends={true}
-            slotEventOverlap={false}
-            selectable={selectable ? true : false}
-            selectMirror={true}
-            editable={false}
-            events={events ?? []}
-            eventSources={eventSources ?? []}
-            eventContent={renderEventContent}
-            /* update local calendar */
-            eventsSet={handleEvents}
-            select={handleDateSelect}
-            eventClick={handleEventClick}
-            eventMouseEnter={handleMouseEnter}
-            /* update remote database */
-            eventAdd={handleEventAdd}
-            eventChange={handleEventChange}
-            eventRemove={handleEventRemove}
-        />
+        <>
+            <FullCalendar
+                plugins={[timeGridPlugin, interactionPlugin]}
+                headerToolbar={false}
+                dayHeaderFormat={{ weekday: 'short' }}
+                allDaySlot={false}
+                initialDate={START_DATE}
+                slotMinTime={START_TIME}
+                firstDay={1}
+                weekends={true}
+                slotEventOverlap={false}
+                selectable={selectable ? true : false}
+                selectMirror={true}
+                editable={false}
+                events={events ?? []}
+                eventSources={eventSources ?? []}
+                eventContent={renderEventContent}
+                /* update local calendar */
+                eventsSet={handleEvents}
+                select={handleDateSelect}
+                eventClick={handleEventClick}
+                eventMouseEnter={handleMouseEnter}
+                eventMouseLeave={handleMouseLeave}
+                /* update remote database */
+                eventAdd={handleEventAdd}
+                eventChange={handleEventChange}
+                eventRemove={handleEventRemove}
+                eventOverlap={false}
+            />
+            <div className="tooltip"></div>
+        </>
     );
 };
 
