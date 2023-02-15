@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { getMyTeams, createTeam, deleteTeam, leaveTeam } from '../../../api';
-import { useMyInfo } from '../../../hooks';
+import { useToken } from '../../../hooks';
 import { handleError, isNameValid } from '../../../utils';
 
 type useMyTeamsReturnType = {
@@ -8,7 +8,7 @@ type useMyTeamsReturnType = {
 };
 
 const useMyTeams = () => {
-    const { token } = useMyInfo();
+    const { token } = useToken();
     const { data, error, isLoading, mutate } = useSWR<useMyTeamsReturnType>(
         ['useMyTeams', token],
         fetcher,

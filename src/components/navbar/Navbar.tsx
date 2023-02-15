@@ -4,14 +4,15 @@ import { BsBell, BsPersonFill } from 'react-icons/bs';
 import { Name, HorizontalBar, Menu } from '../../styles/componentStyle/navbar';
 import { Icon } from '../../styles/globalStyle/PageLayout';
 import Invitations from './Invitations';
-import { useMyInfo } from '../../hooks';
+import { useMyInfo, useToken } from '../../hooks';
 
 function Navbar() {
     const navigate = useNavigate();
-    const { user, logOut } = useMyInfo();
+    const { user } = useMyInfo();
+    const { logout } = useToken();
 
     const handleLogOut = () => {
-        logOut();
+        logout();
         navigate('/login');
     };
 
