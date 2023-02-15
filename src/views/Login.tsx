@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
 import {
     FormContainer,
@@ -6,10 +7,11 @@ import {
     Header,
     ExplainBox,
 } from '../styles/componentStyle/auth';
-import { useMyInfo } from '../hooks';
+import { useToken } from '../hooks';
 
 const Login = () => {
-    const { login } = useMyInfo();
+    const navigate = useNavigate();
+    const { login } = useToken();
     const [form, setForm] = useState({ username: '', password: '' });
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +23,8 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await login(form, '/');
+        await login(form);
+        navigate('/');
     };
 
     return (

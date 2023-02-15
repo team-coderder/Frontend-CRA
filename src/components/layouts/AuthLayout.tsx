@@ -1,12 +1,12 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { Navbar, Groupbar } from '..';
 import { Container, Flex } from '../../styles/componentStyle/navbar';
-import { useMyInfo } from '../../hooks';
+import { useToken } from '../../hooks';
 
 const AuthLayout = () => {
-    const { user } = useMyInfo();
+    const { token, isLoading } = useToken();
 
-    return user ? (
+    return token || isLoading ? (
         <>
             <Container>
                 <Navbar />
