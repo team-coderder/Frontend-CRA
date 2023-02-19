@@ -21,9 +21,10 @@ const useTeamSchedule = (teamId: number) => {
     async function fetcher() {
         const { data } = await getTeamSchedule(teamId);
 
-        const events = data.map((event) => {
+        const events = data.schedule.map((event) => {
             return {
                 ...event,
+                teamId: teamId,
                 start: generateDateFromString(event.start as string),
                 end: generateDateFromString(event.end as string),
             };

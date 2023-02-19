@@ -16,8 +16,8 @@ export const sign_up = (signUpData: signUpForm) =>
 export const login = (loginData: loginForm) =>
     API.post<User>(`/login`, loginData);
 
-export const getMyInfo = (id: number) =>
-    API.get<User>(`/api/member/mypage?memberId=${id}`);
+export const getMyInfo = () =>
+    API.get<User>(`/api/member/mypage`);
 
 export const findByUsername = (userName: string) =>
     API.get<{ members: User[] }>(

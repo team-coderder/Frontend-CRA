@@ -1,6 +1,6 @@
 import { setupWorker, rest } from 'msw';
 
-const MSW_MODE = true;
+const MSW_MODE = false;
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -67,19 +67,16 @@ const authHandlers = [
         },
     ),
     // 마이페이지 - 내 정보 조회
-    rest.get(
-        BASE_URL + `/api/member/mypage?memberId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    memberId: 1,
-                    username: 'coderder815',
-                    nickname: 'check-filter',
-                }),
-            );
-        },
-    ),
+    rest.get(BASE_URL + `/api/member/mypage`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                memberId: 1,
+                username: 'coderder815',
+                nickname: 'check-filter',
+            }),
+        );
+    }),
 ];
 
 const teamHandlers = [
@@ -243,27 +240,29 @@ const teamHandlers = [
 
 const scheduleHandlers = [
     // 내 일정 조회하기
-    rest.get(BASE_URL + `/api/schedule/calendar`, async (req, res, ctx) => {
+    rest.get(BASE_URL + `/api/schedule/myschedule`, async (req, res, ctx) => {
         return res(
             ctx.status(200),
-            ctx.json([
-                {
-                    id: 'dsflkkjeSDKFLJ',
-                    title: 'tea time',
-                    start: 'MON+11:00:00',
-                    end: 'MON+12:30:00',
-                    username: 'coderder',
-                    nickname: '영희',
-                },
-                {
-                    id: 'jslskdjf234ks',
-                    title: 'break',
-                    start: 'MON+12:30:00',
-                    end: 'MON+14:40:00',
-                    username: 'coderder',
-                    nickname: '영희',
-                },
-            ]),
+            ctx.json({
+                schedule: [
+                    {
+                        id: 13,
+                        start: 'MON+11:00:00',
+                        end: 'MON+12:30:00',
+                        memberId: 'coderder',
+                        title: 'test_schedule',
+                        memo: null,
+                    },
+                    {
+                        id: 14,
+                        start: 'MON+11:00:00',
+                        end: 'MON+12:30:00',
+                        memberId: 'coderder',
+                        title: 'test_schedule',
+                        memo: null,
+                    },
+                ],
+            }),
         );
     }),
     // 내 일정 만들기
@@ -273,21 +272,21 @@ const scheduleHandlers = [
             return res(
                 ctx.status(200),
                 ctx.json({
-                    id: 'ksdljfkeWEER',
-                    title: 'new Event',
-                    start: 'THU+12:30:00',
-                    end: 'THU+14:40:00',
-                    username: 'coderder',
-                    nickname: '영희',
+                    message: '개인 스케쥴 {이름} 추가 완료',
                 }),
             );
         },
     ),
     // 내 일정 삭제하기
     rest.delete(
-        BASE_URL + `/api/schedule/myschedule?eventId={'skdfjkeRT457'}`,
+        BASE_URL + `/api/schedule/myschedule?scheduleId=${3}`,
         async (req, res, ctx) => {
-            return res(ctx.status(200));
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    message: 'schedule id : {id} delete complete',
+                }),
+            );
         },
     ),
     // 팀 모든 멤버 일정 조회
@@ -298,36 +297,36 @@ const scheduleHandlers = [
                 ctx.status(200),
                 ctx.json([
                     {
-                        username: 'coderder815',
+                        username: 'coderder',
                         schedule: [
                             {
-                                id: 'klajsekfjAWEF',
-                                title: 'tea time',
-                                start: 'TUE+11:00:00',
-                                end: 'TUE+12:30:00',
-                                username: 'coderder815',
-                                nickname: '영희',
+                                id: 13,
+                                start: 'MON+11:00:00',
+                                end: 'MON+12:30:00',
+                                memberId: 'coderder',
+                                title: 'test_schedule',
+                                memo: null,
                             },
                             {
-                                id: 'sddsfdsfEESD',
-                                title: 'break',
-                                start: 'TUE+12:00:00',
-                                end: 'TUE+14:40:00',
-                                username: 'coderder815',
-                                nickname: '영희',
+                                id: 14,
+                                start: 'MON+11:00:00',
+                                end: 'MON+12:30:00',
+                                memberId: 'coderder',
+                                title: 'test_schedule',
+                                memo: null,
                             },
                         ],
                     },
                     {
-                        username: 'coderder',
+                        username: 'coderder815',
                         schedule: [
                             {
-                                id: 'DSEFFSdsfkljsde',
-                                title: 'work',
-                                start: 'FRI+09:00:00',
-                                end: 'FRI+12:30:00',
-                                username: 'coderder',
-                                nickname: '민영',
+                                id: 15,
+                                start: 'TUE+11:00:00',
+                                end: 'TUE+12:30:00',
+                                memberId: 'coderder815',
+                                title: 'tea time',
+                                memo: null,
                             },
                         ],
                     },
@@ -341,15 +340,24 @@ const scheduleHandlers = [
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
-                ctx.json([
-                    {
-                        id: 'dfERERRsdf',
-                        title: 'team1_weekly_study',
-                        start: 'WED+09:00:00',
-                        end: 'WED+12:30:00',
-                        teamId: 5,
-                    },
-                ]),
+                ctx.json({
+                    schedule: [
+                        {
+                            id: 11,
+                            start: 'mon+09:00:00',
+                            end: 'mon+10:00:00',
+                            title: 'team1_weekly_study',
+                            memo: null,
+                        },
+                        {
+                            id: 12,
+                            start: 'mon+19:00:00',
+                            end: 'mon+20:00:00',
+                            title: 'team1_weekly_study',
+                            memo: null,
+                        },
+                    ],
+                }),
             );
         },
     ),
@@ -360,11 +368,7 @@ const scheduleHandlers = [
             return res(
                 ctx.status(200),
                 ctx.json({
-                    id: 'sdlkfEEWEERsdf',
-                    title: 'new_study',
-                    start: 'WED+12:30:00',
-                    end: 'WED+13:30:00',
-                    teamId: 5,
+                    message: 'team schedule {name} insert complete',
                 }),
             );
         },
