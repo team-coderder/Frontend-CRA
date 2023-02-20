@@ -48,6 +48,7 @@ const useTeamSchedule = (teamId: number) => {
                     end: generateStringFromDate(addInfo.event.end),
                 };
                 await createTeamSchedule(teamId, newEvent);
+                addInfo.revert();
                 mutate();
             } else {
                 alert('에러. 일정을 추가할 수 없습니다');
