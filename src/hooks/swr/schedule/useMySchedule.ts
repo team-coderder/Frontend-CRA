@@ -21,7 +21,7 @@ const useMySchedule = () => {
 
     async function fetcher() {
         const { data } = await getMySchedule();
-        const events = data.map((event) => {
+        const events = data.schedule.map((event) => {
             return {
                 ...event,
                 start: generateDateFromString(event.start as string),
