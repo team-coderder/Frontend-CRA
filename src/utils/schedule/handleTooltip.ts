@@ -11,7 +11,7 @@ function onMouseMove(event: MouseEvent) {
 export function showTooltip(eventInfo: EventHoveringArg) {
     const tooltip = document.querySelector('.tooltip') as HTMLElement;
     if (tooltip) {
-        tooltip.classList.toggle('show');
+        tooltip.classList.add('show');
         tooltip.textContent =
             eventInfo.event.title +
             '\r\n' +
@@ -23,7 +23,7 @@ export function showTooltip(eventInfo: EventHoveringArg) {
 export function hideTooltip(eventInfo: EventHoveringArg) {
     const tooltip = document.querySelector('.tooltip') as HTMLElement;
     if (tooltip) {
-        tooltip.classList.toggle('show');
+        tooltip.classList.remove('show');
         eventInfo.el.removeEventListener('mousemove', onMouseMove);
     }
 }

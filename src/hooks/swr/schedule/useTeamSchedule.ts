@@ -56,6 +56,7 @@ const useTeamSchedule = (teamId: number) => {
             }
         } catch (e) {
             handleError(e);
+            addInfo.revert();
         }
     }
 
@@ -70,6 +71,7 @@ const useTeamSchedule = (teamId: number) => {
             }
         } catch (e) {
             handleError(e);
+            removeInfo.revert();
         }
     }
 

@@ -48,6 +48,7 @@ const useMySchedule = () => {
             }
         } catch (e) {
             handleError(e);
+            addInfo.revert();
         }
     }
 
@@ -62,6 +63,7 @@ const useMySchedule = () => {
             }
         } catch (e) {
             handleError(e);
+            removeInfo.revert();
         }
     }
 
