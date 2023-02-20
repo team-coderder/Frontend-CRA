@@ -25,4 +25,4 @@ export const createTeamSchedule = (teamId: number, newEvent: Event) =>
     API.post(`/api/schedule/teamschedule?teamId=${teamId}`, newEvent);
 
 export const deleteTeamSchedule = (eventId: string) =>
-    API.delete(`/api/schedule/teamschedule?eventId=${eventId}`);
+    API.delete(`/api/schedule/teamschedule?scheduleId=${eventId}`);
