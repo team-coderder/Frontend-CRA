@@ -23,5 +23,4 @@ export {
     getTeamSchedule,
     createTeamSchedule,
     deleteTeamSchedule,
-    getRecommendation,
 } from './schedule';

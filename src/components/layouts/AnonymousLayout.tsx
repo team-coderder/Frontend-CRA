@@ -1,10 +1,10 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { useMyInfo } from '../../hooks';
+import { useToken } from '../../hooks';
 
 const AnonymousLayout = () => {
-    const { user } = useMyInfo();
+    const { token } = useToken();
 
-    return !user ? <Outlet /> : <Navigate to="/myschedule" />;
+    return !token ? <Outlet /> : <Navigate to="/myschedule" />;
 };
 
 export default AnonymousLayout;

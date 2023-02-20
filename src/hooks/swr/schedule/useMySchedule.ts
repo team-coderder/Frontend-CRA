@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { EventRemoveArg, EventAddArg } from '@fullcalendar/core';
-import { useMyInfo } from '../..';
+import { useToken } from '../..';
 import {
     getMySchedule,
     createMySchedule,
@@ -13,7 +13,7 @@ import {
 } from '../../../utils';
 
 const useMySchedule = () => {
-    const { token } = useMyInfo();
+    const { token } = useToken();
     const { data, error, isLoading, mutate } = useSWR(
         ['useMySchedule', token],
         fetcher,
@@ -21,7 +21,7 @@ const useMySchedule = () => {
 
     async function fetcher() {
         const { data } = await getMySchedule();
-        const events = data.map((event) => {
+        const events = data.schedule.map((event) => {
             return {
                 ...event,
                 start: generateDateFromString(event.start as string),

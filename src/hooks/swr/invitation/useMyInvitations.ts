@@ -4,11 +4,11 @@ import {
     acceptInvitation,
     rejectInvitation,
 } from '../../../api';
-import { useMyInfo } from '../../../hooks';
+import { useToken } from '../../../hooks';
 import { handleError } from '../../../utils';
 
 const useMyInvitations = () => {
-    const { token } = useMyInfo();
+    const { token } = useToken();
     const { data, error, mutate } = useSWR(
         ['useMyInvitations', token],
         async () => {
