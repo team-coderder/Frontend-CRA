@@ -6,7 +6,7 @@ Plan Your Group Meetings with Coderder!<br>
 This web application allows you to view your group members' schedules combined<br>
 and figure out the most suitable meeting time at a single glance.
 
-<a href="https://d2bevc8l715g2k.cloudfront.net"><strong>Visit Coderder!</strong></a>
+<a href="http://d2bevc8l715g2k.cloudfront.net"><strong>Visit Coderder!</strong></a>
 
 <br>
 
@@ -63,7 +63,7 @@ REACT_APP_BASE_URL={server IP address}
 
 - Create an account with ID, password, and nickname.
 
-<img src="https://user-images.githubusercontent.com/65887537/220830894-77bd4d0c-7ba5-44c3-81d0-bcfd45912a85.gif" width="70%" alt="login/signup demo" />
+<img src="https://user-images.githubusercontent.com/65887537/220830894-77bd4d0c-7ba5-44c3-81d0-bcfd45912a85.gif" width="1000" alt="login/signup demo" />
 
 ### :: Add your schedule
 
@@ -72,26 +72,26 @@ REACT_APP_BASE_URL={server IP address}
   - Cannot create events spanning multiple days.
 - Click on an existing event to delete it.
 
-<img src="https://user-images.githubusercontent.com/65887537/220831208-562ba944-bb29-4765-b014-358f342f17bb.gif" width="70%" alt="my schedule demo" />
+<img src="https://user-images.githubusercontent.com/65887537/220831208-562ba944-bb29-4765-b014-358f342f17bb.gif" width="1000" alt="my schedule demo" />
 
 ### :: Create your own group
 
 - Create your own group.
 - You may change the group's name or delete the group.
 
-<img src="https://user-images.githubusercontent.com/65887537/220831215-63cb481d-8bd5-42b6-a98a-0b0eadc2a484.gif" width="70%" alt="create group demo" />
+<img src="https://user-images.githubusercontent.com/65887537/220831215-63cb481d-8bd5-42b6-a98a-0b0eadc2a484.gif" width="1000" alt="create group demo" />
 
 ### :: Invite members to your group
 
 - Search members with username and invite them to your group.
 - You may uninvite or delete a member from the group.
 
-<img src="https://user-images.githubusercontent.com/65887537/220831604-6db233d5-1e6b-4b50-b0b5-02a5ce8885c4.gif" width="70%" alt="invite member demo" />
+<img src="https://user-images.githubusercontent.com/65887537/220831604-6db233d5-1e6b-4b50-b0b5-02a5ce8885c4.gif" width="1000" alt="invite member demo" />
 
 - Accept or reject invitations.
 - You may leave the group.
 
-<img src="https://user-images.githubusercontent.com/65887537/220831608-9a57b169-804a-4e59-983f-7ebd9d122b1c.gif" width="70%" alt="accept invitation demo" />
+<img src="https://user-images.githubusercontent.com/65887537/220831608-9a57b169-804a-4e59-983f-7ebd9d122b1c.gif" width="1000" alt="accept invitation demo" />
 
 ### :: View your group members' schedules combined
 
@@ -102,7 +102,7 @@ REACT_APP_BASE_URL={server IP address}
 - Click & Drag on the calendar to create new events. Give a title explaining the event.
 - Click on an existing event to delete it.
 
-<img src="https://user-images.githubusercontent.com/65887537/220831629-bf0015d3-0fb3-48a5-8030-2a2a8296cae6.gif" width="70%" alt="team schedule demo" />
+<img src="https://user-images.githubusercontent.com/65887537/220831629-bf0015d3-0fb3-48a5-8030-2a2a8296cae6.gif" width="1000" alt="team schedule demo" />
 
 <br>
 
