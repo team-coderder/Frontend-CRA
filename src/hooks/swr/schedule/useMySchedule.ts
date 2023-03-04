@@ -11,6 +11,7 @@ import {
     generateStringFromDate,
     handleError,
 } from '../../../utils';
+import theme from '../../../styles/theme';
 
 const useMySchedule = () => {
     const { token } = useToken();
@@ -27,6 +28,8 @@ const useMySchedule = () => {
                 start: generateDateFromString(event.start as string),
                 end: generateDateFromString(event.end as string),
                 classNames: ['my-event'],
+                backgroundColor: theme.color.background.tan.main,
+                textColor: theme.font.color.main.dark,
             };
         });
         return events;
@@ -34,7 +37,11 @@ const useMySchedule = () => {
 
     async function handleEventAdd(addInfo: EventAddArg) {
         try {
-            if (addInfo.event.title && addInfo.event.start && addInfo.event.end) {
+            if (
+                addInfo.event.title &&
+                addInfo.event.start &&
+                addInfo.event.end
+            ) {
                 const newEvent = {
                     title: addInfo.event.title,
                     start: generateStringFromDate(addInfo.event.start),

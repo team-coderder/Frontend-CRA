@@ -6,7 +6,7 @@ import { VerticalBar, GroupList } from '../../styles/componentStyle/navbar';
 import { Icon } from '../../styles/globalStyle/PageLayout';
 
 function Groupbar() {
-    const [toggleGroups, setToggleGroups] = useState(false);
+    const [toggleGroups, setToggleGroups] = useState(true);
     const toggle = () => setToggleGroups(!toggleGroups);
 
     return (
