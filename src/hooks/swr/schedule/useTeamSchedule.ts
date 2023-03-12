@@ -11,6 +11,7 @@ import {
     handleError,
 } from '../../../utils';
 import type { EventSource } from '../../../types';
+import theme from '../../../styles/theme';
 
 const useTeamSchedule = (teamId: number) => {
     const { data, error, mutate } = useSWR(
@@ -27,6 +28,8 @@ const useTeamSchedule = (teamId: number) => {
                 teamId: teamId,
                 start: generateDateFromString(event.start as string),
                 end: generateDateFromString(event.end as string),
+                backgroundColor: theme.color.background.tan.dark,
+                textColor: theme.font.color.main.dark,
             };
         });
         const eventSource: EventSource[] = [
@@ -41,7 +44,11 @@ const useTeamSchedule = (teamId: number) => {
 
     async function handleEventAdd(addInfo: EventAddArg) {
         try {
-            if (addInfo.event.title && addInfo.event.start && addInfo.event.end) {
+            if (
+                addInfo.event.title &&
+                addInfo.event.start &&
+                addInfo.event.end
+            ) {
                 const newEvent = {
                     title: addInfo.event.title,
                     start: generateStringFromDate(addInfo.event.start),

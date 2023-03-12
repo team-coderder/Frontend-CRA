@@ -13,7 +13,7 @@ import {
 import { renderEventContent } from '../../utils';
 import { START_DATE, START_TIME } from '../../constant';
 import type { UserEvent, EventSource } from '../../types';
-import '../../styles/componentStyle/schedule.css';
+// import '../../styles/componentStyle/schedule.css';
 
 type ScheduleProps = {
     selectable?: boolean;

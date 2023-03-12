@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     EventApi,
@@ -32,7 +32,9 @@ const TeamSchedule: React.FC = () => {
     const { handleLeaveTeam } = useMyTeams();
     const { teamInfo, isLoading: infoLoading } = useTeamInfo(Number(teamId));
     const { memberSchedule } = useMemberSchedule(Number(teamId));
-    const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(Number(teamId));
+    const { teamSchedule, handleEventAdd, handleEventRemove } = useTeamSchedule(
+        Number(teamId),
+    );
 
     useEffect(() => {
         if (teamInfo?.myRole === 'LEADER') {
@@ -42,9 +44,14 @@ const TeamSchedule: React.FC = () => {
         }
     }, [teamInfo?.myRole]);
 
-    useEffect(() => {
-        setInset(teamInfo?.teamMembers?.length);
-    }, [teamSchedule, memberSchedule, teamInfo?.teamMembers]);
+    useLayoutEffect(() => {
+        if (
+            teamInfo?.teamMembers?.length &&
+            (memberSchedule?.length || teamSchedule?.length)
+        ) {
+            setInset(teamInfo?.teamMembers?.length);
+        }
+    }); // Must trigger on every render. Otherwise, FullCalendar default inset is applied.
 
     function handleEvents(events: EventApi[]) {
         const teamEvents = events.filter(
@@ -120,7 +127,9 @@ const TeamSchedule: React.FC = () => {
                             </Nav>
                         </Button>
                     ) : (
-                        <Button onClick={handleClickLeave} inverse>그룹 탈퇴</Button>
+                        <Button onClick={handleClickLeave} inverse>
+                            그룹 탈퇴
+                        </Button>
                     )}
                 </AlignRight>
             </Header>

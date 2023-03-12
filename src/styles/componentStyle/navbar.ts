@@ -49,7 +49,7 @@ export const HorizontalBar = styled.div`
     height: 80px;
     // position: sticky;
     // top: 0;
-    z-index: 1;
+    z-index: 3;
     position: relative;
     padding-right: 20px;
     display: flex;
