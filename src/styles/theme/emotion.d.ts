@@ -14,6 +14,7 @@ declare module '@emotion/react' {
                 };
                 tan: {
                     main: string;
+                    dark: string;
                 };
                 dark: {
                     main: string;

@@ -1,6 +1,7 @@
 :root {
     --fc-event-border-color: 'transparent';
     --fc-page-bg-color: 'transparent';
+    --fc-event-bg-color: rgba(199, 165, 129, 0.8);
 }
 .fc-timegrid-event-harness {
     padding: 1px 5px;

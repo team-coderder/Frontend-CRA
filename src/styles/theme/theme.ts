@@ -8,11 +8,13 @@ const theme: Theme = {
                 hover: '#DDDDDD',
                 shadow: {
                     convex: 'rgb(255 255 255 / 50%) 3px 3px 6px 0px inset, rgb(204 219 232) -3px -3px 6px 1px inset',
-                    concave: 'rgb(204 219 232) 3px 3px 6px 0px inset, rgb(255 255 255 / 50%) -3px -3px 6px 1px inset',
+                    concave:
+                        'rgb(204 219 232) 3px 3px 6px 0px inset, rgb(255 255 255 / 50%) -3px -3px 6px 1px inset',
                 },
             },
             tan: {
                 main: 'rgba(223, 207, 190, 0.8)',
+                dark: 'rgba(199, 165, 129, 0.8)',
             },
             dark: {
                 main: '#1B222D',
