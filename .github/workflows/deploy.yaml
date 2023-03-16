@@ -1,0 +1,54 @@
+name: Auto Deploy after push
+
+on:
+  push:
+    branches:
+      - main   # main 브랜치에 push할 때 워크플로를 트리거함
+
+env:
+  NODE_VERSION: '18.x'   # 18.(x=최신) 노드 버전
+
+jobs:
+  deploy:
+    name: Build and Deploy to S3 bucket
+    runs-on: [ubuntu-latest]   # GitHub-호스팅된 ubuntu-latest 실행기를 사용하여 Linux에서 실행됨
+    
+    strategy:
+      matrix:
+        node-version: [env.NODE_VERSION]   # 해당 job은 env에 명시한 노드버전을 사용
+
+    steps:
+      - name: Checkout Github Action
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Npm install
+        run: npm ci 
+
+      - name: Build
+        run: npm run build
+
+      - name: Configure AWS credentials   # aws user 연결
+        uses: aws-actions/configure-aws-credentials@v1 
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }} 
+          aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY_ID }} 
+          aws-region: ap-northeast-2
+
+      - name: Upload /build to S3   # react 빌드한 /build를 s3로 업로드
+        env:
+          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
+        run: |
+          aws s3 sync \
+            ./build s3://$BUCKET_NAME
+            
+      - name: CloudFront Invalidation   # 업로드한 s3 파일을 각 CDN 캐시 무효화하여 리프레시 하기
+        env:
+          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID}}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id $CLOUD_FRONT_ID --paths /*
