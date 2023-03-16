@@ -5,26 +5,19 @@ on:
     branches:
       - main   # main 브랜치에 push할 때 워크플로를 트리거함
 
-env:
-  NODE_VERSION: '18.x'   # 18.(x=최신) 노드 버전
-
 jobs:
   deploy:
     name: Build and Deploy to S3 bucket
     runs-on: [ubuntu-latest]   # GitHub-호스팅된 ubuntu-latest 실행기를 사용하여 Linux에서 실행됨
     
-    strategy:
-      matrix:
-        node-version: [env.NODE_VERSION]   # 해당 job은 env에 명시한 노드버전을 사용
-
     steps:
       - name: Checkout Github Action
         uses: actions/checkout@v3
 
-      - name: Set up Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18
 
       - name: Npm install
         run: npm ci 
