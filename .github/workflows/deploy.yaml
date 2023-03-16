@@ -23,7 +23,7 @@ jobs:
         run: npm ci 
 
       - name: Build
-        run: npm run build
+        run: CI='' npm run build
 
       - name: Configure AWS credentials   # aws user 연결
         uses: aws-actions/configure-aws-credentials@v1 
