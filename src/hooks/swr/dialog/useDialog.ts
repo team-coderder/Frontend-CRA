@@ -59,7 +59,7 @@ const useDialog = () => {
 
     const prompt = (title: string, description = '') => {
         setAttributes('prompt', title, description);
-        return new Promise<boolean>((res) => {
+        return new Promise<string>((res) => {
             setResponseHandler(res);
         });
     };

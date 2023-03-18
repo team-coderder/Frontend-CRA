@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from 'react';
 import { Schedule } from '..';
-import { useMemberSchedule, useTeamSchedule } from '../../hooks';
+import { useDialog, useMemberSchedule, useTeamSchedule } from '../../hooks';
 import {
     isEventAllowed,
     setInset,
@@ -20,6 +20,7 @@ const TeamSchedule = ({ teamId, isLeader, teamInfo }: TeamScheduleProps) => {
     const { memberSchedule } = useMemberSchedule(teamId);
     const { teamSchedule, handleEventAdd, handleEventRemove } =
         useTeamSchedule(teamId);
+    const { prompt, alert, confirm } = useDialog();
 
     useLayoutEffect(() => {
         if (
@@ -37,35 +38,45 @@ const TeamSchedule = ({ teamId, isLeader, teamInfo }: TeamScheduleProps) => {
         setEvents(teamEvents);
     }
 
-    function handleDateSelect(selectInfo: DateSelectArg) {
+    async function handleDateSelect(selectInfo: DateSelectArg) {
         const start = selectInfo.startStr;
         const end = selectInfo.endStr;
         const calendarApi = selectInfo.view.calendar;
+        const res = isEventAllowed(start, end, calendarApi, events);
 
-        if (isEventAllowed(start, end, calendarApi, events)) {
-            const title = prompt('일정을 입력하세요');
-            if (title) {
-                if (title.length > 20) {
-                    alert('일정 이름이 너무 깁니다 (20자 이하)');
-                    return;
-                }
-                calendarApi.addEvent({
-                    id: 'temp_id', // 바로 삭제하기 위해 필요
-                    title,
-                    start,
-                    end,
-                    teamId: teamId,
-                });
+        if (res !== '') {
+            await alert(res);
+            return;
+        }
+
+        const title = await prompt('Name of the event?');
+
+        if (title) {
+            if (title.length > 20) {
+                await alert(
+                    'Name is too long :(',
+                    'Try again with less than 20 characters',
+                );
+                return;
             }
+            calendarApi.addEvent({
+                id: 'temp_id', // 바로 삭제하기 위해 필요
+                title,
+                start,
+                end,
+                teamId: teamId,
+            });
         }
     }
 
-    function handleEventClick(clickInfo: EventClickArg) {
+    async function handleEventClick(clickInfo: EventClickArg) {
         hideTooltip(clickInfo);
-        if (isLeader && clickInfo.event.extendedProps.teamId) {
-            if (confirm(`일정 '${clickInfo.event.title}' 를 지울까요?`)) {
-                clickInfo.event.remove();
-            }
+        if (
+            isLeader &&
+            clickInfo.event.extendedProps.teamId &&
+            (await confirm(`Delete this event?`, `${clickInfo.event.title}`))
+        ) {
+            clickInfo.event.remove();
         }
     }
 

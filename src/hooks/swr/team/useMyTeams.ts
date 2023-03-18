@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 import { getMyTeams, createTeam, deleteTeam, leaveTeam } from '../../../api';
-import { useToken } from '../../../hooks';
+import { useDialog, useToken } from '../../../hooks';
 import { handleError, isNameValid } from '../../../utils';
 import type { useMyTeamsResponse } from '../../../types';
 
@@ -10,6 +10,7 @@ const useMyTeams = () => {
         ['useMyTeams', token],
         fetcher,
     );
+    const { alert } = useDialog();
 
     async function fetcher() {
         const response = await getMyTeams();
@@ -18,14 +19,19 @@ const useMyTeams = () => {
 
     const handleCreateTeam = async (groupName: string) => {
         try {
-            if (isNameValid(groupName)) {
-                const { data } = await createTeam({ name: groupName });
-                alert(
-                    `${data?.name} 팀을 만들었습니다.\n[그룹 정보 수정]에서 멤버를 추가해보세요!`,
-                );
-                mutate();
-                return data;
+            const res = isNameValid(groupName);
+            if (res !== '') {
+                await alert(res);
+                return;
             }
+
+            const { data } = await createTeam({ name: groupName });
+            await alert(
+                `You've created a new group ${data?.name}!`,
+                `Go to [Edit Group Info] and invite new members.`,
+            );
+            mutate();
+            return data;
         } catch (e) {
             handleError(e);
         }
@@ -34,7 +40,7 @@ const useMyTeams = () => {
     const handleDeleteTeam = async (teamId: number) => {
         try {
             await deleteTeam(teamId);
-            alert(`그룹이 삭제되었습니다`);
+            await alert(`Deleted!`);
             mutate();
         } catch (e) {
             handleError(e);
@@ -44,7 +50,7 @@ const useMyTeams = () => {
     const handleLeaveTeam = async (teamId: number) => {
         try {
             await leaveTeam(teamId);
-            alert(`그룹을 탈퇴했습니다`);
+            await alert(`You've left the group!`);
             mutate();
         } catch (e) {
             handleError(e);

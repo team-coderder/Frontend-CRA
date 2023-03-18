@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useTeamInfo, useMyInfo, useMyTeams } from '../hooks';
+import { useTeamInfo, useMyInfo, useMyTeams, useDialog } from '../hooks';
 import { TextInput, Button, SearchID, Members } from '../components';
 import { Main, Header, Field, InputBox } from '../styles/componentStyle';
 
@@ -18,10 +18,11 @@ const GroupInfo = () => {
     const { user } = useMyInfo();
     const { handleDeleteTeam } = useMyTeams();
     const [name, setName] = useState<string | undefined>(teamInfo?.name);
+    const { confirm } = useDialog();
 
     async function handleClickDelete() {
         if (teamId) {
-            if (confirm(`그룹을 삭제할까요?`)) {
+            if (await confirm(`Do you want to delete this group?`)) {
                 await handleDeleteTeam(Number(teamId));
                 navigate('/myschedule');
             }

@@ -8,12 +8,14 @@ import {
 } from '../../../api';
 import type { User } from '../../../types';
 import { handleError, isNameValid } from '../../../utils';
+import { useDialog } from '../..';
 
 const useTeamInfo = (teamId: string | undefined) => {
     const { data, error, isLoading, mutate } = useSWR(
         teamId ? ['useTeamInfo', teamId] : null,
         fetcher,
     );
+    const { confirm, alert } = useDialog();
 
     async function fetcher() {
         const { data } = await getTeamInfo(Number(teamId));
@@ -28,13 +30,17 @@ const useTeamInfo = (teamId: string | undefined) => {
 
     const changeName = async (newName: string | undefined) => {
         try {
-            if (isNameValid(newName)) {
-                const { data } = await updateTeamInfo(Number(teamId), {
-                    name: newName as string,
-                });
-                mutate();
-                alert(`그룹 이름이 ${data.name} 으로 바뀌었습니다`);
+            const res = isNameValid(newName);
+            if (res !== '') {
+                await alert(res);
+                return;
             }
+
+            const { data } = await updateTeamInfo(Number(teamId), {
+                name: newName as string,
+            });
+            mutate();
+            await alert(`This group's name has been changed to ${data.name}.`);
         } catch (e) {
             handleError(e);
         }
@@ -43,7 +49,7 @@ const useTeamInfo = (teamId: string | undefined) => {
     const removeMember = async (memberId: number) => {
         try {
             if (data?.teamId) {
-                if (confirm(`멤버를 탈퇴시킬까요?`)) {
+                if (await confirm(`Do you want to remove this member?`)) {
                     await removeUser(data.teamId, memberId);
                     mutate();
                 }
@@ -66,7 +72,7 @@ const useTeamInfo = (teamId: string | undefined) => {
 
     const uninviteMember = async (inviteId: number) => {
         try {
-            if (confirm(`초대를 취소할까요?`)) {
+            if (await confirm(`Do you want to cancel this invitation?`)) {
                 await uninviteUser(inviteId);
                 mutate();
             }

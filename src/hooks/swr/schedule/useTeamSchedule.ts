@@ -11,12 +11,14 @@ import {
 } from '../../../utils';
 import type { EventSource, EventRemoveArg, EventAddArg } from '../../../types';
 import theme from '../../../styles/theme';
+import { useDialog } from '../..';
 
 const useTeamSchedule = (teamId: string | undefined) => {
     const { data, error, mutate } = useSWR(
         teamId ? ['useTeamSchedule', teamId] : null,
         fetcher,
     );
+    const { alert } = useDialog();
 
     async function fetcher() {
         const { data } = await getTeamSchedule(Number(teamId));
@@ -57,7 +59,10 @@ const useTeamSchedule = (teamId: string | undefined) => {
                 addInfo.revert();
                 mutate();
             } else {
-                alert('에러. 일정을 추가할 수 없습니다');
+                await alert(
+                    'Sorry :(',
+                    'Could not add the event. Please Try again.',
+                );
                 addInfo.revert();
             }
         } catch (e) {
@@ -72,7 +77,10 @@ const useTeamSchedule = (teamId: string | undefined) => {
                 await deleteTeamSchedule(removeInfo.event.id);
                 mutate();
             } else {
-                alert('에러. 일정을 삭제할 수 없습니다');
+                await alert(
+                    'Sorry :(',
+                    'Could not delete the event. Please Try again.',
+                );
                 removeInfo.revert();
             }
         } catch (e) {

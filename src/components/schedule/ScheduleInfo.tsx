@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { Members, Button, Nav } from '../../components';
-import { useMyInfo, useMyTeams } from '../../hooks';
+import { useDialog, useMyInfo, useMyTeams } from '../../hooks';
 
 const ScheduleInfo = ({ teamId, isMySchedule, isLeader, teamMembers }) => {
     const navigate = useNavigate();
     const { user } = useMyInfo();
     const { handleLeaveTeam } = useMyTeams();
+    const { confirm } = useDialog();
 
     async function handleClickLeave() {
-        if (confirm(`그룹을 탈퇴할까요?`)) {
+        if (await confirm(`Do you want to leave this group?`)) {
             await handleLeaveTeam(Number(teamId));
             navigate(`/mySchedule`);
         }

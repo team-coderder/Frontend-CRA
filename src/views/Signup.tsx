@@ -10,6 +10,7 @@ import {
 import { sign_up } from '../api';
 import { handleError } from '../utils';
 import type { signUpForm } from '../types';
+import { useDialog } from '../hooks';
 
 const initialForm: signUpForm = { username: '', password: '', nickname: '' };
 
@@ -17,6 +18,7 @@ const Signup = () => {
     const navigate = useNavigate();
     const [form, setForm] = useState(initialForm);
     const [confirmPassword, setConfirmPassword] = useState('');
+    const { alert } = useDialog();
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
@@ -42,14 +44,13 @@ const Signup = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         const formIncomplete =
             !Object.values(form).every((x) => x !== '') ||
             hasError() ||
             notSameError();
 
         if (formIncomplete) {
-            alert('입력 정보를 다시 확인해주세요.');
+            await alert('Please try again.');
         } else {
             try {
                 await sign_up(form); // {"id":29,"username":"coderder100","nickname":"check-filter"}

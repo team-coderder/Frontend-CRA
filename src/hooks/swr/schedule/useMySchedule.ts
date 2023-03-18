@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { useToken } from '../..';
+import { useDialog, useToken } from '../..';
 import {
     getMySchedule,
     createMySchedule,
@@ -19,6 +19,7 @@ const useMySchedule = () => {
         ['useMySchedule', token],
         fetcher,
     );
+    const { alert } = useDialog();
 
     async function fetcher() {
         const { data } = await getMySchedule();
@@ -50,7 +51,10 @@ const useMySchedule = () => {
                 await createMySchedule(newEvent);
                 mutate();
             } else {
-                alert('일정을 추가할 수 없습니다. 다시 시도해주세요.');
+                await alert(
+                    'Sorry :(',
+                    'Could not add the event. Please Try again.',
+                );
                 addInfo.revert();
             }
         } catch (e) {
@@ -65,7 +69,10 @@ const useMySchedule = () => {
                 await deleteMySchedule(removeInfo.event.id);
                 mutate();
             } else {
-                alert('일정을 삭제할 수 없습니다. 다시 시도해주세요.');
+                await alert(
+                    'Sorry :(',
+                    'Could not delete the event. Please Try again.',
+                );
                 removeInfo.revert();
             }
         } catch (e) {
