@@ -15,6 +15,8 @@ export type {
     ModalProps,
     LinkProps,
     TextInputProps,
+    DialogType,
+    DialogStore,
     MembersProp,
     SearchIDProps,
     ScheduleProps,

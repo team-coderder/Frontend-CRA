@@ -11,6 +11,7 @@ import type {
     EventContentArg,
 } from '@fullcalendar/core';
 
+/* Common */
 type ButtonProps = {
     type?: 'submit';
     width?: string;
@@ -58,6 +59,17 @@ type TextInputProps = {
     children?: React.ReactNode;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+/* Dialog */
+type DialogType = 'alert' | 'confirm' | 'prompt' | 'show';
+type DialogStore = {
+    title: string;
+    description: string;
+    type: string;
+    revealed: boolean;
+    responseHandler: (value: string | boolean | PromiseLike<boolean>) => void;
+    child?: React.ReactNode;
+};
+/* Members */
 type MembersProp = {
     myUsername?: string;
     members: TeamMember[] | Invitation[] | undefined;
@@ -66,6 +78,7 @@ type MembersProp = {
 type SearchIDProps = {
     handleAddMember: (member: User) => Promise<void>;
 };
+/* Schedule */
 type ScheduleProps = {
     selectable?: boolean;
     events?: UserEvent[] | undefined;
@@ -86,6 +99,8 @@ export type {
     ModalProps,
     LinkProps,
     TextInputProps,
+    DialogType,
+    DialogStore,
     MembersProp,
     SearchIDProps,
     ScheduleProps,

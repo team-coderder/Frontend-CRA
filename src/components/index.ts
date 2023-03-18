@@ -3,6 +3,8 @@ export { default as Modal } from './common/Modal';
 export { default as Button } from './common/Button';
 export { default as TextInput } from './common/TextInput';
 export { default as Nav } from './common/Nav';
+// Dialog
+export { default as Dialog } from './dialog/Dialog';
 // Layouts
 export { default as AnonymousLayout } from './layouts/AnonymousLayout';
 export { default as AuthLayout } from './layouts/AuthLayout';
