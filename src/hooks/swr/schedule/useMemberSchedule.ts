@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { getMembersSchedule } from '../../../api';
 import { generateColor, generateDateFromString } from '../../../utils';
-import { EventSource } from '../../../types';
+import type { EventSource } from '../../../types';
 
 const useMemberSchedule = (teamId: number) => {
     const { data, error } = useSWR(['useMemberSchedule', teamId], fetcher);

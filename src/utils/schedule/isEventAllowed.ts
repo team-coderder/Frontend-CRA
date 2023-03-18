@@ -1,5 +1,5 @@
 import { WEEK_START, WEEK_END } from '../../constant';
-import { EventApi, CalendarApi } from '@fullcalendar/core';
+import type { EventApi, CalendarApi } from '../../types';
 
 /* 추가해도 되는 일정인지 확인한다.
  */
@@ -21,7 +21,7 @@ export function isEventAllowed(
         (start.split(/[T+]/)[0] !== end.split(/[T+]/)[0] &&
             end.split(/[T+]/)[1] !== '00:00:00')
     ) {
-        console.log(start, end, end.split(/[T+]/)[1])
+        console.log(start, end, end.split(/[T+]/)[1]);
         alert('날짜를 넘어가는 스케쥴은 등록할 수 없습니다');
         return false;
     }

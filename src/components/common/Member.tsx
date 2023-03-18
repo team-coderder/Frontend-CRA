@@ -1,16 +1,6 @@
 import styled from '@emotion/styled/macro';
 import { BsXCircle } from 'react-icons/bs';
-
-type MemberProps = {
-    width?: string;
-    height?: string;
-    fontSize?: string;
-    backgroundColor?: string;
-    deletable?: boolean;
-    children: React.ReactNode;
-    memberId?: number;
-    onDelete?: (id: number) => void;
-};
+import type { MemberProps } from '../../types';
 
 const MemberComponent = styled.div<MemberProps>`
     position: relative;

@@ -1,13 +1,7 @@
 import styled from '@emotion/styled/macro';
 import { Member } from '..';
 import { generateColor } from '../../utils';
-import type { TeamMember, Invitation } from '../../types';
-
-type MembersProp = {
-    myUsername?: string;
-    members: TeamMember[] | Invitation[] | undefined;
-    handleDeleteMember?: (id: number) => Promise<void>;
-};
+import type { MembersProp } from '../../types';
 
 const MembersContainer = styled.div`
     display: grid;
@@ -24,14 +18,16 @@ const NoticeText = styled.div`
 `;
 
 const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
-    const isInvitation = members?.length && members[0].hasOwnProperty('invitationId');
+    const isInvitation =
+        members?.length && members[0].hasOwnProperty('invitationId');
     const idProperty = isInvitation ? 'invitationId' : 'memberId';
 
     return (
         <MembersContainer>
             {members?.length ? (
                 members?.map((member) => {
-                    const isMe = member.username && member.username === myUsername;
+                    const isMe =
+                        member.username && member.username === myUsername;
                     return (
                         <Member
                             key={member[idProperty]}

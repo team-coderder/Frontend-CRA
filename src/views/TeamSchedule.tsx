@@ -1,11 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-    EventApi,
-    DateSelectArg,
-    EventClickArg,
-    EventHoveringArg,
-} from '@fullcalendar/core';
 import { Button, Nav, Members, Schedule } from '../components';
 import {
     useMyInfo,
@@ -14,6 +8,12 @@ import {
     useMemberSchedule,
     useTeamSchedule,
 } from '../hooks';
+import type {
+    EventApi,
+    DateSelectArg,
+    EventClickArg,
+    EventHoveringArg,
+} from '../types';
 import { isEventAllowed, setInset, showTooltip, hideTooltip } from '../utils';
 import {
     Main,

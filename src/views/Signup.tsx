@@ -9,12 +9,7 @@ import {
 } from '../styles/componentStyle/auth';
 import { sign_up } from '../api';
 import { handleError } from '../utils';
-
-type signUpForm = {
-    username: string;
-    password: string;
-    nickname: string;
-};
+import type { signUpForm } from '../types';
 
 const initialForm: signUpForm = { username: '', password: '', nickname: '' };
 

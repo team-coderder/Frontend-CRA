@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { EventApi, DateSelectArg, EventClickArg } from '@fullcalendar/core';
 import { Schedule } from '../components';
 import { useMySchedule } from '../hooks';
 import { isEventAllowed } from '../utils';
+import type { EventApi, DateSelectArg, EventClickArg } from '../types';
 import { Main, Header } from '../styles/globalStyle/PageLayout';
 
 const MySchedule = () => {

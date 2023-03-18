@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { EventRemoveArg, EventAddArg } from '@fullcalendar/core';
 import { useToken } from '../..';
 import {
     getMySchedule,
@@ -11,6 +10,7 @@ import {
     generateStringFromDate,
     handleError,
 } from '../../../utils';
+import type { EventRemoveArg, EventAddArg } from '../../../types';
 import theme from '../../../styles/theme';
 
 const useMySchedule = () => {

@@ -1,17 +1,5 @@
 import styled from '@emotion/styled/macro';
-
-type ButtonProps = {
-    type?: 'submit';
-    width?: string;
-    height?: string;
-    inverse?: boolean;
-    fontSize?: string;
-    fontWeight?: 'bold' | 'normal';
-    color?: string;
-    backgroundColor?: string;
-    children: React.ReactNode;
-    onClick?: () => void;
-};
+import type { ButtonProps } from '../../types';
 
 const ButtonComponent = styled.button<Omit<ButtonProps, 'type'>>`
     width: ${({ width }) => width ?? '150px'};

@@ -1,23 +1,36 @@
-export type Event = {
+type Event = {
     id?: string;
     title: string;
     start: string | Date;
     end: string | Date;
 };
-
-export type UserEvent = Event & {
+type UserEvent = Event & {
     username: string;
     nickname: string;
 };
-
-export type TeamEvent = Event & {
+type TeamEvent = Event & {
     teamId: number;
 };
-
-export type EventSource = {
+type EventSource = {
     id?: string;
     events: Event[];
     backgroundColor?: string;
     editable?: boolean;
     className?: string[];
+};
+type GetMembersScheduleResponse = {
+    username: string;
+    schedule: UserEvent[];
+}[];
+type useMyTeamsResponse = {
+    teams: { teamId: number; name: string }[];
+};
+
+export type {
+    Event,
+    UserEvent,
+    TeamEvent,
+    EventSource,
+    GetMembersScheduleResponse,
+    useMyTeamsResponse,
 };

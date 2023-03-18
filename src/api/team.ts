@@ -1,11 +1,5 @@
 import API from './base';
-import type { Team, TeamMember, Invitation } from '../types';
-
-type GetTeamInfoResponse = Team & {
-    myRole: string;
-    teamMembers: TeamMember[];
-    invitations: Invitation[];
-};
+import type { Team, GetTeamInfoResponse } from '../types';
 
 export const createTeam = (teamInfo: { name: string }) =>
     API.post<Team>(`/api/team`, teamInfo);
@@ -22,8 +16,7 @@ export const deleteTeam = (teamId: number) =>
 export const removeUser = (teamId: number, memberId: number) =>
     API.delete(`/api/team/members?teamId=${teamId}&memberId=${memberId}`);
 
-export const getMyTeams = () =>
-    API.get<{ teams: Team[] }>(`/api/team/myteams`);
+export const getMyTeams = () => API.get<{ teams: Team[] }>(`/api/team/myteams`);
 
 export const leaveTeam = (teamId: number) =>
     API.delete(`/api/team/myteam?teamId=${teamId}`);

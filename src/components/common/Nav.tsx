@@ -1,14 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from '@emotion/styled/macro';
-
-type LinkProps = {
-    fontSize?: string;
-    fontWeight?: 'bold' | 'normal';
-    color?: string;
-    underline?: 'underline';
-    children: React.ReactNode;
-    url: string;
-};
+import type { LinkProps } from '../../types';
 
 const NavComponent = styled(Link) <Omit<LinkProps, 'url'>>`
     font-size: ${({ fontSize }) => fontSize ?? 'inherit'};

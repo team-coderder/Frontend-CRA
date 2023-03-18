@@ -1,11 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import styled from '@emotion/styled/macro';
 import { onClickOutside } from '../../utils';
-
-type ModalProps = {
-    icon: React.ReactNode;
-    children?: React.ReactNode;
-};
+import type { ModalProps } from '../../types';
 
 const ModalComponent = styled.div`
     position: relative;

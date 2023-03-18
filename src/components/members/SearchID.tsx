@@ -4,11 +4,7 @@ import { BsPlusCircle } from 'react-icons/bs';
 import { TextInput } from '..';
 import { findByUsername } from '../../api';
 import { onClickOutside, handleError } from '../../utils';
-import { User } from '../../types';
-
-type SearchProps = {
-    handleAddMember: (member: User) => Promise<void>;
-};
+import type { User, SearchIDProps } from '../../types';
 
 const SearchContainer = styled.div`
     position: relative;
@@ -40,11 +36,11 @@ const ResultBox = styled.div<{ missing?: boolean }>`
     &:hover {
         cursor: ${({ missing }) => !missing && 'pointer'};
         background-color: ${({ theme, missing }) =>
-            !missing && theme.color.background.dark.hover};
+        !missing && theme.color.background.dark.hover};
     }
 `;
 
-const SearchID = ({ handleAddMember }: SearchProps) => {
+const SearchID = ({ handleAddMember }: SearchIDProps) => {
     const [focus, setFocus] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
     const [searchName, setSearchName] = useState('');
@@ -101,14 +97,14 @@ const SearchID = ({ handleAddMember }: SearchProps) => {
             <ResultContainer>
                 {matchedUsers.length && focus
                     ? searchName &&
-                      matchedUsers.map((user) => (
-                          <ResultBox
-                              key={user.memberId}
-                              onClick={() => handleClickMatch(user)}
-                          >
-                              {user.username}
-                          </ResultBox>
-                      ))
+                    matchedUsers.map((user) => (
+                        <ResultBox
+                            key={user.memberId}
+                            onClick={() => handleClickMatch(user)}
+                        >
+                            {user.username}
+                        </ResultBox>
+                    ))
                     : focus && <ResultBox missing>검색결과 없음</ResultBox>}
             </ResultContainer>
             <BsPlusCircle

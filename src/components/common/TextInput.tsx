@@ -1,18 +1,5 @@
 import styled from '@emotion/styled/macro';
-
-type TextInputProps = {
-    id?: string;
-    type?: 'none' | 'id' | 'password';
-    width?: string;
-    height?: string;
-    margin?: string;
-    error?: boolean;
-    placeholder?: string;
-    value?: string | number;
-    errorMessage?: string;
-    children?: React.ReactNode;
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import type { TextInputProps } from '../../types';
 
 const Input = styled.input<{ height?: string; placeholder?: string }>`
     width: 100%;

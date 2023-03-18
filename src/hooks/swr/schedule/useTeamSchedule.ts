@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { EventAddArg, EventRemoveArg } from '@fullcalendar/core';
 import {
     getTeamSchedule,
     createTeamSchedule,
@@ -10,7 +9,7 @@ import {
     generateStringFromDate,
     handleError,
 } from '../../../utils';
-import type { EventSource } from '../../../types';
+import type { EventSource, EventRemoveArg, EventAddArg } from '../../../types';
 import theme from '../../../styles/theme';
 
 const useTeamSchedule = (teamId: number) => {
