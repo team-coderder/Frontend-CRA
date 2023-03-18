@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTeamInfo, useMyInfo, useMyTeams } from '../hooks';
 import { TextInput, Button, SearchID, Members } from '../components';
-import { Main, Header, Field } from '../styles/componentStyle';
+import { Main, Header, Field, InputBox } from '../styles/componentStyle';
 
 const GroupInfo = () => {
     const { teamId } = useParams();
@@ -43,14 +43,19 @@ const GroupInfo = () => {
             </Header>
             <Field>
                 <h2>그룹 이름</h2>
-                <TextInput
-                    margin="0 10px 0 0"
-                    value={name}
-                    onChange={(e) => setName(e.currentTarget.value)}
-                />
-                <Button onClick={async () => await changeName(name)} inverse>
-                    이름 수정하기
-                </Button>
+                <InputBox>
+                    <TextInput
+                        margin="0 10px 0 0"
+                        value={name}
+                        onChange={(e) => setName(e.currentTarget.value)}
+                    />
+                    <Button
+                        onClick={async () => await changeName(name)}
+                        inverse
+                    >
+                        이름 수정하기
+                    </Button>
+                </InputBox>
             </Field>
             <Field>
                 <h2>멤버 관리</h2>

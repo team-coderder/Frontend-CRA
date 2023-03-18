@@ -26,7 +26,6 @@ export {
     SearchResultsContainer,
     SearchResult,
 } from './members';
-export { NavbarComponent, ProfileName } from './navbar';
 export {
     Container,
     Flex,
@@ -37,7 +36,9 @@ export {
     Header,
     Field,
     AlignRight,
+    InputBox,
     Icon,
     Spinner,
 } from './pageLayout';
+export { NavbarComponent, ProfileName } from './navbar';
 export { ScheduleContainer } from './schedule';

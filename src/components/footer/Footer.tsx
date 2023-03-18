@@ -19,9 +19,9 @@ function Footer() {
                 <Button
                     width="6em"
                     height="1.5em"
-                    // backgroundColor={theme.color.paleGrey}
+                    backgroundColor={theme.color.paleGrey}
                     fontSize={theme.font.size.label}
-                    // color={theme.color.grey}
+                    color={theme.color.grey}
                     onClick={handleLogOut}
                 >
                     Sign Out

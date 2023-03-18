@@ -1,23 +1,27 @@
 import styled from '@emotion/styled/macro';
+import { Icon } from '.';
 
 const NavbarComponent = styled.div`
     width: 100%;
-    height: 80px;
-    // position: sticky;
-    // top: 0;
-    z-index: 3;
-    position: relative;
-    padding-right: 20px;
+    height: 60px;
+    padding-right: 10px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    > * {
-        margin-left: 10px;
+    * Button {
+        margin-right: 20px;
+    }
+    :hover {
+        ${Icon} {
+            background-color: ${({ theme }) => theme.color.darkPurple};
+            transition: 0.5s all;
+        }
     }
 `;
 const ProfileName = styled.div`
+    font-weight: 600;
     text-transform: uppercase;
-    margin-left: 40px;
+    margin-right: 10px;
 `;
 
 export { NavbarComponent, ProfileName };

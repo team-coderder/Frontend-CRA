@@ -19,17 +19,20 @@ const Group = styled.div`
     display: flex;
     justify-content: space-between;
     :hover {
+        background-color: ${({ theme }) => theme.color.lightGrey};
     }
     transition: all 0.5s;
 `;
 const GroupName = styled.div<{ active?: boolean; limitWidth?: boolean }>`
     padding: 0.5em;
+    color: ${({ active, theme }) => active && theme.color.darkPink};
     font-weight: ${({ active, theme }) => active && theme.font.weight.bold};
     max-width: ${({ limitWidth }) => limitWidth && 'calc(100% - 120px)'};
 `;
 const LabelText = styled.div`
-    // font-size: ${({ theme }) => theme.font.size.label};
-    // line-height: ${({ theme }) => theme.font.size.label};
+    font-size: ${({ theme }) => theme.font.size.label};
+    line-height: ${({ theme }) => theme.font.size.label};
+    color: ${({ theme }) => theme.color.darkPink};
 `;
 const Buttons = styled.div`
     display: flex;

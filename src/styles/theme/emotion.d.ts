@@ -3,42 +3,27 @@ import '@emotion/react';
 declare module '@emotion/react' {
     export interface Theme {
         color: {
-            background: {
-                light: {
-                    main: string;
-                    hover: string;
-                    shadow: {
-                        convex: string;
-                        concave: string;
-                    };
-                };
-                tan: {
-                    main: string;
-                    dark: string;
-                };
-                dark: {
-                    main: string;
-                    hover: string;
-                    shadow: {
-                        convex: string;
-                    };
-                };
-            };
+            white: string;
+            lightPurple: string;
+            purple: string;
+            translucentPurple: string;
+            darkPurple: string;
+            paleGrey: string;
+            lightGrey: string;
+            grey: string;
+            darkGrey: string;
+            darkPink: string;
+            lightPink: string;
+        };
+        shadow: {
+            float: string;
         };
         borderRadius: {
             large: string;
             medium: string;
+            round: string;
         };
-
         font: {
-            color: {
-                main: {
-                    dark: string;
-                    light: string;
-                };
-                sub: string;
-                warning: string;
-            };
             size: {
                 header: string;
                 base: string;
@@ -50,6 +35,7 @@ declare module '@emotion/react' {
             };
         };
         break: {
+            mobile: string;
             tablet: string;
             pc: string;
         };

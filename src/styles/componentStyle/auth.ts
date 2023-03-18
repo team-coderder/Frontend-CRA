@@ -2,6 +2,7 @@ import styled from '@emotion/styled/macro';
 
 const AuthComponent = styled.div`
     width: 300px;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
     margin: auto;

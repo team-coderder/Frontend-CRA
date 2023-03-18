@@ -9,40 +9,36 @@ const MembersComponent = styled.div`
     }
 `;
 const NoticeText = styled.div`
-    color: ${({ theme }) => theme.font.color.sub};
+    color: ${({ theme }) => theme.color.grey};
     font-size: ${({ theme }) => theme.font.size.label};
 `;
 
 const SearchIDComponent = styled.div`
     position: relative;
-    z-index: 1;
     margin-bottom: 20px;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 `;
 const SearchResultsContainer = styled.div`
-    position: absolute;
-    top: 30px;
-    width: 300px;
+    width: 100%;
     max-height: 150px;
     overflow: auto;
 `;
 const SearchResult = styled.div<{ missing?: boolean }>`
     height: 30px;
     background-color: ${({ missing, theme }) =>
-        missing
-            ? theme.color.background.light.hover
-            : theme.color.background.dark.main};
+        missing ? theme.color.lightGrey : theme.color.grey};
     color: ${({ missing, theme }) =>
-        missing ? theme.font.color.main.dark : theme.font.color.main.light};
+        missing ? theme.color.darkGrey : theme.color.lightGrey};
     padding: 5px;
     display: flex;
     align-items: center;
     &:hover {
         cursor: ${({ missing }) => !missing && 'pointer'};
         background-color: ${({ theme, missing }) =>
-            !missing && theme.color.background.dark.hover};
+            !missing && theme.color.darkGrey};
     }
+    transition: all 0.2s;
 `;
 
 export {

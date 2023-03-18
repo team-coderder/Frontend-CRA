@@ -1,9 +1,19 @@
 import styled from '@emotion/styled/macro';
 import { keyframes } from '@emotion/react';
+import { ButtonComponent, TextInputComponent } from '.';
 
 const Container = styled.div`
     margin: auto;
-    padding: 0 30px 30px 200px;
+    ${({ theme }) => theme.break.pc} {
+        padding: 0 20px;
+        height: 100vh;
+        min-height: 300px;
+        overflow: auto;
+    }
+    ${({ theme }) => theme.break.tablet} {
+        padding: 0;
+        width: 100%;
+    }
 `;
 const Flex = styled.div`
     display: flex;
@@ -29,22 +39,32 @@ const InvisibleMob = styled.div`
     }
 `;
 const Main = styled.main`
-    max-width: 70vw;
-    min-width: 900px;
-    max-height: 85vh;
-    min-height: 600px;
-    overflow: auto;
-    padding: 80px 30px 50px;
-    border-radius: ${({ theme }) => theme.borderRadius.large};
-    box-shadow: ${({ theme }) => theme.color.background.light.shadow.convex};
     ::-webkit-scrollbar-track {
         margin: 30px 0;
     }
+    ${({ theme }) => theme.break.pc} {
+        max-width: 1500px;
+        min-width: 900px;
+        height: calc(100% - 60px);
+        padding: 30px 20px;
+    }
+    ${({ theme }) => theme.break.tablet} {
+        min-width: 100vw;
+        min-height: 80vh;
+        padding: 10px;
+    }
 `;
-const Header = styled.header`
+const Header = styled.header<{ hover?: boolean }>`
+    flex: 1;
     margin-bottom: 30px;
     & h1 {
         font-size: ${({ theme }) => theme.font.size.header};
+        :hover {
+            background-color: ${({ theme, hover }) =>
+                hover && theme.color.paleGrey};
+            transition: all 0.5s;
+            border-radius: 15px;
+        }
     }
 `;
 const Field = styled.section`
@@ -57,14 +77,34 @@ const Field = styled.section`
     & h2 {
         min-width: 150px;
         margin-right: 50px;
+        color: ${({ theme }) => theme.color.grey};
         font-size: ${({ theme }) => theme.font.size.base};
         font-weight: ${({ theme }) => theme.font.weight.normal};
     }
     & h3 {
         margin-bottom: 10px;
-        color: ${({ theme }) => theme.font.color.sub};
+        color: ${({ theme }) => theme.color.grey};
         font-size: ${({ theme }) => theme.font.size.label};
         font-weight: ${({ theme }) => theme.font.weight.normal};
+    }
+    ${({ theme }) => theme.break.mobile} {
+        display: block;
+        & h2 {
+            margin-bottom: 5px;
+        }
+        ${ButtonComponent} {
+            width: 100%;
+        }
+    }
+`;
+const InputBox = styled.div`
+    flex: 1;
+    display: flex;
+    ${({ theme }) => theme.break.mobile} {
+        display: block;
+        & ${TextInputComponent} {
+            margin-bottom: 10px;
+        }
     }
 `;
 const AlignRight = styled.div`
@@ -75,19 +115,16 @@ const AlignRight = styled.div`
     }
 `;
 const Icon = styled.div<{ background?: string }>`
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: ${({ theme }) => theme.borderRadius.medium};
-    box-shadow: ${({ theme }) => theme.color.background.light.shadow.convex};
-    font-size: 1.2rem;
+    border-radius: ${({ theme }) => theme.borderRadius.round};
+    color: ${({ theme }) => theme.color.white};
+    box-shadow: ${({ theme }) => theme.shadow.float};
+    background-color: ${({ theme }) => theme.color.purple};
     cursor: pointer;
-    :hover {
-        box-shadow: ${({ theme }) =>
-            theme.color.background.light.shadow.concave};
-    }
 `;
 const spinner = keyframes`
     0% {
@@ -100,8 +137,8 @@ const spinner = keyframes`
 const Spinner = styled.div`
     width: 40px;
     height: 40px;
-    border: 10px solid ${({ theme }) => theme.color.background.tan.main};
-    border-top: 10px solid ${({ theme }) => theme.color.background.dark.main};
+    border: 10px solid ${({ theme }) => theme.color.lightPurple};
+    border-top: 10px solid ${({ theme }) => theme.color.purple};
     border-radius: 50%;
     animation: ${spinner} 1s linear infinite;
     margin: auto;
@@ -117,6 +154,7 @@ export {
     Header,
     Field,
     AlignRight,
+    InputBox,
     Icon,
     Spinner,
 };

@@ -10,6 +10,7 @@ const Button = ({
     fontWeight,
     color,
     backgroundColor,
+    shadow,
     children,
     onClick,
 }: ButtonProps) => {
@@ -23,6 +24,7 @@ const Button = ({
             fontWeight={fontWeight}
             color={color}
             backgroundColor={backgroundColor}
+            shadow={shadow}
             onClick={onClick}
         >
             {children}

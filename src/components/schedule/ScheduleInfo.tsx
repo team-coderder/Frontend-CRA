@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Members, Button, Nav } from '../../components';
 import { useMyInfo, useMyTeams } from '../../hooks';
-// import { Info } from '../../styles/componentStyle';
 
 const ScheduleInfo = ({ teamId, isMySchedule, isLeader, teamMembers }) => {
     const navigate = useNavigate();
@@ -28,14 +27,14 @@ const ScheduleInfo = ({ teamId, isMySchedule, isLeader, teamMembers }) => {
             )}
             {!isMySchedule &&
                 (isLeader ? (
-                    <Button inverse width="100%">
+                    <Button inverse width="100%" shadow>
                         <Nav url={`/groupinfo/${teamId}`}>Edit Group Info</Nav>
                     </Button>
                 ) : (
                     <Button
                         onClick={handleClickLeave}
                         inverse
-                        // shadow
+                        shadow
                         width="100%"
                     >
                         Leave Group

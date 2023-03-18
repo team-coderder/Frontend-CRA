@@ -21,6 +21,7 @@ type ButtonProps = {
     fontWeight?: 'bold' | 'normal';
     color?: string;
     backgroundColor?: string;
+    shadow?: boolean;
     children: React.ReactNode;
     onClick?: () => void;
 };

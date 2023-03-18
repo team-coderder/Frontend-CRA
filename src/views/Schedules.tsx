@@ -37,11 +37,12 @@ const Schedules = () => {
     ) : (
         <Main>
             <FlexPC>
-                <Header>
+                <Header hover>
                     <div style={{ marginRight: '20px' }}>
                         <h1
                             onClick={showConfirm}
                             style={{
+                                display: 'inline-block',
                                 cursor: 'pointer',
                                 marginBottom: '30px',
                             }}

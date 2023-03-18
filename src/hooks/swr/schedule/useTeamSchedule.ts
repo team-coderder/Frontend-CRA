@@ -27,8 +27,8 @@ const useTeamSchedule = (teamId: string | undefined) => {
                 teamId: teamId,
                 start: generateDateFromString(event.start as string),
                 end: generateDateFromString(event.end as string),
-                backgroundColor: theme.color.background.tan.dark,
-                textColor: theme.font.color.main.dark,
+                backgroundColor: theme.color.translucentPurple,
+                textColor: theme.color.white,
             };
         });
         const eventSource: EventSource[] = [

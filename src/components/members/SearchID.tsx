@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { BsPlusCircle } from 'react-icons/bs';
-import { TextInput } from '..';
+import { TextInput, Button } from '..';
 import { findByUsername } from '../../api';
 import { onClickOutside, handleError } from '../../utils';
 import type { User, SearchIDProps } from '../../types';
@@ -8,6 +7,7 @@ import {
     SearchIDComponent,
     SearchResultsContainer,
     SearchResult,
+    InputBox,
 } from '../../styles/componentStyle';
 
 const SearchID = ({ handleAddMember }: SearchIDProps) => {
@@ -58,31 +58,35 @@ const SearchID = ({ handleAddMember }: SearchIDProps) => {
 
     return (
         <SearchIDComponent ref={searchRef} onFocus={() => setFocus(true)}>
-            <TextInput
-                margin="0 10px 0 0"
-                placeholder="ID 검색"
-                value={searchName}
-                onChange={handleChangeSearchName}
-            />
-            <SearchResultsContainer>
-                {matchedUsers.length && focus
-                    ? searchName &&
-                    matchedUsers.map((user) => (
-                        <SearchResult
-                            key={user.memberId}
-                            onClick={() => handleClickMatch(user)}
-                        >
-                            {user.username}
-                        </SearchResult>
-                    ))
-                    : focus && (
-                        <SearchResult missing>검색결과 없음</SearchResult>
-                    )}
-            </SearchResultsContainer>
-            <BsPlusCircle
-                style={{ cursor: 'pointer' }}
-                onClick={handleClickAdd}
-            />
+            <InputBox>
+                <TextInput
+                    margin="0 10px 0 0"
+                    placeholder="Search Id"
+                    value={searchName}
+                    onChange={handleChangeSearchName}
+                >
+                    <SearchResultsContainer>
+                        {matchedUsers.length && focus
+                            ? searchName &&
+                            matchedUsers.map((user) => (
+                                <SearchResult
+                                    key={user.memberId}
+                                    onClick={() => handleClickMatch(user)}
+                                >
+                                    {user.username}
+                                </SearchResult>
+                            ))
+                            : focus && (
+                                <SearchResult missing>
+                                    No results
+                                </SearchResult>
+                            )}
+                    </SearchResultsContainer>
+                </TextInput>
+                <Button onClick={handleClickAdd} inverse>
+                    Invite
+                </Button>
+            </InputBox>
         </SearchIDComponent>
     );
 };

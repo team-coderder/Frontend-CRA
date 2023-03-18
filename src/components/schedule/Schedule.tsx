@@ -23,7 +23,9 @@ const Schedule = ({
             <FullCalendar
                 plugins={[timeGridPlugin, interactionPlugin]}
                 headerToolbar={false}
-                dayHeaderFormat={{ weekday: 'short' }}
+                contentHeight="auto"
+                dayHeaderFormat={{ weekday: 'narrow' }}
+                slotLabelFormat={{ hour: 'numeric', meridiem: false }}
                 allDaySlot={false}
                 initialDate={START_DATE}
                 slotMinTime={START_TIME}

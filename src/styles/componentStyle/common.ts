@@ -3,33 +3,33 @@ import styled from '@emotion/styled/macro';
 import type { ButtonProps, MemberProps, LinkProps } from '../../types';
 
 const ButtonComponent = styled.button<Omit<ButtonProps, 'type'>>`
-    width: ${({ width }) => width ?? '150px'};
-    height: ${({ height }) => height ?? '2.4em'};
+    width: ${({ width }) => width ?? '120px'};
+    height: ${({ height }) => height ?? '2rem'};
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: ${({ fontSize, theme }) => fontSize ?? theme.font.size.base};
     font-weight: ${({ fontWeight, theme }) =>
         fontWeight ? theme.font.weight[fontWeight] : theme.font.weight.normal};
     color: ${({ color, inverse, theme }) =>
-        color
-            ? color
-            : inverse
-            ? theme.font.color.main.light
-            : theme.font.color.main.dark};
+        color ? color : inverse ? theme.color.white : theme.color.darkGrey};
     background-color: ${({ backgroundColor, inverse, theme }) =>
         backgroundColor
             ? backgroundColor
             : inverse
-            ? theme.color.background.dark.main
-            : theme.color.background.light.main};
+            ? theme.color.purple
+            : theme.color.lightPurple};
+    box-shadow: ${({ theme, shadow }) => shadow && theme.shadow.float};
     border: none;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     cursor: pointer;
     overflow: hidden;
     transition: all 0.5s;
-    &:hover {
+    :hover {
         background-color: ${({ backgroundColor, inverse, theme }) =>
             !backgroundColor && inverse
-                ? theme.color.background.dark.hover
-                : theme.color.background.light.hover};
+                ? theme.color.darkPurple
+                : theme.color.lightGrey};
     }
 `;
 
@@ -39,7 +39,7 @@ const MemberComponent = styled.div<MemberProps>`
     height: ${({ height }) => height ?? '2.4em'};
     padding: 0 1rem;
     font-size: ${({ fontSize, theme }) => fontSize ?? theme.font.size.base};
-    color: ${({ theme }) => theme.font.color.main.dark};
+    color: ${({ theme }) => theme.color.darkGrey};
     background-color: ${({ backgroundColor }) => backgroundColor};
     border: none;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
@@ -80,17 +80,18 @@ const NavComponent = styled(Link)<Omit<LinkProps, 'url'>>`
 `;
 
 const TextInputComponent = styled.div<{ width?: string; margin?: string }>`
-    width: ${({ width }) => width ?? '300px'};
+    width: ${({ width }) => width ?? '100%'};
+    flex: 1;
     margin: ${({ margin }) => margin ?? '20px 0px'};
 `;
 const Input = styled.input<{ height?: string; placeholder?: string }>`
     width: 100%;
     height: ${({ height }) => height ?? '2.4em'};
     border: none;
-    border-bottom: ${({ theme }) => theme.font.color.sub} 1px solid;
+    border-bottom: ${({ theme }) => theme.color.grey} 1px solid;
     placeholder: ${({ placeholder }) => placeholder};
     &::placeholder {
-        color: ${({ theme }) => theme.font.color.sub};
+        color: ${({ theme }) => theme.color.grey};
     }
     &:focus {
         outline: none;
@@ -104,7 +105,7 @@ const Input = styled.input<{ height?: string; placeholder?: string }>`
 `;
 const WarnText = styled.div`
     margin-top: 10px;
-    color: ${({ theme }) => theme.font.color.warning};
+    color: ${({ theme }) => theme.color.darkPink};
     font-size: ${({ theme }) => theme.font.size.label};
 `;
 

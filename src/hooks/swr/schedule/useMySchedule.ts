@@ -28,8 +28,8 @@ const useMySchedule = () => {
                 start: generateDateFromString(event.start as string),
                 end: generateDateFromString(event.end as string),
                 classNames: ['my-event'],
-                backgroundColor: theme.color.background.tan.dark,
-                textColor: theme.font.color.main.dark,
+                backgroundColor: theme.color.purple,
+                textColor: theme.color.white,
             };
         });
         return events;
