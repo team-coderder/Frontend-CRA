@@ -49,6 +49,10 @@ const theme: Theme = {
             normal: 400,
         },
     },
+    break: {
+        tablet: '@media (max-width: 1024px)',
+        pc: '@media (min-width: 1025px)',
+    },
 };
 
 export default theme;

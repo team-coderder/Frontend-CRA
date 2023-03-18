@@ -3,11 +3,14 @@ import { getMembersSchedule } from '../../../api';
 import { generateColor, generateDateFromString } from '../../../utils';
 import type { EventSource } from '../../../types';
 
-const useMemberSchedule = (teamId: number) => {
-    const { data, error } = useSWR(['useMemberSchedule', teamId], fetcher);
+const useMemberSchedule = (teamId: string | undefined) => {
+    const { data, error } = useSWR(
+        teamId ? ['useMemberSchedule', teamId] : null,
+        fetcher,
+    );
 
     async function fetcher() {
-        const { data } = await getMembersSchedule(teamId);
+        const { data } = await getMembersSchedule(Number(teamId));
 
         const eventSource: EventSource[] = data.map(
             ({ username, schedule }, index) => {

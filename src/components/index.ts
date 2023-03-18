@@ -17,3 +17,6 @@ export { default as Groupbar } from './navbar/Groupbar';
 export { default as Navbar } from './navbar/Navbar';
 // Schedule
 export { default as Schedule } from './schedule/Schedule';
+export { default as MySchedule } from './schedule/MySchedule';
+export { default as TeamSchedule } from './schedule/TeamSchedule';
+export { default as ScheduleInfo } from './schedule/ScheduleInfo';

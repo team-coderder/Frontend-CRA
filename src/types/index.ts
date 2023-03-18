@@ -7,6 +7,7 @@ export type {
     EventSource,
     GetMembersScheduleResponse,
     useMyTeamsResponse,
+    TeamScheduleProps,
 } from './schedule';
 export type { Invitation } from './invitation';
 export type {

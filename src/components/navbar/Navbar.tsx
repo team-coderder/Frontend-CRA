@@ -43,7 +43,7 @@ function Navbar() {
             >
                 <ModalContent>
                     <Button>
-                        <Nav url="/mySchedule">내 스케쥴</Nav>
+                        <Nav url="/myschedule">내 스케쥴</Nav>
                     </Button>
                     <Button onClick={handleLogOut}>로그아웃</Button>
                 </ModalContent>

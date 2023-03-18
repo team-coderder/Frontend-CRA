@@ -9,20 +9,27 @@ import {
 import type { User } from '../../../types';
 import { handleError, isNameValid } from '../../../utils';
 
-const useTeamInfo = (teamId: number) => {
-    const { data, error, isLoading, mutate } = useSWR(['useTeamInfo', teamId], fetcher);
+const useTeamInfo = (teamId: string | undefined) => {
+    const { data, error, isLoading, mutate } = useSWR(
+        teamId ? ['useTeamInfo', teamId] : null,
+        fetcher,
+    );
 
     async function fetcher() {
-        const { data } = await getTeamInfo(teamId);
-        data.teamMembers = data.teamMembers.sort((a, b) => a.memberId - b.memberId);
-        data.invitations = data.invitations.sort((a, b) => a.toMember.memberId - b.toMember.memberId);
+        const { data } = await getTeamInfo(Number(teamId));
+        data.teamMembers = data.teamMembers.sort(
+            (a, b) => a.memberId - b.memberId,
+        );
+        data.invitations = data.invitations.sort(
+            (a, b) => a.toMember.memberId - b.toMember.memberId,
+        );
         return data;
     }
 
     const changeName = async (newName: string | undefined) => {
         try {
             if (isNameValid(newName)) {
-                const { data } = await updateTeamInfo(teamId, {
+                const { data } = await updateTeamInfo(Number(teamId), {
                     name: newName as string,
                 });
                 mutate();
@@ -37,7 +44,7 @@ const useTeamInfo = (teamId: number) => {
         try {
             if (data?.teamId) {
                 if (confirm(`멤버를 탈퇴시킬까요?`)) {
-                    await removeUser(teamId, memberId);
+                    await removeUser(data.teamId, memberId);
                     mutate();
                 }
             }

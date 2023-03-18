@@ -5,7 +5,7 @@ import { TextInput, Button, SearchID, Members } from '../components';
 import { Main, Header, Field } from '../styles/componentStyle';
 
 const GroupInfo = () => {
-    const params = useParams();
+    const { teamId } = useParams();
     const navigate = useNavigate();
     const {
         teamInfo,
@@ -14,15 +14,15 @@ const GroupInfo = () => {
         removeMember,
         inviteMember,
         uninviteMember,
-    } = useTeamInfo(Number(params.teamId));
+    } = useTeamInfo(teamId);
     const { user } = useMyInfo();
     const { handleDeleteTeam } = useMyTeams();
     const [name, setName] = useState<string | undefined>(teamInfo?.name);
 
     async function handleClickDelete() {
-        if (params.teamId) {
+        if (teamId) {
             if (confirm(`그룹을 삭제할까요?`)) {
-                await handleDeleteTeam(Number(params.teamId));
+                await handleDeleteTeam(Number(teamId));
                 navigate('/myschedule');
             }
         }

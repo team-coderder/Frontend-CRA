@@ -1,3 +1,5 @@
+import { GetTeamInfoResponse } from '.';
+
 type Event = {
     id?: string;
     title: string;
@@ -25,6 +27,11 @@ type GetMembersScheduleResponse = {
 type useMyTeamsResponse = {
     teams: { teamId: number; name: string }[];
 };
+type TeamScheduleProps = {
+    teamId: string | undefined;
+    isLeader: boolean;
+    teamInfo: GetTeamInfoResponse | undefined;
+};
 
 export type {
     Event,
@@ -33,4 +40,5 @@ export type {
     EventSource,
     GetMembersScheduleResponse,
     useMyTeamsResponse,
+    TeamScheduleProps,
 };

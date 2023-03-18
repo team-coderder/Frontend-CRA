@@ -12,14 +12,14 @@ import {
 import type { EventSource, EventRemoveArg, EventAddArg } from '../../../types';
 import theme from '../../../styles/theme';
 
-const useTeamSchedule = (teamId: number) => {
+const useTeamSchedule = (teamId: string | undefined) => {
     const { data, error, mutate } = useSWR(
-        ['useTeamSchedule', teamId],
+        teamId ? ['useTeamSchedule', teamId] : null,
         fetcher,
     );
 
     async function fetcher() {
-        const { data } = await getTeamSchedule(teamId);
+        const { data } = await getTeamSchedule(Number(teamId));
 
         const events = data.schedule.map((event) => {
             return {
@@ -53,7 +53,7 @@ const useTeamSchedule = (teamId: number) => {
                     start: generateStringFromDate(addInfo.event.start),
                     end: generateStringFromDate(addInfo.event.end),
                 };
-                await createTeamSchedule(teamId, newEvent);
+                await createTeamSchedule(Number(teamId), newEvent);
                 addInfo.revert();
                 mutate();
             } else {

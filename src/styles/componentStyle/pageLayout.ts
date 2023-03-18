@@ -9,6 +9,25 @@ const Flex = styled.div`
     display: flex;
     position: relative;
 `;
+const FlexPC = styled.div`
+    display: flex;
+    ${({ theme }) => theme.break.pc} {
+        height: 100%;
+    }
+    ${({ theme }) => theme.break.tablet} {
+        flex-direction: column;
+    }
+`;
+const InvisiblePC = styled.div`
+    ${({ theme }) => theme.break.pc} {
+        display: none;
+    }
+`;
+const InvisibleMob = styled.div`
+    ${({ theme }) => theme.break.tablet} {
+        display: none;
+    }
+`;
 const Main = styled.main`
     max-width: 70vw;
     min-width: 900px;
@@ -88,4 +107,16 @@ const Spinner = styled.div`
     margin: auto;
 `;
 
-export { Container, Flex, Main, Header, Field, AlignRight, Icon, Spinner };
+export {
+    Container,
+    Flex,
+    FlexPC,
+    InvisibleMob,
+    InvisiblePC,
+    Main,
+    Header,
+    Field,
+    AlignRight,
+    Icon,
+    Spinner,
+};

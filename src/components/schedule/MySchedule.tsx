@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Schedule } from '../components';
-import { useMySchedule } from '../hooks';
-import { isEventAllowed } from '../utils';
-import type { EventApi, DateSelectArg, EventClickArg } from '../types';
-import { Main, Header } from '../styles/componentStyle';
+import { Schedule } from '..';
+import { useMySchedule } from '../../hooks';
+import { isEventAllowed } from '../../utils';
+import type { EventApi, DateSelectArg, EventClickArg } from '../../types';
 
 const MySchedule = () => {
     const { mySchedule, handleEventAdd, handleEventRemove } = useMySchedule();
@@ -42,20 +41,15 @@ const MySchedule = () => {
     }
 
     return (
-        <Main>
-            <Header>
-                <h1>내 스케쥴</h1>
-            </Header>
-            <Schedule
-                selectable={true}
-                events={mySchedule}
-                handleEvents={handleEvents}
-                handleDateSelect={handleDateSelect}
-                handleEventClick={handleEventClick}
-                handleEventAdd={handleEventAdd}
-                handleEventRemove={handleEventRemove}
-            />
-        </Main>
+        <Schedule
+            selectable={true}
+            events={mySchedule}
+            handleEvents={handleEvents}
+            handleDateSelect={handleDateSelect}
+            handleEventClick={handleEventClick}
+            handleEventAdd={handleEventAdd}
+            handleEventRemove={handleEventRemove}
+        />
     );
 };
 

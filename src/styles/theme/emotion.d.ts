@@ -49,5 +49,9 @@ declare module '@emotion/react' {
                 normal: number;
             };
         };
+        break: {
+            tablet: string;
+            pc: string;
+        };
     }
 }
