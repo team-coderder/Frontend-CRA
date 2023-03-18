@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTeamInfo, useMyInfo, useMyTeams } from '../hooks';
 import { TextInput, Button, SearchID, Members } from '../components';
-import { Main, Header, Field } from '../styles/globalStyle/PageLayout';
+import { Main, Header, Field } from '../styles/componentStyle';
 
 const GroupInfo = () => {
     const params = useParams();

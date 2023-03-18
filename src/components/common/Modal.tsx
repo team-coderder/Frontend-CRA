@@ -1,17 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
-import styled from '@emotion/styled/macro';
 import { onClickOutside } from '../../utils';
 import type { ModalProps } from '../../types';
-
-const ModalComponent = styled.div`
-    position: relative;
-`;
-
-const ToggleMenu = styled.div`
-    position: absolute;
-    top: 50px;
-    right: 0;
-`;
+import { ModalComponent, ToggleMenu } from '../../styles/componentStyle';
 
 const Modal = ({ icon, children }: ModalProps) => {
     const [isOpen, setIsOpen] = useState(false);

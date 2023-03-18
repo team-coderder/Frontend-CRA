@@ -21,7 +21,7 @@ import {
     Field,
     AlignRight,
     Spinner,
-} from '../styles/globalStyle/PageLayout';
+} from '../styles/componentStyle';
 
 const TeamSchedule: React.FC = () => {
     const { teamId } = useParams();

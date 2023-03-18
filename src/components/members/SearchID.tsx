@@ -1,44 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import styled from '@emotion/styled/macro';
 import { BsPlusCircle } from 'react-icons/bs';
 import { TextInput } from '..';
 import { findByUsername } from '../../api';
 import { onClickOutside, handleError } from '../../utils';
 import type { User, SearchIDProps } from '../../types';
-
-const SearchContainer = styled.div`
-    position: relative;
-    z-index: 1;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-`;
-
-const ResultContainer = styled.div`
-    position: absolute;
-    top: 30px;
-    width: 300px;
-    max-height: 150px;
-    overflow: auto;
-`;
-
-const ResultBox = styled.div<{ missing?: boolean }>`
-    height: 30px;
-    background-color: ${({ missing, theme }) =>
-        missing
-            ? theme.color.background.light.hover
-            : theme.color.background.dark.main};
-    color: ${({ missing, theme }) =>
-        missing ? theme.font.color.main.dark : theme.font.color.main.light};
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    &:hover {
-        cursor: ${({ missing }) => !missing && 'pointer'};
-        background-color: ${({ theme, missing }) =>
-        !missing && theme.color.background.dark.hover};
-    }
-`;
+import {
+    SearchIDComponent,
+    SearchResultsContainer,
+    SearchResult,
+} from '../../styles/componentStyle';
 
 const SearchID = ({ handleAddMember }: SearchIDProps) => {
     const [focus, setFocus] = useState(false);
@@ -87,31 +57,33 @@ const SearchID = ({ handleAddMember }: SearchIDProps) => {
     };
 
     return (
-        <SearchContainer ref={searchRef} onFocus={() => setFocus(true)}>
+        <SearchIDComponent ref={searchRef} onFocus={() => setFocus(true)}>
             <TextInput
                 margin="0 10px 0 0"
                 placeholder="ID 검색"
                 value={searchName}
                 onChange={handleChangeSearchName}
             />
-            <ResultContainer>
+            <SearchResultsContainer>
                 {matchedUsers.length && focus
                     ? searchName &&
                     matchedUsers.map((user) => (
-                        <ResultBox
+                        <SearchResult
                             key={user.memberId}
                             onClick={() => handleClickMatch(user)}
                         >
                             {user.username}
-                        </ResultBox>
+                        </SearchResult>
                     ))
-                    : focus && <ResultBox missing>검색결과 없음</ResultBox>}
-            </ResultContainer>
+                    : focus && (
+                        <SearchResult missing>검색결과 없음</SearchResult>
+                    )}
+            </SearchResultsContainer>
             <BsPlusCircle
                 style={{ cursor: 'pointer' }}
                 onClick={handleClickAdd}
             />
-        </SearchContainer>
+        </SearchIDComponent>
     );
 };
 

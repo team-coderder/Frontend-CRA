@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Nav, TextInput } from '../components';
 import {
+    AuthComponent,
     FormContainer,
-    FormBox,
-    Header,
-    ExplainBox,
-} from '../styles/componentStyle/auth';
+    AuthHeader,
+    ExplainText,
+} from '../styles/componentStyle';
 import { sign_up } from '../api';
 import { handleError } from '../utils';
 import type { signUpForm } from '../types';
@@ -61,11 +61,11 @@ const Signup = () => {
     };
 
     return (
-        <FormContainer>
-            <Header>
+        <AuthComponent>
+            <AuthHeader>
                 <h1>회원가입</h1>
-            </Header>
-            <FormBox onSubmit={handleSubmit}>
+            </AuthHeader>
+            <FormContainer onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
                     type="id"
@@ -104,14 +104,14 @@ const Signup = () => {
                 <Button type="submit" inverse>
                     회원가입
                 </Button>
-                <ExplainBox>
+                <ExplainText>
                     이미 계정이 있다면?&nbsp;&nbsp;
                     <Nav url="/login" underline="underline">
                         로그인
                     </Nav>
-                </ExplainBox>
-            </FormBox>
-        </FormContainer>
+                </ExplainText>
+            </FormContainer>
+        </AuthComponent>
     );
 };
 

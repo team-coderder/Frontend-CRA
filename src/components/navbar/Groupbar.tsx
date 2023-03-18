@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
 import { Button, Nav } from '..';
 import Groups from './Groups';
-import { VerticalBar, GroupList } from '../../styles/componentStyle/navbar';
-import { Icon } from '../../styles/globalStyle/PageLayout';
+import {
+    GroupbarComponent,
+    GroupList,
+    Icon,
+} from '../../styles/componentStyle';
 
 function Groupbar() {
     const [toggleGroups, setToggleGroups] = useState(true);
     const toggle = () => setToggleGroups(!toggleGroups);
 
     return (
-        <VerticalBar width={toggleGroups ? '200px' : '4rem'}>
+        <GroupbarComponent width={toggleGroups ? '200px' : '4rem'}>
             <GroupList>
                 <Icon>
                     <FiMenu onClick={toggle} />
@@ -24,7 +27,7 @@ function Groupbar() {
                     </>
                 )}
             </GroupList>
-        </VerticalBar>
+        </GroupbarComponent>
     );
 }
 

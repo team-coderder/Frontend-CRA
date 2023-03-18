@@ -3,7 +3,7 @@ import { Schedule } from '../components';
 import { useMySchedule } from '../hooks';
 import { isEventAllowed } from '../utils';
 import type { EventApi, DateSelectArg, EventClickArg } from '../types';
-import { Main, Header } from '../styles/globalStyle/PageLayout';
+import { Main, Header } from '../styles/componentStyle';
 
 const MySchedule = () => {
     const { mySchedule, handleEventAdd, handleEventRemove } = useMySchedule();

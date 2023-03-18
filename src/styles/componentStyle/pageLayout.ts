@@ -1,7 +1,15 @@
 import styled from '@emotion/styled/macro';
 import { keyframes } from '@emotion/react';
 
-export const Main = styled.main`
+const Container = styled.div`
+    margin: auto;
+    padding: 0 30px 30px 200px;
+`;
+const Flex = styled.div`
+    display: flex;
+    position: relative;
+`;
+const Main = styled.main`
     max-width: 70vw;
     min-width: 900px;
     max-height: 85vh;
@@ -14,15 +22,13 @@ export const Main = styled.main`
         margin: 30px 0;
     }
 `;
-
-export const Header = styled.header`
+const Header = styled.header`
     margin-bottom: 30px;
     & h1 {
         font-size: ${({ theme }) => theme.font.size.header};
     }
 `;
-
-export const Field = styled.section`
+const Field = styled.section`
     display: flex;
     align-items: baseline;
     margin-bottom: 25px;
@@ -42,16 +48,14 @@ export const Field = styled.section`
         font-weight: ${({ theme }) => theme.font.weight.normal};
     }
 `;
-
-export const AlignRight = styled.div`
+const AlignRight = styled.div`
     display: flex;
     justify-content: flex-end;
     > * {
         margin-left: 10px;
     }
 `;
-
-export const Icon = styled.div<{ background?: string }>`
+const Icon = styled.div<{ background?: string }>`
     height: 40px;
     width: 40px;
     display: flex;
@@ -62,10 +66,10 @@ export const Icon = styled.div<{ background?: string }>`
     font-size: 1.2rem;
     cursor: pointer;
     :hover {
-        box-shadow: ${({ theme }) => theme.color.background.light.shadow.concave};
+        box-shadow: ${({ theme }) =>
+            theme.color.background.light.shadow.concave};
     }
 `;
-
 const spinner = keyframes`
     0% {
         transform: rotate(0deg);
@@ -74,8 +78,7 @@ const spinner = keyframes`
         transform: rotate(360deg);
     }  
 `;
-
-export const Spinner = styled.div`
+const Spinner = styled.div`
     width: 40px;
     height: 40px;
     border: 10px solid ${({ theme }) => theme.color.background.tan.main};
@@ -84,3 +87,5 @@ export const Spinner = styled.div`
     animation: ${spinner} 1s linear infinite;
     margin: auto;
 `;
+
+export { Container, Flex, Main, Header, Field, AlignRight, Icon, Spinner };

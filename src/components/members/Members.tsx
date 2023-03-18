@@ -1,21 +1,7 @@
-import styled from '@emotion/styled/macro';
 import { Member } from '..';
 import { generateColor } from '../../utils';
 import type { MembersProp } from '../../types';
-
-const MembersContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 130px);
-    gap: 5px;
-    :not(:last-of-type) {
-        margin-bottom: 20px;
-    }
-`;
-
-const NoticeText = styled.div`
-    color: ${({ theme }) => theme.font.color.sub};
-    font-size: ${({ theme }) => theme.font.size.label};
-`;
+import { MembersComponent, NoticeText } from '../../styles/componentStyle';
 
 const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
     const isInvitation =
@@ -23,7 +9,7 @@ const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
     const idProperty = isInvitation ? 'invitationId' : 'memberId';
 
     return (
-        <MembersContainer>
+        <MembersComponent>
             {members?.length ? (
                 members?.map((member) => {
                     const isMe =
@@ -51,7 +37,7 @@ const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
             ) : (
                 <NoticeText>멤버가 없습니다</NoticeText>
             )}
-        </MembersContainer>
+        </MembersComponent>
     );
 };
 

@@ -1,36 +1,9 @@
-import styled from '@emotion/styled/macro';
 import type { TextInputProps } from '../../types';
-
-const Input = styled.input<{ height?: string; placeholder?: string }>`
-    width: 100%;
-    height: ${({ height }) => height ?? '2.4em'};
-    border: none;
-    border-bottom: ${({ theme }) => theme.font.color.sub} 1px solid;
-    placeholder: ${({ placeholder }) => placeholder};
-    &::placeholder {
-        color: ${({ theme }) => theme.font.color.sub};
-    }
-    &:focus {
-        outline: none;
-    }
-    &:-webkit-autofill,
-    &:-webkit-autofill:hover,
-    &:-webkit-autofill:focus {
-        -webkit-box-shadow: none;
-        transition: background-color 5000s ease-in-out 0s;
-    }
-`;
-
-const TextInputComponent = styled.div<{ width?: string; margin?: string }>`
-    width: ${({ width }) => width ?? '300px'};
-    margin: ${({ margin }) => margin ?? '20px 0px'};
-`;
-
-const WarningText = styled.div`
-    margin-top: 10px;
-    color: ${({ theme }) => theme.font.color.warning};
-    font-size: ${({ theme }) => theme.font.size.label};
-`;
+import {
+    TextInputComponent,
+    Input,
+    WarnText,
+} from '../../styles/componentStyle';
 
 const TextInput = ({
     id,
@@ -56,7 +29,7 @@ const TextInput = ({
                 placeholder={placeholder}
             />
             {children}
-            {error && <WarningText>{errorMessage}</WarningText>}
+            {error && <WarnText>{errorMessage}</WarnText>}
         </TextInputComponent>
     );
 };

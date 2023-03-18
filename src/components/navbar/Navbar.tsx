@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router';
 import { Modal, Button, Nav } from '..';
 import { BsBell, BsPersonFill } from 'react-icons/bs';
-import { Name, HorizontalBar, Menu } from '../../styles/componentStyle/navbar';
-import { Icon } from '../../styles/globalStyle/PageLayout';
+import {
+    ProfileName,
+    NavbarComponent,
+    ModalContent,
+    Icon,
+} from '../../styles/componentStyle';
 import Invitations from './Invitations';
 import { useMyInfo, useToken } from '../../hooks';
 
@@ -17,7 +21,7 @@ function Navbar() {
     };
 
     return (
-        <HorizontalBar>
+        <NavbarComponent>
             <Modal
                 icon={
                     <Icon>
@@ -25,11 +29,11 @@ function Navbar() {
                     </Icon>
                 }
             >
-                <Menu>
+                <ModalContent>
                     <Invitations />
-                </Menu>
+                </ModalContent>
             </Modal>
-            <Name>{user?.nickname}</Name>
+            <ProfileName>{user?.nickname}</ProfileName>
             <Modal
                 icon={
                     <Icon>
@@ -37,14 +41,14 @@ function Navbar() {
                     </Icon>
                 }
             >
-                <Menu>
+                <ModalContent>
                     <Button>
                         <Nav url="/mySchedule">내 스케쥴</Nav>
                     </Button>
                     <Button onClick={handleLogOut}>로그아웃</Button>
-                </Menu>
+                </ModalContent>
             </Modal>
-        </HorizontalBar>
+        </NavbarComponent>
     );
 }
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextInput, Button } from '../components';
-import { Main, Header, Field } from '../styles/globalStyle/PageLayout';
+import { Main, Header, Field } from '../styles/componentStyle';
 import { useMyTeams } from '../hooks';
 
 const AddGroup = () => {

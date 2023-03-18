@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom';
 import { Navbar, Groupbar } from '..';
-import { Container, Flex } from '../../styles/componentStyle/navbar';
+import { Container, Flex } from '../../styles/componentStyle';
 import { useToken } from '../../hooks';
 
 const AuthLayout = () => {

@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import { Button } from '..';
 import {
-    InvitationsContainer,
+    InvitationsComponent,
     NoticeText,
-    Grid,
-    InviteName,
-} from '../../styles/componentStyle/navbar';
+    InvitationsGrid,
+    InvitationName,
+} from '../../styles/componentStyle';
 import { useMyInvitations } from '../../hooks';
 
 function Invitations() {
@@ -13,14 +13,16 @@ function Invitations() {
 
     return (
         <>
-            <InvitationsContainer>
+            <InvitationsComponent>
                 {myInvitations?.length ? (
                     <>
                         <NoticeText>초대 받은 그룹</NoticeText>
-                        <Grid>
+                        <InvitationsGrid>
                             {myInvitations.map((invite) => (
                                 <Fragment key={invite.invitationId}>
-                                    <InviteName>{invite.team.name}</InviteName>
+                                    <InvitationName>
+                                        {invite.team.name}
+                                    </InvitationName>
                                     <Button
                                         width="50px"
                                         onClick={() =>
@@ -39,12 +41,12 @@ function Invitations() {
                                     </Button>
                                 </Fragment>
                             ))}
-                        </Grid>
+                        </InvitationsGrid>
                     </>
                 ) : (
                     <NoticeText>초대장이 없습니다</NoticeText>
                 )}
-            </InvitationsContainer>
+            </InvitationsComponent>
         </>
     );
 }

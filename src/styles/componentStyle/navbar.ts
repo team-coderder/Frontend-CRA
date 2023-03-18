@@ -1,24 +1,15 @@
 import styled from '@emotion/styled/macro';
 
-export const Container = styled.div`
-    margin: auto;
-    padding: 0 30px 30px 200px;
-`;
-export const Flex = styled.div`
-    display: flex;
-    position: relative;
-`;
-
 /* Groupbar
  */
-export const VerticalBar = styled.div<{ width: string }>`
+const GroupbarComponent = styled.div<{ width: string }>`
     height: 100%;
     width: ${({ width }) => width};
     padding: 10px;
     position: absolute;
     left: calc(-1 * ${({ width }) => width});
 `;
-export const GroupList = styled.div`
+const GroupList = styled.div`
     position: sticky;
     top: 3rem;
     height: min(100%, 80vh);
@@ -26,7 +17,7 @@ export const GroupList = styled.div`
     flex-direction: column;
     align-items: flex-end;
 `;
-export const List = styled.div`
+const GroupsComponent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -34,7 +25,7 @@ export const List = styled.div`
     overflow: auto;
     margin: 10px 0;
 `;
-export const GroupName = styled.div`
+const GroupName = styled.div`
     height: 3em;
     padding: 1em 0.5em;
     font-size: ${({ theme }) => theme.font.size.label};
@@ -44,7 +35,7 @@ export const GroupName = styled.div`
 
 /* Navbar
  */
-export const HorizontalBar = styled.div`
+const NavbarComponent = styled.div`
     width: 100%;
     height: 80px;
     // position: sticky;
@@ -59,11 +50,11 @@ export const HorizontalBar = styled.div`
         margin-left: 10px;
     }
 `;
-export const Name = styled.div`
+const ProfileName = styled.div`
     text-transform: uppercase;
     margin-left: 40px;
 `;
-export const Menu = styled.div`
+const ModalContent = styled.div`
     padding: 15px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     background: ${({ theme }) => theme.color.background.tan.main};
@@ -74,30 +65,31 @@ export const Menu = styled.div`
 
 /* Invitations
  */
-export const InvitationsContainer = styled.div`
+const InvitationsComponent = styled.div`
     width: 270px;
 `;
-
-export const NoticeText = styled.div`
-    color: ${({ theme }) => theme.font.color.sub};
-    font-size: ${({ theme }) => theme.font.size.label};
-    display: flex;
-    justify-content: center;
-    :not(:last-child) {
-        margin-bottom: 10px;
-    }
-`;
-
-export const Grid = styled.div`
+const InvitationsGrid = styled.div`
     display: grid;
     grid-template-columns: 150px 1fr 1fr;
     gap: 10px;
 `;
-
-export const InviteName = styled.div`
+const InvitationName = styled.div`
     display: flex;
     align-items: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 `;
+
+export {
+    GroupbarComponent,
+    GroupList,
+    GroupsComponent,
+    GroupName,
+    InvitationsComponent,
+    InvitationsGrid,
+    InvitationName,
+    NavbarComponent,
+    ProfileName,
+    ModalContent,
+};

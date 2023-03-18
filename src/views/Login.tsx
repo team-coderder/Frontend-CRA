@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
 import {
+    AuthComponent,
     FormContainer,
-    FormBox,
-    Header,
-    ExplainBox,
-} from '../styles/componentStyle/auth';
+    AuthHeader,
+    ExplainText,
+} from '../styles/componentStyle';
 import { useToken } from '../hooks';
 
 const Login = () => {
@@ -28,11 +28,11 @@ const Login = () => {
     };
 
     return (
-        <FormContainer>
-            <Header>
+        <AuthComponent>
+            <AuthHeader>
                 <h1>로그인</h1>
-            </Header>
-            <FormBox onSubmit={handleSubmit}>
+            </AuthHeader>
+            <FormContainer onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
                     type="id"
@@ -52,14 +52,14 @@ const Login = () => {
                 <Button type="submit" inverse>
                     로그인
                 </Button>
-                <ExplainBox>
+                <ExplainText>
                     계정이 없다면?&nbsp;&nbsp;
                     <Nav url="/signup" underline="underline">
                         회원가입
                     </Nav>
-                </ExplainBox>
-            </FormBox>
-        </FormContainer>
+                </ExplainText>
+            </FormContainer>
+        </AuthComponent>
     );
 };
 
