@@ -1,13 +1,11 @@
 import { useNavigate } from 'react-router';
-import { Modal, Button, Nav } from '..';
-import { BsBell, BsPersonFill } from 'react-icons/bs';
+import { Button, Nav } from '..';
 import {
     ProfileName,
     NavbarComponent,
-    ModalContent,
+    InvisibleMob,
     Icon,
 } from '../../styles/componentStyle';
-import Invitations from './Invitations';
 import { useMyInfo, useToken } from '../../hooks';
 
 function Navbar() {
@@ -22,32 +20,22 @@ function Navbar() {
 
     return (
         <NavbarComponent>
-            <Modal
-                icon={
-                    <Icon>
-                        <BsBell />
-                    </Icon>
-                }
-            >
-                <ModalContent>
-                    <Invitations />
-                </ModalContent>
-            </Modal>
-            <ProfileName>{user?.nickname}</ProfileName>
-            <Modal
-                icon={
-                    <Icon>
-                        <BsPersonFill />
-                    </Icon>
-                }
-            >
-                <ModalContent>
-                    <Button>
-                        <Nav url="/myschedule">내 스케쥴</Nav>
-                    </Button>
-                    <Button onClick={handleLogOut}>로그아웃</Button>
-                </ModalContent>
-            </Modal>
+            <InvisibleMob>
+                <Button
+                    width="6em"
+                    height="1.5em"
+                    // backgroundColor={theme.color.paleGrey}
+                    // fontSize={theme.font.size.label}
+                    // color={theme.color.grey}
+                    onClick={handleLogOut}
+                >
+                    Sign Out
+                </Button>
+            </InvisibleMob>
+            <Nav url="/myschedule">
+                <ProfileName>{user?.nickname}</ProfileName>
+                <Icon>{user?.nickname[0]}</Icon>
+            </Nav>
         </NavbarComponent>
     );
 }

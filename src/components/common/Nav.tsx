@@ -6,6 +6,7 @@ const Nav = ({
     fontWeight,
     color,
     underline,
+    spread,
     children,
     url,
 }: LinkProps) => {
@@ -16,6 +17,7 @@ const Nav = ({
             fontWeight={fontWeight}
             color={color}
             underline={underline}
+            spread={spread}
         >
             {children}
         </NavComponent>

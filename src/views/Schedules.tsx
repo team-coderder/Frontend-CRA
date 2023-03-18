@@ -14,7 +14,7 @@ import {
     MySchedule,
     TeamSchedule,
     ScheduleInfo,
-    Groupbar,
+    GroupList,
 } from '../components';
 import { useTeamInfo, useDialog } from '../hooks';
 
@@ -27,7 +27,7 @@ const Schedules = () => {
     const { show } = useDialog();
 
     const showConfirm = useCallback(async () => {
-        await show('My Groups', '', <Groupbar />);
+        await show('My Groups', '', <GroupList />);
     }, []);
 
     return !isMySchedule && infoLoading ? (

@@ -74,7 +74,9 @@ const NavComponent = styled(Link)<Omit<LinkProps, 'url'>>`
         fontWeight ? theme.font.weight[fontWeight] : 'inherit'};
     color: ${({ color }) => color ?? 'inherit'};
     text-decoration: ${({ underline }) => (underline ? 'underline' : 'none')};
-    display: block;
+    display: flex;
+    align-items: baseline;
+    width: ${({ spread }) => spread && '100%'};
 `;
 
 const TextInputComponent = styled.div<{ width?: string; margin?: string }>`

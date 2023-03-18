@@ -43,6 +43,7 @@ type LinkProps = {
     fontWeight?: 'bold' | 'normal';
     color?: string;
     underline?: 'underline';
+    spread?: boolean;
     children: React.ReactNode;
     url: string;
 };

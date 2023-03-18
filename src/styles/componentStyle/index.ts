@@ -10,6 +10,15 @@ export {
     Input,
     WarnText,
 } from './common';
+export { FooterComponent } from './footer';
+export {
+    GroupsComponent,
+    GroupListComponent,
+    Group,
+    GroupName,
+    LabelText,
+    Buttons,
+} from './groups';
 export {
     MembersComponent,
     NoticeText,
@@ -17,18 +26,7 @@ export {
     SearchResultsContainer,
     SearchResult,
 } from './members';
-export {
-    GroupbarComponent,
-    GroupList,
-    GroupsComponent,
-    GroupName,
-    InvitationsComponent,
-    InvitationsGrid,
-    InvitationName,
-    NavbarComponent,
-    ProfileName,
-    ModalContent,
-} from './navbar';
+export { NavbarComponent, ProfileName } from './navbar';
 export {
     Container,
     Flex,
