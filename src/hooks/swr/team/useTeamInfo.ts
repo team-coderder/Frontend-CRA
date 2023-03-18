@@ -30,14 +30,15 @@ const useTeamInfo = (teamId: string | undefined) => {
 
     const changeName = async (newName: string | undefined) => {
         try {
-            const res = isNameValid(newName);
+            const _newName = newName?.trim();
+            const res = isNameValid(_newName);
             if (res !== '') {
                 await alert(res);
                 return;
             }
 
             const { data } = await updateTeamInfo(Number(teamId), {
-                name: newName as string,
+                name: _newName as string,
             });
             mutate();
             await alert(`This group's name has been changed to ${data.name}.`);

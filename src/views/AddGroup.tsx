@@ -19,19 +19,19 @@ const AddGroup = () => {
     return (
         <Main>
             <Header>
-                <h1>그룹 생성하기</h1>
+                <h1>Create a New Group</h1>
             </Header>
             <Field>
-                <h2>그룹 이름</h2>
+                <h2>Name</h2>
                 <InputBox>
                     <TextInput
                         margin="0 10px 0 0"
-                        placeholder="그룹 이름을 입력해주세요"
+                        placeholder="Enter the name here."
                         value={groupName}
                         onChange={(e) => setGroupName(e.currentTarget.value)}
                     />
                     <Button onClick={handleCreateGroup} inverse>
-                        생성하기
+                        Create
                     </Button>
                 </InputBox>
             </Field>

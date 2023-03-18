@@ -29,13 +29,13 @@ const Members = ({ myUsername, members, handleDeleteMember }: MembersProp) => {
                             }}
                         >
                             {isMe
-                                ? '나'
+                                ? 'You'
                                 : member.nickname ?? member.toMember?.nickname}
                         </Member>
                     );
                 })
             ) : (
-                <NoticeText>멤버가 없습니다</NoticeText>
+                <NoticeText>No member</NoticeText>
             )}
         </MembersComponent>
     );

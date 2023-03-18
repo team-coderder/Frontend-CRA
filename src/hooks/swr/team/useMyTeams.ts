@@ -19,13 +19,14 @@ const useMyTeams = () => {
 
     const handleCreateTeam = async (groupName: string) => {
         try {
-            const res = isNameValid(groupName);
+            const _groupName = groupName.trim();
+            const res = isNameValid(_groupName);
             if (res !== '') {
                 await alert(res);
                 return;
             }
 
-            const { data } = await createTeam({ name: groupName });
+            const { data } = await createTeam({ name: _groupName });
             await alert(
                 `You've created a new group ${data?.name}!`,
                 `Go to [Edit Group Info] and invite new members.`,

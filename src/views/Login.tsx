@@ -30,14 +30,14 @@ const Login = () => {
     return (
         <AuthComponent>
             <AuthHeader>
-                <h1>로그인</h1>
+                <h1>Sign In</h1>
             </AuthHeader>
             <FormContainer onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
                     type="id"
                     width="100%"
-                    placeholder="아이디"
+                    placeholder="username"
                     value={form.username}
                     onChange={onChange}
                 />
@@ -45,17 +45,17 @@ const Login = () => {
                     id="password"
                     type="password"
                     width="100%"
-                    placeholder="비밀번호"
+                    placeholder="password"
                     value={form.password}
                     onChange={onChange}
                 />
                 <Button type="submit" inverse>
-                    로그인
+                    Sign In
                 </Button>
                 <ExplainText>
-                    계정이 없다면?&nbsp;&nbsp;
+                    Not a member?&nbsp;&nbsp;
                     <Nav url="/signup" underline="underline">
-                        회원가입
+                        Create New Account
                     </Nav>
                 </ExplainText>
             </FormContainer>

@@ -25,14 +25,14 @@ function Invitations() {
                             width="50px"
                             onClick={() => acceptInvite(invite.invitationId)}
                         >
-                            수락
+                            Yes
                         </Button>
                         <Button
                             inverse
                             width="50px"
                             onClick={() => rejectInvite(invite.invitationId)}
                         >
-                            거절
+                            No
                         </Button>
                     </Buttons>
                 </Group>
