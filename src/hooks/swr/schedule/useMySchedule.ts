@@ -1,6 +1,5 @@
 import useSWR from 'swr';
-import { EventRemoveArg, EventAddArg } from '@fullcalendar/core';
-import { useToken } from '../..';
+import { useDialog, useToken } from '../..';
 import {
     getMySchedule,
     createMySchedule,
@@ -11,6 +10,7 @@ import {
     generateStringFromDate,
     handleError,
 } from '../../../utils';
+import type { EventRemoveArg, EventAddArg } from '../../../types';
 import theme from '../../../styles/theme';
 
 const useMySchedule = () => {
@@ -19,20 +19,25 @@ const useMySchedule = () => {
         ['useMySchedule', token],
         fetcher,
     );
+    const { alert } = useDialog();
 
     async function fetcher() {
-        const { data } = await getMySchedule();
-        const events = data.schedule.map((event) => {
-            return {
-                ...event,
-                start: generateDateFromString(event.start as string),
-                end: generateDateFromString(event.end as string),
-                classNames: ['my-event'],
-                backgroundColor: theme.color.background.tan.dark,
-                textColor: theme.font.color.main.dark,
-            };
-        });
-        return events;
+        try {
+            const { data } = await getMySchedule();
+            const events = data.schedule.map((event) => {
+                return {
+                    ...event,
+                    start: generateDateFromString(event.start as string),
+                    end: generateDateFromString(event.end as string),
+                    classNames: ['my-event'],
+                    backgroundColor: theme.color.purple,
+                    textColor: theme.color.white,
+                };
+            });
+            return events;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function handleEventAdd(addInfo: EventAddArg) {
@@ -50,11 +55,12 @@ const useMySchedule = () => {
                 await createMySchedule(newEvent);
                 mutate();
             } else {
-                alert('일정을 추가할 수 없습니다. 다시 시도해주세요.');
-                addInfo.revert();
+                throw Error(
+                    'Sorry :(||Could not add the event. Please Try again.',
+                );
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             addInfo.revert();
         }
     }
@@ -65,11 +71,12 @@ const useMySchedule = () => {
                 await deleteMySchedule(removeInfo.event.id);
                 mutate();
             } else {
-                alert('일정을 삭제할 수 없습니다. 다시 시도해주세요.');
-                removeInfo.revert();
+                throw Error(
+                    'Sorry :(||Could not delete the event. Please Try again.',
+                );
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             removeInfo.revert();
         }
     }

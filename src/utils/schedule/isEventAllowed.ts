@@ -1,5 +1,5 @@
 import { WEEK_START, WEEK_END } from '../../constant';
-import { EventApi, CalendarApi } from '@fullcalendar/core';
+import type { EventApi, CalendarApi } from '../../types';
 
 /* 추가해도 되는 일정인지 확인한다.
  */
@@ -10,26 +10,21 @@ export function isEventAllowed(
     events: EventApi[],
 ) {
     calendarApi.unselect();
+    let response = '';
 
     if (events.length > 126 * 2) {
-        alert('등록한 일정이 너무 많습니다');
-        return false;
-    }
-    if (
+        response = 'Too many events :(';
+    } else if (
         start < WEEK_START ||
         end > WEEK_END ||
         (start.split(/[T+]/)[0] !== end.split(/[T+]/)[0] &&
             end.split(/[T+]/)[1] !== '00:00:00')
     ) {
-        console.log(start, end, end.split(/[T+]/)[1])
-        alert('날짜를 넘어가는 스케쥴은 등록할 수 없습니다');
-        return false;
+        response = 'Cannot add an event spanning multiple days :(';
+    } else if (events.length && _isOverlap(events, start, end)) {
+        response = 'Cannot add overlapping events :(';
     }
-    if (events.length && _isOverlap(events, start, end)) {
-        alert('겹치는 스케쥴은 등록할 수 없습니다');
-        return false;
-    }
-    return true;
+    return response;
 }
 
 /* 추가할 일정이 기존 일정과 겹치는 구간이 있는지 확인한다.

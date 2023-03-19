@@ -1,50 +1,16 @@
 import { useState, useEffect, useRef } from 'react';
-import styled from '@emotion/styled/macro';
-import { BsPlusCircle } from 'react-icons/bs';
-import { TextInput } from '..';
+import { TextInput, Button } from '..';
 import { findByUsername } from '../../api';
 import { onClickOutside, handleError } from '../../utils';
-import { User } from '../../types';
+import type { User, SearchIDProps } from '../../types';
+import {
+    SearchIDComponent,
+    SearchResultsContainer,
+    SearchResult,
+    InputBox,
+} from '../../styles/componentStyle';
 
-type SearchProps = {
-    handleAddMember: (member: User) => Promise<void>;
-};
-
-const SearchContainer = styled.div`
-    position: relative;
-    z-index: 1;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-`;
-
-const ResultContainer = styled.div`
-    position: absolute;
-    top: 30px;
-    width: 300px;
-    max-height: 150px;
-    overflow: auto;
-`;
-
-const ResultBox = styled.div<{ missing?: boolean }>`
-    height: 30px;
-    background-color: ${({ missing, theme }) =>
-        missing
-            ? theme.color.background.light.hover
-            : theme.color.background.dark.main};
-    color: ${({ missing, theme }) =>
-        missing ? theme.font.color.main.dark : theme.font.color.main.light};
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    &:hover {
-        cursor: ${({ missing }) => !missing && 'pointer'};
-        background-color: ${({ theme, missing }) =>
-            !missing && theme.color.background.dark.hover};
-    }
-`;
-
-const SearchID = ({ handleAddMember }: SearchProps) => {
+const SearchID = ({ handleAddMember }: SearchIDProps) => {
     const [focus, setFocus] = useState(false);
     const searchRef = useRef<HTMLDivElement>(null);
     const [searchName, setSearchName] = useState('');
@@ -58,7 +24,7 @@ const SearchID = ({ handleAddMember }: SearchProps) => {
                     const { data } = await findByUsername(searchName);
                     setMatchedUsers(data.members);
                 } catch (e) {
-                    handleError(e);
+                    console.log(e);
                 }
             }
         };
@@ -91,31 +57,37 @@ const SearchID = ({ handleAddMember }: SearchProps) => {
     };
 
     return (
-        <SearchContainer ref={searchRef} onFocus={() => setFocus(true)}>
-            <TextInput
-                margin="0 10px 0 0"
-                placeholder="ID 검색"
-                value={searchName}
-                onChange={handleChangeSearchName}
-            />
-            <ResultContainer>
-                {matchedUsers.length && focus
-                    ? searchName &&
-                      matchedUsers.map((user) => (
-                          <ResultBox
-                              key={user.memberId}
-                              onClick={() => handleClickMatch(user)}
-                          >
-                              {user.username}
-                          </ResultBox>
-                      ))
-                    : focus && <ResultBox missing>검색결과 없음</ResultBox>}
-            </ResultContainer>
-            <BsPlusCircle
-                style={{ cursor: 'pointer' }}
-                onClick={handleClickAdd}
-            />
-        </SearchContainer>
+        <SearchIDComponent ref={searchRef} onFocus={() => setFocus(true)}>
+            <InputBox>
+                <TextInput
+                    margin="0 10px 0 0"
+                    placeholder="Search Id"
+                    value={searchName}
+                    onChange={handleChangeSearchName}
+                >
+                    <SearchResultsContainer>
+                        {matchedUsers.length && focus
+                            ? searchName &&
+                            matchedUsers.map((user) => (
+                                <SearchResult
+                                    key={user.memberId}
+                                    onClick={() => handleClickMatch(user)}
+                                >
+                                    {user.username}
+                                </SearchResult>
+                            ))
+                            : focus && (
+                                <SearchResult missing>
+                                    No results
+                                </SearchResult>
+                            )}
+                    </SearchResultsContainer>
+                </TextInput>
+                <Button onClick={handleClickAdd} inverse>
+                    Invite
+                </Button>
+            </InputBox>
+        </SearchIDComponent>
     );
 };
 

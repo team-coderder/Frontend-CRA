@@ -1,34 +1,43 @@
 import useSWR from 'swr';
 import { getMembersSchedule } from '../../../api';
 import { generateColor, generateDateFromString } from '../../../utils';
-import { EventSource } from '../../../types';
+import type { EventSource } from '../../../types';
 
-const useMemberSchedule = (teamId: number) => {
-    const { data, error } = useSWR(['useMemberSchedule', teamId], fetcher);
+const useMemberSchedule = (teamId: string | undefined) => {
+    const { data, error } = useSWR(
+        teamId ? ['useMemberSchedule', teamId] : null,
+        fetcher,
+    );
 
     async function fetcher() {
-        const { data } = await getMembersSchedule(teamId);
+        try {
+            const { data } = await getMembersSchedule(Number(teamId));
 
-        const eventSource: EventSource[] = data.map(
-            ({ username, schedule }, index) => {
-                const events = schedule.map((event) => {
+            const eventSource: EventSource[] = data.map(
+                ({ username, schedule }, index) => {
+                    const events = schedule.map((event) => {
+                        return {
+                            ...event,
+                            start: generateDateFromString(
+                                event.start as string,
+                            ),
+                            end: generateDateFromString(event.end as string),
+                        };
+                    });
+
                     return {
-                        ...event,
-                        start: generateDateFromString(event.start as string),
-                        end: generateDateFromString(event.end as string),
+                        id: username,
+                        events: events,
+                        backgroundColor: generateColor(username),
+                        editable: false,
+                        className: [`index-${index}`],
                     };
-                });
-
-                return {
-                    id: username,
-                    events: events,
-                    backgroundColor: generateColor(username),
-                    editable: false,
-                    className: [`index-${index}`],
-                };
-            },
-        );
-        return eventSource;
+                },
+            );
+            return eventSource;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return {

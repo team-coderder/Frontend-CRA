@@ -1,9 +1,9 @@
-import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import GlobalStyle from './styles/globalStyle';
 import theme from './styles/theme';
 import Routes from './routes';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Dialog } from './components';
 
 const App = () => {
     return (
@@ -11,6 +11,7 @@ const App = () => {
             <GlobalStyle />
             <Router>
                 <Routes />
+                <Dialog />
             </Router>
         </ThemeProvider>
     );

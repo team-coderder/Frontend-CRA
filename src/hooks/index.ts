@@ -1,3 +1,6 @@
+// swr/dialog
+export { default as useDialog } from './swr/dialog/useDialog';
+export { default as useDialogStore } from './swr/dialog/useDialogStore';
 // swr/invitation
 export { default as useMyInvitations } from './swr/invitation/useMyInvitations';
 // swr/member

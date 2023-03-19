@@ -1,4 +1,4 @@
-import { EventContentArg } from '@fullcalendar/core';
+import type { EventContentArg } from '../../types';
 
 export function renderEventContent(eventContent: EventContentArg) {
     if (

@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, TextInput, Nav } from '../components';
 import {
+    AuthComponent,
     FormContainer,
-    FormBox,
-    Header,
-    ExplainBox,
-} from '../styles/componentStyle/auth';
-import { useToken } from '../hooks';
+    AuthHeader,
+    ExplainText,
+} from '../styles/componentStyle';
+import { useDialog, useToken } from '../hooks';
+import { handleError } from '../utils';
 
 const Login = () => {
     const navigate = useNavigate();
     const { login } = useToken();
     const [form, setForm] = useState({ username: '', password: '' });
+    const { alert } = useDialog();
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
@@ -23,21 +25,25 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await login(form);
-        navigate('/');
+        try {
+            await login(form);
+            navigate('/');
+        } catch (e) {
+            await handleError(e, alert);
+        }
     };
 
     return (
-        <FormContainer>
-            <Header>
-                <h1>로그인</h1>
-            </Header>
-            <FormBox onSubmit={handleSubmit}>
+        <AuthComponent>
+            <AuthHeader>
+                <h1>Sign In</h1>
+            </AuthHeader>
+            <FormContainer onSubmit={handleSubmit}>
                 <TextInput
                     id="username"
                     type="id"
                     width="100%"
-                    placeholder="아이디"
+                    placeholder="username"
                     value={form.username}
                     onChange={onChange}
                 />
@@ -45,21 +51,21 @@ const Login = () => {
                     id="password"
                     type="password"
                     width="100%"
-                    placeholder="비밀번호"
+                    placeholder="password"
                     value={form.password}
                     onChange={onChange}
                 />
                 <Button type="submit" inverse>
-                    로그인
+                    Sign In
                 </Button>
-                <ExplainBox>
-                    계정이 없다면?&nbsp;&nbsp;
+                <ExplainText>
+                    Not a member?&nbsp;&nbsp;
                     <Nav url="/signup" underline="underline">
-                        회원가입
+                        Create New Account
                     </Nav>
-                </ExplainBox>
-            </FormBox>
-        </FormContainer>
+                </ExplainText>
+            </FormContainer>
+        </AuthComponent>
     );
 };
 

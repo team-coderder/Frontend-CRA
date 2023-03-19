@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router';
-import { Modal, Button, Nav } from '..';
-import { BsBell, BsPersonFill } from 'react-icons/bs';
-import { Name, HorizontalBar, Menu } from '../../styles/componentStyle/navbar';
-import { Icon } from '../../styles/globalStyle/PageLayout';
-import Invitations from './Invitations';
+import { Button, Nav } from '..';
+import {
+    ProfileName,
+    NavbarComponent,
+    InvisibleMob,
+    Icon,
+} from '../../styles/componentStyle';
 import { useMyInfo, useToken } from '../../hooks';
+import theme from '../../styles/theme';
 
 function Navbar() {
     const navigate = useNavigate();
@@ -17,34 +20,24 @@ function Navbar() {
     };
 
     return (
-        <HorizontalBar>
-            <Modal
-                icon={
-                    <Icon>
-                        <BsBell />
-                    </Icon>
-                }
-            >
-                <Menu>
-                    <Invitations />
-                </Menu>
-            </Modal>
-            <Name>{user?.nickname}</Name>
-            <Modal
-                icon={
-                    <Icon>
-                        <BsPersonFill />
-                    </Icon>
-                }
-            >
-                <Menu>
-                    <Button>
-                        <Nav url="/mySchedule">내 스케쥴</Nav>
-                    </Button>
-                    <Button onClick={handleLogOut}>로그아웃</Button>
-                </Menu>
-            </Modal>
-        </HorizontalBar>
+        <NavbarComponent>
+            <InvisibleMob>
+                <Button
+                    width="6em"
+                    height="1.5em"
+                    backgroundColor={theme.color.paleGrey}
+                    fontSize={theme.font.size.label}
+                    color={theme.color.grey}
+                    onClick={handleLogOut}
+                >
+                    Sign Out
+                </Button>
+            </InvisibleMob>
+            <Nav url="/myschedule">
+                <ProfileName>{user?.nickname}</ProfileName>
+                <Icon>{user?.nickname[0]}</Icon>
+            </Nav>
+        </NavbarComponent>
     );
 }
 

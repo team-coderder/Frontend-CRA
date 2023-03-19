@@ -3,10 +3,9 @@ import { AuthLayout, AnonymousLayout } from '../components';
 import {
     Login,
     Signup,
-    MySchedule,
     AddGroup,
     GroupInfo,
-    TeamSchedule,
+    Schedules,
     NotFound,
 } from '../views';
 
@@ -34,7 +33,7 @@ const mainRoutes = () => {
             children: [
                 {
                     path: '/myschedule',
-                    element: <MySchedule />,
+                    element: <Schedules />,
                 },
                 {
                     path: '/teamschedule',
@@ -47,7 +46,7 @@ const mainRoutes = () => {
                         },
                         {
                             path: ':teamId',
-                            element: <TeamSchedule />,
+                            element: <Schedules />,
                         },
                     ],
                 },

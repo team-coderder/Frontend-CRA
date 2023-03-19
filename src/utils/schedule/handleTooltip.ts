@@ -1,4 +1,4 @@
-import { EventHoveringArg } from '@fullcalendar/core';
+import type { EventHoveringArg } from '../../types';
 
 function onMouseMove(event: MouseEvent) {
     const tooltip = document.querySelector('.tooltip') as HTMLElement;

@@ -1,6 +1,5 @@
 import useSWR from 'swr';
 import { getMyInfo } from '../../../api';
-import { handleError } from '../../../utils';
 import { useToken } from '../..';
 
 const useMyInfo = () => {
@@ -15,7 +14,7 @@ const useMyInfo = () => {
             const { data } = await getMyInfo();
             return data;
         } catch (e) {
-            handleError(e);
+            console.log(e);
         }
     }
 

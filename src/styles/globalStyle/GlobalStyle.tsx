@@ -18,11 +18,11 @@ const reset = css`
     html,
     input,
     body {
-        font-family: 'Spoqa Han Sans Neo';
+        font-family: 'Noto Sans', sans-serif;
         height: 100%;
         overflow: auto;
-        background: #eeeeee;
-        color: #1b222d;
+        background: rgb(255, 255, 255);
+        color: rgb(70, 70, 98);
     }
     #root {
         min-height: 100%;
@@ -33,19 +33,21 @@ const reset = css`
         width: 4px;
     }
     ::-webkit-scrollbar-thumb {
-        background: #c1c9d6;
+        background: rgb(193, 201, 214);
     }
 `;
 const scheduleStyle = css`
     :root {
         --fc-event-border-color: 'transparent';
         --fc-page-bg-color: 'transparent';
-        --fc-event-bg-color: rgba(199, 165, 129, 0.8);
+        --fc-event-bg-color: rgba(136, 136, 247, 0.8);
     }
     .fc-timegrid-event-harness {
-        padding: 1px 5px;
         overflow: hidden;
         word-break: break-word;
+    }
+    .fc-timegrid-event-harness > .fc-timegrid-event {
+        padding: 3px 5px;
     }
     .tooltip {
         display: none;

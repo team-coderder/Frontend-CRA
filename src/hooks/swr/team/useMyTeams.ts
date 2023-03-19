@@ -1,56 +1,62 @@
 import useSWR from 'swr';
 import { getMyTeams, createTeam, deleteTeam, leaveTeam } from '../../../api';
-import { useToken } from '../../../hooks';
+import { useDialog, useToken } from '../../../hooks';
 import { handleError, isNameValid } from '../../../utils';
-
-type useMyTeamsReturnType = {
-    teams: { teamId: number; name: string }[];
-};
 
 const useMyTeams = () => {
     const { token } = useToken();
-    const { data, error, isLoading, mutate } = useSWR<useMyTeamsReturnType>(
+    const { data, error, isLoading, mutate } = useSWR(
         ['useMyTeams', token],
         fetcher,
     );
+    const { alert } = useDialog();
 
     async function fetcher() {
-        const response = await getMyTeams();
-        return response.data;
+        try {
+            const response = await getMyTeams();
+            return response.data;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const handleCreateTeam = async (groupName: string) => {
         try {
-            if (isNameValid(groupName)) {
-                const { data } = await createTeam({ name: groupName });
-                alert(
-                    `${data?.name} 팀을 만들었습니다.\n[그룹 정보 수정]에서 멤버를 추가해보세요!`,
-                );
-                mutate();
-                return data;
+            const _groupName = groupName.trim();
+            const res = isNameValid(_groupName);
+            if (res !== '') {
+                throw Error('Check again!||' + res);
             }
+
+            const { data } = await createTeam({ name: _groupName });
+            await alert(
+                `You've created a new group '${data?.name}'!`,
+                `Go to [Edit Group Info] and invite new members.`,
+            );
+            mutate();
+            return data;
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
     const handleDeleteTeam = async (teamId: number) => {
         try {
             await deleteTeam(teamId);
-            alert(`그룹이 삭제되었습니다`);
+            await alert(`Deleted!`);
             mutate();
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
     const handleLeaveTeam = async (teamId: number) => {
         try {
             await leaveTeam(teamId);
-            alert(`그룹을 탈퇴했습니다`);
+            await alert(`You've left the group!`);
             mutate();
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 

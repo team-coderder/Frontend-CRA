@@ -1,10 +1,16 @@
-import type { User } from '.';
+import type { User, Invitation } from '.';
 
-export type Team = {
+type Team = {
     teamId: number;
     name: string;
 };
-
-export type TeamMember = User & {
+type TeamMember = User & {
     teamRole: string;
 };
+type GetTeamInfoResponse = Team & {
+    myRole: string;
+    teamMembers: TeamMember[];
+    invitations: Invitation[];
+};
+
+export type { Team, TeamMember, GetTeamInfoResponse };

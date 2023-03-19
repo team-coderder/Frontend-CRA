@@ -1,4 +1,4 @@
-import { Main } from '../styles/globalStyle/PageLayout';
+import { Main } from '../styles/componentStyle';
 
 const NotFound = ({ message }: { message?: string }) => {
     return (

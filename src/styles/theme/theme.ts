@@ -2,43 +2,27 @@ import { Theme } from '@emotion/react';
 
 const theme: Theme = {
     color: {
-        background: {
-            light: {
-                main: '#EEEEEE',
-                hover: '#DDDDDD',
-                shadow: {
-                    convex: 'rgb(255 255 255 / 50%) 3px 3px 6px 0px inset, rgb(204 219 232) -3px -3px 6px 1px inset',
-                    concave:
-                        'rgb(204 219 232) 3px 3px 6px 0px inset, rgb(255 255 255 / 50%) -3px -3px 6px 1px inset',
-                },
-            },
-            tan: {
-                main: 'rgba(223, 207, 190, 0.8)',
-                dark: 'rgba(199, 165, 129, 0.8)',
-            },
-            dark: {
-                main: '#1B222D',
-                hover: '#090B0F',
-                shadow: {
-                    convex: 'rgb(135 160 199 / 50%) 3px 3px 6px 0px inset, rgb(13 16 20) -3px -3px 6px 1px inset',
-                },
-            },
-        },
+        white: 'rgb(255, 255, 255)',
+        lightPurple: 'rgb(241, 238, 255)',
+        purple: 'rgb(136, 136, 247)',
+        translucentPurple: 'rgba(136, 136, 247, 0.8)',
+        darkPurple: 'rgb(100, 102, 255)',
+        paleGrey: 'rgb(240, 242, 245)',
+        lightGrey: 'rgb(220, 224, 227)',
+        grey: 'rgb(155, 159, 186)',
+        darkGrey: 'rgb(67,67,94)',
+        darkPink: 'rgb(252, 109, 135)',
+        lightPink: 'rgb(254, 240, 242)',
+    },
+    shadow: {
+        float: 'rgba(149, 157, 165, 0.5) 0px 5px 5px',
     },
     borderRadius: {
         large: '40px',
         medium: '10px',
+        round: '50%',
     },
-
     font: {
-        color: {
-            main: {
-                dark: '#1B222D',
-                light: '#EEEEEE',
-            },
-            sub: '#9B9FBA',
-            warning: '#F8623F',
-        },
         size: {
             header: '1.8rem',
             base: '1rem',
@@ -48,6 +32,11 @@ const theme: Theme = {
             bold: 700,
             normal: 400,
         },
+    },
+    break: {
+        mobile: '@media (max-width: 650px)',
+        tablet: '@media (max-width: 1024px)',
+        pc: '@media (min-width: 1025px)',
     },
 };
 

@@ -1,6 +1,6 @@
 import { Outlet, Navigate } from 'react-router-dom';
-import { Navbar, Groupbar } from '..';
-import { Container, Flex } from '../../styles/componentStyle/navbar';
+import { Navbar, Footer } from '..';
+import { Container, Flex } from '../../styles/componentStyle';
 import { useToken } from '../../hooks';
 
 const AuthLayout = () => {
@@ -10,10 +10,8 @@ const AuthLayout = () => {
         <>
             <Container>
                 <Navbar />
-                <Flex>
-                    <Groupbar />
-                    <Outlet />
-                </Flex>
+                <Outlet />
+                <Footer />
             </Container>
         </>
     ) : (

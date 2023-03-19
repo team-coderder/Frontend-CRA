@@ -4,40 +4,47 @@ import {
     acceptInvitation,
     rejectInvitation,
 } from '../../../api';
-import { useToken } from '../../../hooks';
+import { useDialog, useToken } from '../../../hooks';
 import { handleError } from '../../../utils';
 
 const useMyInvitations = () => {
     const { token } = useToken();
     const { data, error, mutate } = useSWR(
         ['useMyInvitations', token],
-        async () => {
+        fetcher,
+    );
+    const { alert, confirm } = useDialog();
+
+    async function fetcher() {
+        try {
             const { data } = await getMyInvitations();
             return data;
-        },
-    );
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const acceptInvite = async (id: number) => {
         try {
-            if (confirm(`초대를 수락할까요?`)) {
+            if (await confirm(`Accept invitation?`)) {
                 await acceptInvitation(id);
                 mutate();
-                alert(`초대를 수락했습니다`);
+                await alert(`Accepted!`);
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
     const rejectInvite = async (id: number) => {
         try {
-            if (confirm(`초대를 거절할까요?`)) {
+            if (await confirm(`Reject invitation?`)) {
                 await rejectInvitation(id);
                 mutate();
-                alert(`초대를 거절했습니다`);
+                await alert(`Rejected!`);
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 

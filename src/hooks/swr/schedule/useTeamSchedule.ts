@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import { EventAddArg, EventRemoveArg } from '@fullcalendar/core';
 import {
     getTeamSchedule,
     createTeamSchedule,
@@ -10,36 +9,42 @@ import {
     generateStringFromDate,
     handleError,
 } from '../../../utils';
-import type { EventSource } from '../../../types';
+import type { EventSource, EventRemoveArg, EventAddArg } from '../../../types';
 import theme from '../../../styles/theme';
+import { useDialog } from '../..';
 
-const useTeamSchedule = (teamId: number) => {
+const useTeamSchedule = (teamId: string | undefined) => {
     const { data, error, mutate } = useSWR(
-        ['useTeamSchedule', teamId],
+        teamId ? ['useTeamSchedule', teamId] : null,
         fetcher,
     );
+    const { alert } = useDialog();
 
     async function fetcher() {
-        const { data } = await getTeamSchedule(teamId);
+        try {
+            const { data } = await getTeamSchedule(Number(teamId));
 
-        const events = data.schedule.map((event) => {
-            return {
-                ...event,
-                teamId: teamId,
-                start: generateDateFromString(event.start as string),
-                end: generateDateFromString(event.end as string),
-                backgroundColor: theme.color.background.tan.dark,
-                textColor: theme.font.color.main.dark,
-            };
-        });
-        const eventSource: EventSource[] = [
-            {
-                id: 'team',
-                events: events,
-                className: ['team-event'],
-            },
-        ];
-        return eventSource;
+            const events = data.schedule.map((event) => {
+                return {
+                    ...event,
+                    teamId: teamId,
+                    start: generateDateFromString(event.start as string),
+                    end: generateDateFromString(event.end as string),
+                    backgroundColor: theme.color.translucentPurple,
+                    textColor: theme.color.white,
+                };
+            });
+            const eventSource: EventSource[] = [
+                {
+                    id: 'team',
+                    events: events,
+                    className: ['team-event'],
+                },
+            ];
+            return eventSource;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function handleEventAdd(addInfo: EventAddArg) {
@@ -54,15 +59,16 @@ const useTeamSchedule = (teamId: number) => {
                     start: generateStringFromDate(addInfo.event.start),
                     end: generateStringFromDate(addInfo.event.end),
                 };
-                await createTeamSchedule(teamId, newEvent);
+                await createTeamSchedule(Number(teamId), newEvent);
                 addInfo.revert();
                 mutate();
             } else {
-                alert('에러. 일정을 추가할 수 없습니다');
-                addInfo.revert();
+                throw Error(
+                    'Sorry :(||Something went wrong. Please Try again.',
+                );
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             addInfo.revert();
         }
     }
@@ -73,11 +79,12 @@ const useTeamSchedule = (teamId: number) => {
                 await deleteTeamSchedule(removeInfo.event.id);
                 mutate();
             } else {
-                alert('에러. 일정을 삭제할 수 없습니다');
-                removeInfo.revert();
+                throw Error(
+                    'Sorry :(||Something went wrong. Please Try again.',
+                );
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             removeInfo.revert();
         }
     }
