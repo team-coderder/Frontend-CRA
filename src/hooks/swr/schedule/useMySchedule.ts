@@ -22,18 +22,22 @@ const useMySchedule = () => {
     const { alert } = useDialog();
 
     async function fetcher() {
-        const { data } = await getMySchedule();
-        const events = data.schedule.map((event) => {
-            return {
-                ...event,
-                start: generateDateFromString(event.start as string),
-                end: generateDateFromString(event.end as string),
-                classNames: ['my-event'],
-                backgroundColor: theme.color.purple,
-                textColor: theme.color.white,
-            };
-        });
-        return events;
+        try {
+            const { data } = await getMySchedule();
+            const events = data.schedule.map((event) => {
+                return {
+                    ...event,
+                    start: generateDateFromString(event.start as string),
+                    end: generateDateFromString(event.end as string),
+                    classNames: ['my-event'],
+                    backgroundColor: theme.color.purple,
+                    textColor: theme.color.white,
+                };
+            });
+            return events;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function handleEventAdd(addInfo: EventAddArg) {
@@ -51,14 +55,12 @@ const useMySchedule = () => {
                 await createMySchedule(newEvent);
                 mutate();
             } else {
-                await alert(
-                    'Sorry :(',
-                    'Could not add the event. Please Try again.',
+                throw Error(
+                    'Sorry :(||Could not add the event. Please Try again.',
                 );
-                addInfo.revert();
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             addInfo.revert();
         }
     }
@@ -69,14 +71,12 @@ const useMySchedule = () => {
                 await deleteMySchedule(removeInfo.event.id);
                 mutate();
             } else {
-                await alert(
-                    'Sorry :(',
-                    'Could not delete the event. Please Try again.',
+                throw Error(
+                    'Sorry :(||Could not delete the event. Please Try again.',
                 );
-                removeInfo.revert();
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             removeInfo.revert();
         }
     }

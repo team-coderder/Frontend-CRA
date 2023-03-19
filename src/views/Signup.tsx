@@ -44,20 +44,19 @@ const Signup = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const formIncomplete =
-            !Object.values(form).every((x) => x !== '') ||
-            hasError() ||
-            notSameError();
+        try {
+            const formIncomplete =
+                !Object.values(form).every((x) => x !== '') ||
+                hasError() ||
+                notSameError();
 
-        if (formIncomplete) {
-            await alert('Please try again.');
-        } else {
-            try {
-                await sign_up(form); // {"id":29,"username":"coderder100","nickname":"check-filter"}
-                navigate('/login');
-            } catch (e) {
-                handleError(e);
+            if (formIncomplete) {
+                throw Error('Please try again.');
             }
+            await sign_up(form);
+            navigate('/login');
+        } catch (e) {
+            await handleError(e, alert);
         }
     };
 

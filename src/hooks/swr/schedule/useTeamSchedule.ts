@@ -21,26 +21,30 @@ const useTeamSchedule = (teamId: string | undefined) => {
     const { alert } = useDialog();
 
     async function fetcher() {
-        const { data } = await getTeamSchedule(Number(teamId));
+        try {
+            const { data } = await getTeamSchedule(Number(teamId));
 
-        const events = data.schedule.map((event) => {
-            return {
-                ...event,
-                teamId: teamId,
-                start: generateDateFromString(event.start as string),
-                end: generateDateFromString(event.end as string),
-                backgroundColor: theme.color.translucentPurple,
-                textColor: theme.color.white,
-            };
-        });
-        const eventSource: EventSource[] = [
-            {
-                id: 'team',
-                events: events,
-                className: ['team-event'],
-            },
-        ];
-        return eventSource;
+            const events = data.schedule.map((event) => {
+                return {
+                    ...event,
+                    teamId: teamId,
+                    start: generateDateFromString(event.start as string),
+                    end: generateDateFromString(event.end as string),
+                    backgroundColor: theme.color.translucentPurple,
+                    textColor: theme.color.white,
+                };
+            });
+            const eventSource: EventSource[] = [
+                {
+                    id: 'team',
+                    events: events,
+                    className: ['team-event'],
+                },
+            ];
+            return eventSource;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     async function handleEventAdd(addInfo: EventAddArg) {
@@ -59,14 +63,12 @@ const useTeamSchedule = (teamId: string | undefined) => {
                 addInfo.revert();
                 mutate();
             } else {
-                await alert(
-                    'Sorry :(',
-                    'Could not add the event. Please Try again.',
+                throw Error(
+                    'Sorry :(||Something went wrong. Please Try again.',
                 );
-                addInfo.revert();
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             addInfo.revert();
         }
     }
@@ -77,14 +79,12 @@ const useTeamSchedule = (teamId: string | undefined) => {
                 await deleteTeamSchedule(removeInfo.event.id);
                 mutate();
             } else {
-                await alert(
-                    'Sorry :(',
-                    'Could not delete the event. Please Try again.',
+                throw Error(
+                    'Sorry :(||Something went wrong. Please Try again.',
                 );
-                removeInfo.revert();
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
             removeInfo.revert();
         }
     }

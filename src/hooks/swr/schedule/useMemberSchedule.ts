@@ -10,28 +10,34 @@ const useMemberSchedule = (teamId: string | undefined) => {
     );
 
     async function fetcher() {
-        const { data } = await getMembersSchedule(Number(teamId));
+        try {
+            const { data } = await getMembersSchedule(Number(teamId));
 
-        const eventSource: EventSource[] = data.map(
-            ({ username, schedule }, index) => {
-                const events = schedule.map((event) => {
+            const eventSource: EventSource[] = data.map(
+                ({ username, schedule }, index) => {
+                    const events = schedule.map((event) => {
+                        return {
+                            ...event,
+                            start: generateDateFromString(
+                                event.start as string,
+                            ),
+                            end: generateDateFromString(event.end as string),
+                        };
+                    });
+
                     return {
-                        ...event,
-                        start: generateDateFromString(event.start as string),
-                        end: generateDateFromString(event.end as string),
+                        id: username,
+                        events: events,
+                        backgroundColor: generateColor(username),
+                        editable: false,
+                        className: [`index-${index}`],
                     };
-                });
-
-                return {
-                    id: username,
-                    events: events,
-                    backgroundColor: generateColor(username),
-                    editable: false,
-                    className: [`index-${index}`],
-                };
-            },
-        );
-        return eventSource;
+                },
+            );
+            return eventSource;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return {

@@ -24,7 +24,7 @@ const SearchID = ({ handleAddMember }: SearchIDProps) => {
                     const { data } = await findByUsername(searchName);
                     setMatchedUsers(data.members);
                 } catch (e) {
-                    handleError(e);
+                    console.log(e);
                 }
             }
         };

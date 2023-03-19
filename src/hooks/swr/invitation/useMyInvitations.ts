@@ -11,22 +11,28 @@ const useMyInvitations = () => {
     const { token } = useToken();
     const { data, error, mutate } = useSWR(
         ['useMyInvitations', token],
-        async () => {
-            const { data } = await getMyInvitations();
-            return data;
-        },
+        fetcher,
     );
     const { alert, confirm } = useDialog();
+
+    async function fetcher() {
+        try {
+            const { data } = await getMyInvitations();
+            return data;
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const acceptInvite = async (id: number) => {
         try {
             if (await confirm(`Accept invitation?`)) {
                 await acceptInvitation(id);
                 mutate();
-                await alert(`Invitation accepted!`);
+                await alert(`Accepted!`);
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
@@ -35,10 +41,10 @@ const useMyInvitations = () => {
             if (await confirm(`Reject invitation?`)) {
                 await rejectInvitation(id);
                 mutate();
-                await alert(`Invitation rejected!`);
+                await alert(`Rejected!`);
             }
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 

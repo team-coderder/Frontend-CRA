@@ -7,12 +7,14 @@ import {
     AuthHeader,
     ExplainText,
 } from '../styles/componentStyle';
-import { useToken } from '../hooks';
+import { useDialog, useToken } from '../hooks';
+import { handleError } from '../utils';
 
 const Login = () => {
     const navigate = useNavigate();
     const { login } = useToken();
     const [form, setForm] = useState({ username: '', password: '' });
+    const { alert } = useDialog();
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setForm({
@@ -23,8 +25,12 @@ const Login = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await login(form);
-        navigate('/');
+        try {
+            await login(form);
+            navigate('/');
+        } catch (e) {
+            await handleError(e, alert);
+        }
     };
 
     return (

@@ -2,19 +2,22 @@ import useSWR from 'swr';
 import { getMyTeams, createTeam, deleteTeam, leaveTeam } from '../../../api';
 import { useDialog, useToken } from '../../../hooks';
 import { handleError, isNameValid } from '../../../utils';
-import type { useMyTeamsResponse } from '../../../types';
 
 const useMyTeams = () => {
     const { token } = useToken();
-    const { data, error, isLoading, mutate } = useSWR<useMyTeamsResponse>(
+    const { data, error, isLoading, mutate } = useSWR(
         ['useMyTeams', token],
         fetcher,
     );
     const { alert } = useDialog();
 
     async function fetcher() {
-        const response = await getMyTeams();
-        return response.data;
+        try {
+            const response = await getMyTeams();
+            return response.data;
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     const handleCreateTeam = async (groupName: string) => {
@@ -22,19 +25,18 @@ const useMyTeams = () => {
             const _groupName = groupName.trim();
             const res = isNameValid(_groupName);
             if (res !== '') {
-                await alert(res);
-                return;
+                throw Error('Check again!||' + res);
             }
 
             const { data } = await createTeam({ name: _groupName });
             await alert(
-                `You've created a new group ${data?.name}!`,
+                `You've created a new group '${data?.name}'!`,
                 `Go to [Edit Group Info] and invite new members.`,
             );
             mutate();
             return data;
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
@@ -44,7 +46,7 @@ const useMyTeams = () => {
             await alert(`Deleted!`);
             mutate();
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
@@ -54,7 +56,7 @@ const useMyTeams = () => {
             await alert(`You've left the group!`);
             mutate();
         } catch (e) {
-            handleError(e);
+            await handleError(e, alert);
         }
     };
 
