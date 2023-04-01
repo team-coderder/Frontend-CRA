@@ -375,16 +375,36 @@ const scheduleHandlers = [
     ),
     // 팀 시간 추천
     rest.get(
-        BASE_URL + `/api/schedule/recommendations?teamId=5&span=120`,
+        BASE_URL + `/api/schedule/recommendations?teamId=${0}&spanTime=${120}`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
-                ctx.json([
-                    {
-                        start: 'WED+12:30:00',
-                        end: 'WED+13:30:00',
-                    },
-                ]),
+                ctx.json({
+                    start: 'mon+10:00:00',
+                    end: 'mon+10:00:00',
+                    memberNicknames: ['tom', 'sarah', 'nick'],
+                }),
+            );
+        },
+    ),
+    // 가능한 시간 모두 조회
+    rest.get(
+        BASE_URL + `api/schedule/emptySchedule?teamId=${0}`,
+        async (req, res, ctx) => {
+            return res(
+                ctx.status(200),
+                ctx.json({
+                    blocks: [
+                        {
+                            start: 'mon+10:00:00',
+                            end: 'mon+10:00:00',
+                        },
+                        {
+                            start: 'mon+10:00:00',
+                            end: 'mon+10:00:00',
+                        },
+                    ],
+                }),
             );
         },
     ),
