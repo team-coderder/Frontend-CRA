@@ -22,7 +22,7 @@ const authHandlers = [
     ),
     // 닉네임 일부로 유저 검색
     rest.get(
-        BASE_URL + `/api/member/search/nickname?query=${'check'}`,
+        BASE_URL + `/api/member/search/nickname`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
@@ -45,7 +45,7 @@ const authHandlers = [
     ),
     // 유저네임으로 유저 검색
     rest.get(
-        BASE_URL + `/api/member/search/username?query=${'coderder'}`,
+        BASE_URL + `/api/member/search/username`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
@@ -94,7 +94,7 @@ const teamHandlers = [
         },
     ),
     // 그룹 정보 조회하기
-    rest.get(BASE_URL + `/api/team?teamId=${1}`, async (req, res, ctx) => {
+    rest.get(BASE_URL + `/api/team`, async (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json({
@@ -140,7 +140,7 @@ const teamHandlers = [
     }),
     // 그룹 수정하기
     rest.patch<{ name: string }>(
-        BASE_URL + `/api/team?teamId=${1}`,
+        BASE_URL + `/api/team`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
@@ -152,7 +152,7 @@ const teamHandlers = [
         },
     ),
     // 그룹 삭제하기
-    rest.delete(BASE_URL + `/api/team?teamId=${1}`, async (req, res, ctx) => {
+    rest.delete(BASE_URL + `/api/team`, async (req, res, ctx) => {
         return res(
             ctx.status(200),
             ctx.json({
@@ -161,30 +161,27 @@ const teamHandlers = [
         );
     }),
     // 그룹 멤버 조회하기
-    rest.get(
-        BASE_URL + `/api/team/members?teamId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    teamMembers: [
-                        {
-                            memberId: 3,
-                            username: 'coderder',
-                            nickname: '재연결 테스트',
-                            teamRole: 'LEADER',
-                        },
-                        {
-                            memberId: 5,
-                            username: 'coderder78',
-                            nickname: 'check-filter',
-                            teamRole: 'FOLLOWER',
-                        },
-                    ],
-                }),
-            );
-        },
-    ),
+    rest.get(BASE_URL + `/api/team/members`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                teamMembers: [
+                    {
+                        memberId: 3,
+                        username: 'coderder',
+                        nickname: '재연결 테스트',
+                        teamRole: 'LEADER',
+                    },
+                    {
+                        memberId: 5,
+                        username: 'coderder78',
+                        nickname: 'check-filter',
+                        teamRole: 'FOLLOWER',
+                    },
+                ],
+            }),
+        );
+    }),
     // 그룹 멤버 추가하기
     // rest.patch(BASE_URL + `/api/team/members`, async (req, res, ctx) => {
     //     return res(
@@ -195,17 +192,14 @@ const teamHandlers = [
     //     );
     // }),
     // 그룹에서 멤버 탈퇴시키기
-    rest.delete(
-        BASE_URL + `/api/team/members?teamId=${1}&memberId=${13}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    message: '그룹(teamId : 13)에서 멤버 2명 탈퇴 처리 완료',
-                }),
-            );
-        },
-    ),
+    rest.delete(BASE_URL + `/api/team/members`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                message: '그룹(teamId : 13)에서 멤버 2명 탈퇴 처리 완료',
+            }),
+        );
+    }),
     // 내 그룹 목록 가져오기
     rest.get(BASE_URL + `/api/team/myteams`, async (req, res, ctx) => {
         return res(
@@ -225,17 +219,14 @@ const teamHandlers = [
         );
     }),
     // 내 그룹에서 탈퇴하기
-    rest.delete(
-        BASE_URL + `/api/team/myteam?teamId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    message: '그룹(teamId : 3)에서 탈퇴 완료',
-                }),
-            );
-        },
-    ),
+    rest.delete(BASE_URL + `/api/team/myteam`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                message: '그룹(teamId : 3)에서 탈퇴 완료',
+            }),
+        );
+    }),
 ];
 
 const scheduleHandlers = [
@@ -279,7 +270,7 @@ const scheduleHandlers = [
     ),
     // 내 일정 삭제하기
     rest.delete(
-        BASE_URL + `/api/schedule/myschedule?scheduleId=${3}`,
+        BASE_URL + `/api/schedule/myschedule`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
@@ -290,80 +281,74 @@ const scheduleHandlers = [
         },
     ),
     // 팀 모든 멤버 일정 조회
-    rest.get(
-        BASE_URL + `/api/schedule/myteam?teamId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json([
-                    {
-                        username: 'coderder',
-                        schedule: [
-                            {
-                                id: 13,
-                                start: 'MON+11:00:00',
-                                end: 'MON+12:30:00',
-                                memberId: 'coderder',
-                                title: 'test_schedule',
-                                memo: null,
-                            },
-                            {
-                                id: 14,
-                                start: 'MON+11:00:00',
-                                end: 'MON+12:30:00',
-                                memberId: 'coderder',
-                                title: 'test_schedule',
-                                memo: null,
-                            },
-                        ],
-                    },
-                    {
-                        username: 'coderder815',
-                        schedule: [
-                            {
-                                id: 15,
-                                start: 'TUE+11:00:00',
-                                end: 'TUE+12:30:00',
-                                memberId: 'coderder815',
-                                title: 'tea time',
-                                memo: null,
-                            },
-                        ],
-                    },
-                ]),
-            );
-        },
-    ),
-    // 팀 일정 조회
-    rest.get(
-        BASE_URL + `/api/schedule/teamschedule?teamId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
+    rest.get(BASE_URL + `/api/schedule/myteam`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json([
+                {
+                    username: 'coderder',
                     schedule: [
                         {
-                            id: 11,
-                            start: 'mon+09:00:00',
-                            end: 'mon+10:00:00',
-                            title: 'team1_weekly_study',
+                            id: 13,
+                            start: 'MON+11:00:00',
+                            end: 'MON+12:30:00',
+                            memberId: 'coderder',
+                            title: 'test_schedule',
                             memo: null,
                         },
                         {
-                            id: 12,
-                            start: 'mon+19:00:00',
-                            end: 'mon+20:00:00',
-                            title: 'team1_weekly_study',
+                            id: 14,
+                            start: 'MON+11:00:00',
+                            end: 'MON+12:30:00',
+                            memberId: 'coderder',
+                            title: 'test_schedule',
                             memo: null,
                         },
                     ],
-                }),
-            );
-        },
-    ),
+                },
+                {
+                    username: 'coderder815',
+                    schedule: [
+                        {
+                            id: 15,
+                            start: 'TUE+11:00:00',
+                            end: 'TUE+12:30:00',
+                            memberId: 'coderder815',
+                            title: 'tea time',
+                            memo: null,
+                        },
+                    ],
+                },
+            ]),
+        );
+    }),
+    // 팀 일정 조회
+    rest.get(BASE_URL + `/api/schedule/teamschedule`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                schedule: [
+                    {
+                        id: 11,
+                        start: 'MON+09:00:00',
+                        end: 'MON+10:00:00',
+                        title: 'team1_weekly_study',
+                        memo: null,
+                    },
+                    {
+                        id: 12,
+                        start: 'MON+19:00:00',
+                        end: 'MON+20:00:00',
+                        title: 'team1_weekly_study',
+                        memo: null,
+                    },
+                ],
+            }),
+        );
+    }),
     // 팀 일정 생성하기
     rest.post<{ title: string; start: string; end: string }>(
-        BASE_URL + `/api/schedule/teamschedule?teamId=${1}`,
+        BASE_URL + `/api/schedule/teamschedule`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
@@ -373,15 +358,18 @@ const scheduleHandlers = [
             );
         },
     ),
+];
+
+const recommendHandlers = [
     // 팀 시간 추천
     rest.get(
-        BASE_URL + `/api/schedule/recommendations?teamId=${0}&spanTime=${120}`,
+        BASE_URL + `/api/schedule/recommendations`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
                 ctx.json({
-                    start: 'mon+10:00:00',
-                    end: 'mon+10:00:00',
+                    start: 'FRI+10:00:00',
+                    end: 'FRI+11:00:00',
                     memberNicknames: ['tom', 'sarah', 'nick'],
                 }),
             );
@@ -389,19 +377,19 @@ const scheduleHandlers = [
     ),
     // 가능한 시간 모두 조회
     rest.get(
-        BASE_URL + `api/schedule/emptySchedule?teamId=${0}`,
+        BASE_URL + `/api/schedule/emptySchedule`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
                 ctx.json({
                     blocks: [
                         {
-                            start: 'mon+10:00:00',
-                            end: 'mon+10:00:00',
+                            start: 'THU+06:00:00',
+                            end: 'THU+23:00:00',
                         },
                         {
-                            start: 'mon+10:00:00',
-                            end: 'mon+10:00:00',
+                            start: 'MON+10:00:00',
+                            end: 'MON+11:00:00',
                         },
                     ],
                 }),
@@ -413,7 +401,7 @@ const scheduleHandlers = [
 const invitationHandlers = [
     // 유저에 초대장 보내기
     rest.post<{ memberIds: number[] }>(
-        BASE_URL + `/api/invite?teamId=${3}`,
+        BASE_URL + `/api/invite`,
         async (req, res, ctx) => {
             return res(
                 ctx.status(200),
@@ -470,41 +458,32 @@ const invitationHandlers = [
         );
     }),
     // 초대장 수락하기
-    rest.patch(
-        BASE_URL + `/api/invite/accept?invitationId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    message: '그룹(teamId : 8)의 초대장 수락 완료',
-                }),
-            );
-        },
-    ),
+    rest.patch(BASE_URL + `/api/invite/accept`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                message: '그룹(teamId : 8)의 초대장 수락 완료',
+            }),
+        );
+    }),
     // 초대장 거절하기
-    rest.patch(
-        BASE_URL + `/api/invite/refuse?invitationId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    message: '그룹(teamId : 5)의 초대장 거절 완료',
-                }),
-            );
-        },
-    ),
+    rest.patch(BASE_URL + `/api/invite/refuse`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                message: '그룹(teamId : 5)의 초대장 거절 완료',
+            }),
+        );
+    }),
     // 초대장 회수하기
-    rest.patch(
-        BASE_URL + `/api/invite/cancel?invitationId=${1}`,
-        async (req, res, ctx) => {
-            return res(
-                ctx.status(200),
-                ctx.json({
-                    message: '그룹(teamId : 6)의 초대장 회수 완료',
-                }),
-            );
-        },
-    ),
+    rest.patch(BASE_URL + `/api/invite/cancel`, async (req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                message: '그룹(teamId : 6)의 초대장 회수 완료',
+            }),
+        );
+    }),
 ];
 
 const worker = MSW_MODE
@@ -512,6 +491,7 @@ const worker = MSW_MODE
           ...authHandlers,
           ...teamHandlers,
           ...scheduleHandlers,
+          ...recommendHandlers,
           ...invitationHandlers,
       )
     : setupWorker();
