@@ -23,3 +23,4 @@ export { default as Schedule } from './schedule/Schedule';
 export { default as MySchedule } from './schedule/MySchedule';
 export { default as TeamSchedule } from './schedule/TeamSchedule';
 export { default as ScheduleInfo } from './schedule/ScheduleInfo';
+export { default as Recommendation } from './schedule/Recommendation';

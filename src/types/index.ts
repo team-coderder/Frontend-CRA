@@ -8,6 +8,8 @@ export type {
     GetMembersScheduleResponse,
     useMyTeamsResponse,
     TeamScheduleProps,
+    Recommendation,
+    RecommendationList,
 } from './schedule';
 export type { Invitation } from './invitation';
 export type {
@@ -21,6 +23,8 @@ export type {
     MembersProp,
     SearchIDProps,
     ScheduleProps,
+    RecommendationProps,
+    CustomDateSelectArg,
     CalendarApi,
     EventApi,
     DateSelectArg,

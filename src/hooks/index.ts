@@ -10,6 +10,7 @@ export { default as useToken } from './swr/member/useToken';
 export { default as useMySchedule } from './swr/schedule/useMySchedule';
 export { default as useTeamSchedule } from './swr/schedule/useTeamSchedule';
 export { default as useMemberSchedule } from './swr/schedule/useMemberSchedule';
+export { default as useRecommendations } from './swr/schedule/useRecommendations';
 // swr/team
 export { default as useMyTeams } from './swr/team/useMyTeams';
 export { default as useTeamInfo } from './swr/team/useTeamInfo';

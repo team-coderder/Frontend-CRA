@@ -23,4 +23,6 @@ export {
     getTeamSchedule,
     createTeamSchedule,
     deleteTeamSchedule,
+    getOneRecommendation,
+    getAllRecommendations,
 } from './schedule';

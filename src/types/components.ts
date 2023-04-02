@@ -94,6 +94,14 @@ type ScheduleProps = {
     handleEventChange?: (changeInfo: EventChangeArg) => void;
     handleEventRemove?: (removeInfo: EventRemoveArg) => void;
 };
+type RecommendationProps = {
+    changeSpan: (duration: string) => void;
+};
+type CustomDateSelectArg = {
+    startStr: string;
+    endStr: string;
+    view: { calendar: CalendarApi };
+};
 
 export type {
     ButtonProps,
@@ -106,6 +114,8 @@ export type {
     MembersProp,
     SearchIDProps,
     ScheduleProps,
+    RecommendationProps,
+    CustomDateSelectArg,
     CalendarApi,
     EventApi,
     DateSelectArg,

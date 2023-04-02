@@ -1,6 +1,11 @@
 import { useState, useLayoutEffect } from 'react';
-import { Schedule } from '..';
-import { useDialog, useMemberSchedule, useTeamSchedule } from '../../hooks';
+import { Schedule, Recommendation } from '..';
+import {
+    useDialog,
+    useMemberSchedule,
+    useTeamSchedule,
+    useRecommendations,
+} from '../../hooks';
 import {
     isEventAllowed,
     setInset,
@@ -9,6 +14,7 @@ import {
 } from '../../utils';
 import {
     EventApi,
+    CustomDateSelectArg,
     DateSelectArg,
     EventClickArg,
     EventHoveringArg,
@@ -20,6 +26,7 @@ const TeamSchedule = ({ teamId, isLeader, teamInfo }: TeamScheduleProps) => {
     const { memberSchedule } = useMemberSchedule(teamId);
     const { teamSchedule, handleEventAdd, handleEventRemove } =
         useTeamSchedule(teamId);
+    const { recommendations, changeSpan } = useRecommendations(teamId);
     const { prompt, alert, confirm } = useDialog();
 
     useLayoutEffect(() => {
@@ -38,7 +45,9 @@ const TeamSchedule = ({ teamId, isLeader, teamInfo }: TeamScheduleProps) => {
         setEvents(teamEvents);
     }
 
-    async function handleDateSelect(selectInfo: DateSelectArg) {
+    async function handleDateSelect(
+        selectInfo: DateSelectArg | CustomDateSelectArg,
+    ) {
         const start = selectInfo.startStr;
         const end = selectInfo.endStr;
         const calendarApi = selectInfo.view.calendar;
@@ -71,6 +80,16 @@ const TeamSchedule = ({ teamId, isLeader, teamInfo }: TeamScheduleProps) => {
 
     async function handleEventClick(clickInfo: EventClickArg) {
         hideTooltip(clickInfo);
+
+        if (clickInfo.event.source?.id === 'recommend') {
+            const recommendedEvent = {
+                startStr: clickInfo.event.startStr,
+                endStr: clickInfo.event.endStr,
+                view: clickInfo.view,
+            };
+            return handleDateSelect(recommendedEvent);
+        }
+
         if (
             isLeader &&
             clickInfo.event.extendedProps.teamId &&
@@ -89,17 +108,24 @@ const TeamSchedule = ({ teamId, isLeader, teamInfo }: TeamScheduleProps) => {
     }
 
     return (
-        <Schedule
-            selectable={isLeader}
-            eventSources={[...(teamSchedule ?? []), ...(memberSchedule ?? [])]}
-            handleEvents={handleEvents}
-            handleDateSelect={handleDateSelect}
-            handleEventClick={handleEventClick}
-            handleMouseEnter={handleMouseEnter}
-            handleMouseLeave={handleMouseLeave}
-            handleEventAdd={handleEventAdd}
-            handleEventRemove={handleEventRemove}
-        />
+        <>
+            <Recommendation changeSpan={changeSpan} />
+            <Schedule
+                selectable={isLeader}
+                eventSources={[
+                    ...(teamSchedule ?? []),
+                    ...(memberSchedule ?? []),
+                    ...(recommendations ?? []),
+                ]}
+                handleEvents={handleEvents}
+                handleDateSelect={handleDateSelect}
+                handleEventClick={handleEventClick}
+                handleMouseEnter={handleMouseEnter}
+                handleMouseLeave={handleMouseLeave}
+                handleEventAdd={handleEventAdd}
+                handleEventRemove={handleEventRemove}
+            />
+        </>
     );
 };
 

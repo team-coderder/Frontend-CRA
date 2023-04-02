@@ -32,6 +32,14 @@ type TeamScheduleProps = {
     isLeader: boolean;
     teamInfo: GetTeamInfoResponse | undefined;
 };
+type Recommendation = {
+    start: string;
+    end: string;
+    memberNicknames: string[];
+};
+type RecommendationList = {
+    blocks: Omit<Recommendation, 'memberNicknames'>[];
+};
 
 export type {
     Event,
@@ -41,4 +49,6 @@ export type {
     GetMembersScheduleResponse,
     useMyTeamsResponse,
     TeamScheduleProps,
+    Recommendation,
+    RecommendationList,
 };
